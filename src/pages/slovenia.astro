@@ -1,0 +1,68 @@
+---
+import { getEntry, render } from 'astro:content';
+import EventLayout from '../layouts/EventLayout.astro';
+import { signupBenefits, credoIntro, credoPillars } from '../lib/event-defaults';
+
+const event = await getEntry('events', 'slovenia');
+if (!event) throw new Error('Event slovenia not found');
+const { Content } = await render(event);
+const data = event.data;
+
+const hub = (await getEntry('hub', 'main'))!.data;
+---
+<EventLayout
+  event={data}
+  trust={hub.trust}
+  docYoutubeId={hub.documentary.youtubeId}
+  eventNumberLabel="Event 01"
+  titleFont="questrial"
+  waitlistCtaLabel="Join the 2027 waitlist"
+  signupBenefits={signupBenefits}
+  factsBar={[
+    { icon: 'calendar', label: 'When',     value: '20 Jun 2026 (sold)',          sub: 'Next edition: 2027' },
+    { icon: 'pin',      label: 'Where',    value: 'Bovec, Slovenia',             sub: 'Soča valley loop' },
+    { icon: 'loop',     label: 'Format',   value: 'Loop · same start & finish',  sub: 'Across 3 countries' },
+    { icon: 'road',     label: 'Distance', value: '550 km · 80% tarmac',         sub: 'Moderate to challenging' },
+  ]}
+  credoIntro={credoIntro}
+  credoPillars={credoPillars}
+  photoBreakCaptions={{
+    included: 'Soča river, first light',
+    testimonials: 'Above Kobarid',
+    faq: 'Julian Alps — see you in 2027',
+  }}
+  photoSplits={{
+    dayTitle: 'River, coffee, pass, repeat',
+    dayBody: "Morning espresso by the Soča. You spin alongside emerald water for an hour before the road tilts up. Lunch is trout and polenta in a village of forty people. Afternoon: one pass, one descent, one arrival at a guesthouse where the owner pours you a schnapps whether you asked or not.",
+    dayCaption: 'Soča valley, morning',
+    quietTitle: "The silence after the pass",
+    quietBody: "Vršič at dawn. The fifty hairpins still ahead. You stop halfway because there's nobody behind you and nobody in front and the valley is so green it looks wrong. Months later, this is the minute you'll remember — not the kilometres.",
+    quietCaption: 'Vršič pass, early morning',
+  }}
+>
+  <img
+    slot="mascot"
+    src="/brand/mascot-goat.png"
+    alt="Alpine ibex — Slovenia mascot"
+    class="event-mascot event-mascot-img"
+    loading="lazy"
+  />
+
+  <section slot="mdx-copy" class="event-copy-wrap">
+    <div class="container-narrow sr">
+      <div class="event-copy">
+        <Content />
+      </div>
+    </div>
+  </section>
+</EventLayout>
+
+<style is:global>
+  .event-copy-wrap { padding: var(--sp-8) 0; position: relative; }
+  .event-copy h2 { font-family: var(--font-extra-slovenia), var(--font-display); font-weight: 400; font-size: var(--fs-3xl); line-height: 0.95; color: var(--red-wine); margin: 0.5rem 0 1.25rem; letter-spacing: 0.01em; text-transform: uppercase; }
+  .event-copy h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-wine); margin: 2rem 0 0.75rem; }
+  .event-copy p { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.7; margin-bottom: 1rem; color: var(--espresso); }
+  .event-copy strong { color: var(--red-wine); font-weight: 700; }
+  .event-copy ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .event-copy li { font-family: var(--font-body); margin-bottom: 0.4rem; line-height: 1.55; color: var(--espresso); }
+</style>

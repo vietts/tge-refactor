@@ -1,0 +1,161 @@
+# Pages CMS configuration — https://pagescms.org
+#
+# How to connect:
+#   1. Push repo to GitHub
+#   2. Go to https://app.pagescms.org, log in with GitHub
+#   3. Select this repo → admin is auto-generated from this file
+#   4. Editors see structured forms, save triggers a commit → Cloudflare rebuilds
+#
+# Docs: https://pagescms.org/docs/configuration/
+
+media:
+  input: public
+  output: /
+
+content:
+  - name: hub
+    label: Hub (home page)
+    type: file
+    path: src/content/hub/main/index.yaml
+    fields:
+      - name: manifesto
+        label: "1. Hero manifesto"
+        type: object
+        fields:
+          - { name: kicker,     label: Kicker,                 type: string }
+          - { name: serif,      label: "Serif line (above huge)", type: string }
+          - { name: huge,       label: "Huge display title",   type: string }
+          - { name: cta,        label: "Hero CTA label",       type: string }
+          - { name: ctaHref,    label: "Hero CTA href",        type: string }
+          - { name: videoSrc,   label: "Hero video (.webm)",   type: string }
+          - { name: posterSrc,  label: "Hero video poster",    type: string }
+
+      - name: signup
+        label: "2. Signup form — primary (after hero)"
+        type: object
+        fields:
+          - { name: kicker, label: Kicker,   type: string }
+          - { name: title,  label: Title,    type: string }
+          - { name: body,   label: Body,     type: text }
+          - { name: cta,    label: "CTA label", type: string }
+          - { name: legal,  label: "Legal line", type: text }
+
+      - name: documentary
+        label: "3. Primary documentary"
+        type: object
+        fields:
+          - { name: label,     label: "Kicker",  type: string }
+          - { name: title,     label: Title,     type: string }
+          - { name: subtitle,  label: Subtitle,  type: text }
+          - { name: youtubeId, label: "YouTube ID", type: string }
+
+      - name: whatIs
+        label: "4. What is TGE"
+        type: object
+        fields:
+          - { name: kicker,     label: Kicker,       type: string }
+          - { name: title,      label: Title,        type: string }
+          - { name: body,       label: Body,         type: text }
+          - { name: statNumber, label: "Stat number", type: string }
+          - { name: statLabel,  label: "Stat label",  type: string }
+          - { name: since,      label: "Since label", type: string }
+
+      - name: threeEscapes
+        label: "5. Three escapes — head"
+        type: object
+        fields:
+          - { name: title,    label: Title,    type: string }
+          - { name: subtitle, label: Subtitle, type: string }
+
+      - name: documentarySecondary
+        label: "6. Secondary documentary (after events)"
+        type: object
+        fields:
+          - { name: label,     label: Kicker,    type: string }
+          - { name: title,     label: Title,     type: string }
+          - { name: subtitle,  label: Subtitle,  type: text }
+          - { name: youtubeId, label: "YouTube ID", type: string }
+
+      - name: testimonials
+        label: "7. Testimonials"
+        type: object
+        fields:
+          - { name: kicker, label: Kicker, type: string }
+          - { name: title,  label: Title,  type: string }
+          - name: items
+            label: Quotes
+            type: object
+            list: true
+            fields:
+              - { name: quote,  label: Quote,         type: text }
+              - { name: author, label: "Author name", type: string }
+              - { name: event,  label: "Event (e.g. Slovenia 2025)", type: string, required: false }
+
+      - name: values
+        label: "8. Values (4 blocks)"
+        type: object
+        list: true
+        fields:
+          - { name: number,  label: "Number (01/02/03/04)", type: string }
+          - { name: title,   label: Title,                  type: string }
+          - { name: body,    label: Body,                   type: text }
+          - { name: caption, label: "Image caption",        type: string }
+
+      - name: origin
+        label: "9. Origin story"
+        type: object
+        fields:
+          - { name: kicker,       label: Kicker,         type: string }
+          - { name: imageCaption, label: "Image caption", type: string }
+          - { name: title,        label: Title,          type: string }
+          - { name: body,         label: "Body paragraphs", type: text, list: true }
+
+      - name: signupBottom
+        label: "10. Signup form — bottom (before footer)"
+        type: object
+        fields:
+          - { name: kicker, label: Kicker,   type: string }
+          - { name: title,  label: Title,    type: string }
+          - { name: body,   label: Body,     type: text }
+          - { name: cta,    label: "CTA label", type: string }
+          - { name: legal,  label: "Legal line", type: text }
+
+      - name: trust
+        label: "11. Trust / Part of"
+        type: object
+        fields:
+          - { name: label, label: Kicker, type: string }
+          - name: partners
+            label: Partners
+            type: object
+            list: true
+            fields:
+              - { name: name,   label: Name, type: string }
+              - { name: logo,   label: "Logo path (e.g. /brand/bas-logo.webp)", type: string }
+              - { name: isMain, label: "Main partner? (shown larger)", type: boolean, required: false }
+
+  - name: events
+    label: Events (sub-LP)
+    type: collection
+    path: src/content/events
+    subfolder: true
+    filename: index.mdx
+    view:
+      fields: [name, dateLabel, status, distanceKm]
+    fields:
+      - { name: slug,          label: "Slug (url)",     type: string, options: { values: [slovenia, germany, tuscany] } }
+      - { name: order,         label: "Display order",  type: number }
+      - { name: name,          label: "Event name",     type: string }
+      - { name: country,       label: "Country / region", type: string }
+      - { name: date,          label: "Event date",     type: date }
+      - { name: dateLabel,     label: "Date label (human)", type: string }
+      - { name: distanceKm,    label: "Distance (km)",  type: number }
+      - { name: elevationD,    label: "Elevation D+ (m)", type: number }
+      - { name: days,          label: "Days of riding", type: number }
+      - { name: quote,         label: "Poetic quote",   type: string }
+      - { name: status,        label: Status,           type: select, options: { values: [open, limited, sold] } }
+      - { name: statusLabel,   label: "Status label",   type: string }
+      - { name: subBrandColor, label: "Sub-brand hex color", type: string }
+      - { name: heroImageAlt,  label: "Hero image alt", type: string, required: false }
+      - { name: brevoSegment,  label: "Brevo segment slug", type: string }
+      - { name: body,          label: "Event body (markdown)", type: rich-text }

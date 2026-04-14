@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TGE — Palette preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --wine:#A32C29; --fern:#617D42; --caramel:#FABF80;
+    --navy:#1D3B5F; --cream:#F5F7F5;
+    --graphite:#262626;
+    --deep-forest:#0e1a0d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,system-ui,sans-serif;line-height:1.5;background:#fff}
+  header{padding:28px 32px;border-bottom:1px solid #e5e5e5;position:sticky;top:0;background:#fff;z-index:10}
+  header h1{font-family:'DM Sans';font-weight:800;font-size:22px;color:var(--navy);letter-spacing:-.01em;text-transform:uppercase}
+  header p{font-size:13px;color:#666;margin-top:4px}
+  .row{display:grid;grid-template-columns:1fr 1fr}
+  @media (max-width: 900px){ .row{grid-template-columns:1fr} }
+  .col{border-right:1px solid #e5e5e5}
+  .col:last-child{border-right:none}
+  .badge{font-family:'DM Sans';font-weight:700;font-size:11px;letter-spacing:.22em;text-transform:uppercase;padding:6px 10px;display:inline-block;margin-bottom:14px;border-radius:4px}
+
+  /* ── SCENE 1: Light section (body text) ── */
+  .scene{padding:56px 40px}
+  .scene.dark{color:#fff}
+  .kicker{font-family:'DM Sans';font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px}
+  .title{font-family:'DM Sans';font-weight:800;font-size:40px;line-height:1;letter-spacing:-.015em;text-transform:uppercase;margin-bottom:16px}
+  .body-p{font-family:Inter;font-size:16px;line-height:1.65;max-width:540px;margin-bottom:14px}
+  .subtitle{font-family:'DM Sans';font-weight:700;font-size:18px;margin-top:8px}
+
+  /* Option A (current) — body text = navy, dark bg = deep forest */
+  .a .kicker{color:var(--wine)}
+  .a .title{color:var(--navy)}
+  .a .body-p{color:var(--navy)}
+  .a .subtitle{color:var(--wine)}
+  .a.dark{background:var(--deep-forest)}
+  .a.dark .kicker{color:var(--caramel)}
+  .a.dark .title{color:#fff}
+  .a.dark .body-p{color:rgba(255,255,255,.82)}
+
+  /* Option B (brandbook) — body text = graphite, dark bg = graphite */
+  .b .kicker{color:var(--wine)}
+  .b .title{color:var(--navy)}
+  .b .body-p{color:var(--graphite)}
+  .b .subtitle{color:var(--wine)}
+  .b.dark{background:var(--graphite)}
+  .b.dark .kicker{color:var(--caramel)}
+  .b.dark .title{color:#fff}
+  .b.dark .body-p{color:rgba(255,255,255,.82)}
+
+  .swatches{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+  .sw{display:flex;flex-direction:column;gap:6px;font-size:11px;font-family:Inter;font-weight:500}
+  .sw b{display:block;width:72px;height:72px;border-radius:8px;border:1px solid rgba(0,0,0,.1)}
+  .sw span{color:#666;letter-spacing:.05em}
+
+  .note{padding:16px 40px;font-size:13px;color:#888;background:#fafafa;border-top:1px solid #e5e5e5;font-family:Inter}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Palette preview — TGE</h1>
+  <p>A = attuale (navy body + deep forest) &nbsp;·&nbsp; B = brandbook (graphite body + graphite dark)</p>
+</header>
+
+<!-- SCENE 1: light section body text -->
+<div class="row">
+  <section class="scene a">
+    <span class="badge" style="background:#fee;color:var(--wine)">A — Current</span>
+    <div class="kicker">What is TGE</div>
+    <h2 class="title">Three escapes.<br>One mindset.</h2>
+    <p class="body-p">Slovenia. Germany. Tuscany. Three bikepacking events across Europe — no rankings, no cutoffs, no drop-bag pressure. Just the road ahead and the people you ride with.</p>
+    <p class="body-p">Since 2023, 3,000+ riders have chosen to escape the performance mindset.</p>
+    <div class="subtitle">Subtitle in wine</div>
+  </section>
+
+  <section class="scene b">
+    <span class="badge" style="background:#efe;color:var(--fern)">B — Brandbook</span>
+    <div class="kicker">What is TGE</div>
+    <h2 class="title">Three escapes.<br>One mindset.</h2>
+    <p class="body-p">Slovenia. Germany. Tuscany. Three bikepacking events across Europe — no rankings, no cutoffs, no drop-bag pressure. Just the road ahead and the people you ride with.</p>
+    <p class="body-p">Since 2023, 3,000+ riders have chosen to escape the performance mindset.</p>
+    <div class="subtitle">Subtitle in wine</div>
+  </section>
+</div>
+
+<div class="note">↑ Nota come nel blocco <strong>B</strong> il body diventa più neutro e i titoli navy "staccano" di più. In <strong>A</strong> tutto tende al blu.</div>
+
+<!-- SCENE 2: dark section (documentary/footer) -->
+<div class="row">
+  <section class="scene a dark">
+    <span class="badge" style="background:#333;color:#fff">A — Deep forest <code>#0e1a0d</code></span>
+    <div class="kicker">Documentary · 2025</div>
+    <h2 class="title">The road that found us.</h2>
+    <p class="body-p">Ninety minutes on Slovenian gravel with 300 riders who didn't race. Directed by our media team.</p>
+  </section>
+
+  <section class="scene b dark">
+    <span class="badge" style="background:#000;color:#fff">B — Graphite <code>#262626</code></span>
+    <div class="kicker">Documentary · 2025</div>
+    <h2 class="title">The road that found us.</h2>
+    <p class="body-p">Ninety minutes on Slovenian gravel with 300 riders who didn't race. Directed by our media team.</p>
+  </section>
+</div>
+
+<div class="note">↑ Deep forest ha una tinta verde scurissima quasi nera. Graphite è un grigio scuro neutro — più moderno, meno "militare".</div>
+
+<!-- Palette swatches -->
+<section style="padding:48px 40px;background:var(--cream)">
+  <h2 style="font-family:'DM Sans';font-weight:800;font-size:22px;color:var(--navy);text-transform:uppercase;letter-spacing:-.01em;margin-bottom:20px">Brandbook palette — 6 colori</h2>
+  <div class="swatches">
+    <div class="sw"><b style="background:var(--wine)"></b>Brown Red<span>#A32C29</span></div>
+    <div class="sw"><b style="background:var(--fern)"></b>Fern<span>#617D42</span></div>
+    <div class="sw"><b style="background:var(--graphite)"></b>Grafite<span>#262626</span></div>
+    <div class="sw"><b style="background:var(--caramel)"></b>Caramel<span>#FABF80</span></div>
+    <div class="sw"><b style="background:var(--navy)"></b>Regal Navy<span>#1D3B5F</span></div>
+    <div class="sw"><b style="background:var(--cream);border:1px solid #ddd"></b>Cloud White<span>#F5F7F5</span></div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+---
+import '../styles/tokens.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  theme?: 'dark' | 'light';
+}
+
+const { title, description, ogImage = '/og/hub.jpg', theme = 'light' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://thegrandescape.cc').toString();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/png" href="/brand/tge-logo-dark.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=Questrial&family=Germania+One&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-theme={theme}>
+    <Nav theme={theme} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Scroll-reveal
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('.sr').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

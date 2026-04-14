@@ -1,0 +1,129 @@
+---
+interface Props {
+  kicker: string;
+  title: string;
+  body?: string;
+  distanceKm: number;
+  elevationD: number;
+  days: number;
+  surface?: string;
+  difficulty?: string;
+  startFinish?: string;
+  accentColor?: string;
+}
+const {
+  kicker, title, body,
+  distanceKm, elevationD, days, surface, difficulty, startFinish,
+  accentColor,
+} = Astro.props;
+---
+<section class="route" style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <div class="container">
+    <header class="route-head sr">
+      <div class="kicker">{kicker}</div>
+      <h2 class="route-title display">{title}</h2>
+      {body && <p class="route-body">{body}</p>}
+    </header>
+
+    <div class="route-stats sr d1">
+      <div class="stat-cell">
+        <div class="stat-num display">{distanceKm}</div>
+        <div class="stat-lbl">kilometers</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num display">{elevationD.toLocaleString()}</div>
+        <div class="stat-lbl">D+ elevation</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num display">{days}</div>
+        <div class="stat-lbl">days of riding</div>
+      </div>
+      {surface && (
+        <div class="stat-cell">
+          <div class="stat-txt display">{surface}</div>
+          <div class="stat-lbl">surface</div>
+        </div>
+      )}
+      {difficulty && (
+        <div class="stat-cell">
+          <div class="stat-txt display">{difficulty}</div>
+          <div class="stat-lbl">difficulty</div>
+        </div>
+      )}
+      {startFinish && (
+        <div class="stat-cell stat-cell-wide">
+          <div class="stat-txt display">{startFinish}</div>
+          <div class="stat-lbl">start · finish</div>
+        </div>
+      )}
+    </div>
+
+    <div class="map-placeholder sr d2" aria-hidden="true">
+      <span class="map-label">Route map — coming soon</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .route { padding: var(--sp-8) 0; position: relative; }
+  .route-head { max-width: 640px; margin: 0 auto 2rem; text-align: center; }
+  .route-head .kicker { color: var(--accent, var(--fern)); margin-bottom: 0.75rem; }
+  .route-title { font-size: var(--fs-3xl); line-height: 0.95; color: var(--red-wine); margin-bottom: 0.75rem; }
+  .route-body { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.55; color: var(--espresso); }
+
+  .route-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: rgba(107,68,35,0.22);
+    border: 1px solid rgba(107,68,35,0.22);
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto 2rem;
+  }
+  .stat-cell {
+    background: rgba(243,236,224,0.8);
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+  .stat-cell-wide { grid-column: span 2; }
+  .stat-num {
+    font-size: 2.5rem; line-height: 0.9;
+    color: var(--red-wine);
+  }
+  .stat-txt {
+    font-size: 1.15rem; line-height: 1.05;
+    color: var(--red-wine);
+    padding: 0.5rem 0;
+  }
+  .stat-lbl {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--espresso); opacity: 0.75;
+    margin-top: 0.5rem;
+  }
+
+  .map-placeholder {
+    max-width: 900px; margin: 0 auto;
+    min-height: 240px;
+    border-radius: 12px;
+    border: 1px dashed rgba(107,68,35,0.3);
+    background:
+      repeating-linear-gradient(45deg, rgba(107,68,35,0.05) 0 8px, transparent 8px 16px),
+      radial-gradient(ellipse at 50% 50%, rgba(250,191,128,0.25) 0%, transparent 65%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .map-label {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--espresso); opacity: 0.55;
+  }
+
+  @media (min-width: 720px) {
+    .route-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .stat-cell-wide { grid-column: span 3; }
+    .stat-num { font-size: 3rem; }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+interface Props {
+  label: string;
+  href: string;
+  accentColor?: string;
+}
+const { label, href, accentColor } = Astro.props;
+---
+<a class="sticky-cta" href={href} style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <span class="sticky-label">{label}</span>
+  <span class="sticky-arrow" aria-hidden="true">→</span>
+</a>
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    left: 1rem; right: 1rem; bottom: 1rem;
+    z-index: 800;
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--accent, var(--red-wine));
+    color: var(--espresso);
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    box-shadow: 0 8px 24px rgba(44,31,21,0.3);
+    transition: transform 160ms var(--ease-out);
+  }
+  .sticky-cta:active { transform: scale(0.97); }
+  .sticky-arrow { font-size: 1.1em; }
+
+  @media (min-width: 720px) { .sticky-cta { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .sticky-cta { transition: none; } }
+</style>

@@ -1,0 +1,105 @@
+---
+interface Place {
+  name: string;
+  description: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+interface Props {
+  kicker: string;
+  title: string;
+  subtitle?: string;
+  places: Place[];
+  accentColor?: string;
+}
+const { kicker, title, subtitle, places, accentColor } = Astro.props;
+
+// Gradient palette — rotated so adjacent cells differ
+const gradients = [
+  'radial-gradient(ellipse at 30% 30%, #d9b87a 0%, transparent 55%), linear-gradient(180deg, #8a5830 0%, #3e2815 100%)',
+  'radial-gradient(ellipse at 70% 40%, #a8c0e0 0%, transparent 55%), linear-gradient(180deg, #3a5a82 0%, #15243c 100%)',
+  'radial-gradient(ellipse at 40% 30%, #b3c88e 0%, transparent 55%), linear-gradient(180deg, #5a7938 0%, #1e2c12 100%)',
+  'radial-gradient(ellipse at 60% 40%, #f0d2a0 0%, transparent 55%), linear-gradient(180deg, #b8794a 0%, #4a2e18 100%)',
+  'radial-gradient(ellipse at 35% 35%, #e8a8a5 0%, transparent 55%), linear-gradient(180deg, #8c3a37 0%, #381312 100%)',
+  'radial-gradient(ellipse at 65% 30%, #c9d9e6 0%, transparent 55%), linear-gradient(180deg, #4a6a8a 0%, #1a2a3d 100%)',
+  'radial-gradient(ellipse at 45% 40%, #d4c890 0%, transparent 55%), linear-gradient(180deg, #7a6830 0%, #2a2410 100%)',
+];
+---
+<section class="places" style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <div class="container">
+    <header class="places-head sr">
+      <div class="kicker">{kicker}</div>
+      <h2 class="places-title display">{title}</h2>
+      {subtitle && <p class="places-sub">{subtitle}</p>}
+    </header>
+
+    <div class="bento">
+      {places.map((p, i) => (
+        <article class:list={['cell', `cell-${p.size ?? 'md'}`]}
+                 style={`background:${gradients[i % gradients.length]}`}>
+          <div class="cell-top">
+            <span class="cell-num">{String(i + 1).padStart(2, '0')}</span>
+          </div>
+          <div class="cell-bottom">
+            <h3 class="cell-name display">{p.name}</h3>
+            <p class="cell-desc">{p.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .places { padding: var(--sp-8) 0; position: relative; }
+  .places-head { max-width: 640px; margin: 0 auto 2rem; text-align: center; }
+  .places-head .kicker { color: var(--accent, var(--fern)); margin-bottom: 0.75rem; }
+  .places-title { font-size: var(--fs-3xl); line-height: 0.95; color: var(--red-wine); margin-bottom: 0.75rem; }
+  .places-sub { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.55; color: var(--espresso); opacity: 0.85; }
+
+  .bento {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+  .cell {
+    position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 220px;
+    padding: 1.25rem;
+    border-radius: 10px;
+    color: #fff;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .cell::after {
+    content: '';
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.55) 100%);
+  }
+  .cell-num {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
+    opacity: 0.9;
+  }
+  .cell-name {
+    font-size: 1.75rem; line-height: 0.95; margin-bottom: 0.4rem;
+    color: #fff;
+  }
+  .cell-desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem; line-height: 1.45;
+    max-width: 34ch;
+    opacity: 0.92;
+  }
+
+  @media (min-width: 720px) {
+    .bento {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: 240px;
+    }
+    .cell-sm { grid-column: span 1; grid-row: span 1; min-height: auto; }
+    .cell-md { grid-column: span 2; grid-row: span 1; min-height: auto; }
+    .cell-lg { grid-column: span 2; grid-row: span 2; min-height: auto; }
+    .cell-lg .cell-name { font-size: 2.75rem; }
+  }
+</style>

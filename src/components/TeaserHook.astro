@@ -1,0 +1,71 @@
+---
+interface Props {
+  kicker?: string;
+  promise: string;
+  line?: string;
+  imageBg?: string;
+  accentColor?: string;
+}
+const { kicker = 'The promise', promise, line, imageBg, accentColor } = Astro.props;
+const bg = imageBg ?? 'radial-gradient(ellipse at 45% 30%, #b3c88e 0%, transparent 55%), radial-gradient(ellipse at 75% 60%, #c9d9e6 0%, transparent 50%), linear-gradient(160deg, #4a6a8a 0%, #2C1F15 100%)';
+---
+<section class="teaser" style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <div class="teaser-image" style={`background:${bg}`} aria-hidden="true"></div>
+  <div class="teaser-overlay" aria-hidden="true"></div>
+  <div class="teaser-content sr">
+    <div class="teaser-kicker">● {kicker}</div>
+    <p class="teaser-promise">{promise}</p>
+    {line && <p class="teaser-line">{line}</p>}
+  </div>
+</section>
+
+<style>
+  .teaser {
+    position: relative;
+    min-height: 60vh;
+    min-height: 60svh;
+    display: flex; align-items: center;
+    padding: var(--sp-7) var(--sp-5);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .teaser-image {
+    position: absolute; inset: 0; z-index: -2;
+    background-size: cover; background-position: center;
+  }
+  .teaser-overlay {
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, rgba(44,31,21,0.25) 0%, rgba(44,31,21,0.7) 100%);
+  }
+  .teaser-content {
+    max-width: 640px;
+    color: var(--paper-1);
+    position: relative;
+  }
+  .teaser-kicker {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent, var(--caramel));
+    margin-bottom: 1rem;
+  }
+  .teaser-promise {
+    font-family: var(--font-extra-germany), var(--font-display);
+    font-weight: 400;
+    font-size: 2.25rem; line-height: 1;
+    text-transform: uppercase;
+    color: var(--paper-1);
+    max-width: 18ch;
+    margin-bottom: 1rem;
+  }
+  .teaser-line {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(243,236,224,0.8);
+  }
+
+  @media (min-width: 720px) {
+    .teaser { min-height: 70vh; min-height: 70svh; padding: var(--sp-8) var(--sp-6); }
+    .teaser-promise { font-size: 3.5rem; line-height: 0.95; }
+    .teaser-line { font-size: 0.95rem; }
+  }
+</style>

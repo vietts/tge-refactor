@@ -1,0 +1,322 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import FactsBar from '../components/FactsBar.astro';
+import BrevoForm from '../components/BrevoForm.astro';
+import DocumentaryEmbed from '../components/DocumentaryEmbed.astro';
+import PhilosophyQuote from '../components/PhilosophyQuote.astro';
+import PlacesBento from '../components/PlacesBento.astro';
+import PhotoSplit from '../components/PhotoSplit.astro';
+import PhotoBreak from '../components/PhotoBreak.astro';
+import WhatsIncluded from '../components/WhatsIncluded.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Credo from '../components/Credo.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import StickyCTA from '../components/StickyCTA.astro';
+
+type EventFontKey = 'germania' | 'questrial' | 'tuscany';
+type IconKey = 'calendar' | 'pin' | 'loop' | 'road' | 'clock' | 'mountain';
+
+interface Fact { icon: IconKey; label: string; value: string; sub?: string }
+interface Place { name: string; description: string; size?: 'sm' | 'md' | 'lg' }
+interface Testi { quote: string; author: string; event?: string }
+interface FaqItem { q: string; a: string }
+interface PageEvent {
+  name: string;
+  dateLabel: string;
+  tagline?: string;
+  quote: string;
+  statusLabel: string;
+  subBrandColor: string;
+  distanceKm: number;
+  brevoSegment: 'slovenia' | 'germany' | 'tuscany';
+  philosophyQuote?: string;
+  places?: Place[];
+  included?: string[];
+  testimonials?: Testi[];
+  faq?: FaqItem[];
+}
+interface TrustData {
+  label: string;
+  partners: Array<{ name: string; logo: string; isMain?: boolean }>;
+}
+
+interface Props {
+  event: PageEvent;
+  trust: TrustData;
+  docYoutubeId: string;
+  eventNumberLabel: string;          // e.g. "Event 01"
+  titleFont: EventFontKey;           // which extra font for all H2
+  waitlistCtaLabel: string;          // "Join the waitlist" / "Join 2027 waitlist"
+  signupBenefits: string[];
+  factsBar: Fact[];
+  credoIntro: string[];
+  credoPillars: Array<{ title: string; body: string }>;
+  photoBreakCaptions?: { included?: string; testimonials?: string; faq?: string };
+  photoSplits?: { dayTitle: string; dayBody: string; dayCaption: string; quietTitle: string; quietBody: string; quietCaption: string };
+  docLabel?: string;
+  docTitle?: string;
+  docSubtitle?: string;
+}
+
+const {
+  event,
+  trust,
+  docYoutubeId,
+  eventNumberLabel,
+  titleFont,
+  waitlistCtaLabel,
+  signupBenefits,
+  factsBar,
+  credoIntro,
+  credoPillars,
+  photoBreakCaptions = {},
+  photoSplits,
+  docLabel = 'From the road · 2025',
+  docTitle,
+  docSubtitle,
+} = Astro.props;
+
+const accent = event.subBrandColor;
+
+const fontClassMap: Record<EventFontKey, string> = {
+  germania: 'font-event-germania',
+  questrial: 'font-event-questrial',
+  tuscany: 'font-event-tuscany',
+};
+const fontClass = fontClassMap[titleFont];
+---
+<BaseLayout
+  title={`The Grand Escape — ${event.name} · ${event.dateLabel}`}
+  description={`${event.tagline ?? event.quote} ${event.distanceKm}km of bikepacking. Limited spots.`}
+  theme="dark"
+>
+  <div class={`event-page ${fontClass}`}>
+    <Hero
+      variant="event"
+      kicker={`The Grand Escape · ${eventNumberLabel}`}
+      serif={event.tagline ?? event.quote}
+      huge={event.name}
+      dateLabel={event.dateLabel}
+      statusLabel={event.statusLabel}
+      ctaLabel={waitlistCtaLabel}
+      ctaHref="#signup"
+      subBrandColor={accent}
+    >
+      <slot name="mascot" slot="mascot" />
+    </Hero>
+
+    <FactsBar accentColor={accent} facts={factsBar} />
+
+    <BrevoForm
+      variant="event"
+      eventSegment={event.brevoSegment}
+      kicker="Waitlist · Limited spots"
+      title="Be first in line."
+      body="Leave your email and we'll send you:"
+      benefits={signupBenefits}
+      ctaLabel={waitlistCtaLabel}
+      legal="Limited spots · Unsubscribe anytime · No spam, ever"
+      accentColor={accent}
+      anchorId="signup"
+    />
+
+    {event.philosophyQuote && (
+      <PhilosophyQuote quote={event.philosophyQuote} accentColor={accent} />
+    )}
+
+    <DocumentaryEmbed
+      youtubeId={docYoutubeId}
+      label={docLabel}
+      title={docTitle ?? `The Grand Escape — ${event.name}`}
+      subtitle={docSubtitle ?? "Ninety minutes with the riders of last year's edition. Pace, scenery, and the reason we don't call it a race."}
+    />
+
+    {event.places && event.places.length > 0 && (
+      <PlacesBento
+        kicker="Places you'll cross"
+        title={`A ride through ${event.places.length} landscapes`}
+        subtitle="The loop is curated so every day brings a different world."
+        places={event.places}
+        accentColor={accent}
+      />
+    )}
+
+    <slot name="mdx-copy" />
+
+    {photoSplits && (
+      <PhotoSplit
+        kicker="A day on the road"
+        title={photoSplits.dayTitle}
+        body={photoSplits.dayBody}
+        imageCaption={photoSplits.dayCaption}
+        accentColor={accent}
+      />
+    )}
+
+    {event.included && event.included.length > 0 && (
+      <WhatsIncluded
+        kicker="What's included"
+        title="Everything you need, nothing you don't"
+        items={event.included}
+        accentColor={accent}
+      />
+    )}
+
+    <PhotoBreak
+      height="md"
+      caption={photoBreakCaptions.included ?? 'On the road'}
+      accentColor={accent}
+    />
+
+    {event.testimonials && event.testimonials.length > 0 && (
+      <Testimonials
+        kicker="Riders on the road"
+        title="What they remember"
+        items={event.testimonials}
+      />
+    )}
+
+    <PhotoBreak
+      height="md"
+      caption={photoBreakCaptions.testimonials ?? 'Early light'}
+      accentColor={accent}
+    />
+
+    <Credo
+      kicker="What you'll find at The Grand Escape"
+      title="Cycling, the way you first fell for it"
+      intro={credoIntro}
+      pillars={credoPillars}
+      authority={{
+        kicker: 'Organized by',
+        body: "Part of Bike Adventure Series — Europe's first no-race bikepacking series. 20,000+ cyclists across Tuscany Trail (since 2014), NorthCape4000, Unpaved Roads and The Grand Escape.",
+        logo: '/brand/bas-logo.webp',
+        logoAlt: 'Bike Adventure Series',
+        href: 'https://www.bikeadventureseries.com',
+      }}
+      accentColor={accent}
+    />
+
+    {photoSplits && (
+      <PhotoSplit
+        reverse
+        kicker="The quiet between climbs"
+        title={photoSplits.quietTitle}
+        body={photoSplits.quietBody}
+        imageCaption={photoSplits.quietCaption}
+        accentColor={accent}
+      />
+    )}
+
+    <BrevoForm
+      variant="event"
+      eventSegment={event.brevoSegment}
+      kicker="Still on the fence?"
+      title="Lock in your spot while you decide."
+      body="Leaving your email costs nothing and gives you:"
+      benefits={signupBenefits}
+      ctaLabel={waitlistCtaLabel}
+      legal="Limited spots · Unsubscribe anytime · No spam, ever"
+      accentColor={accent}
+      anchorId="signup-bottom"
+    />
+
+    <PhotoBreak
+      height="sm"
+      caption={photoBreakCaptions.faq ?? 'See you on the road'}
+      accentColor={accent}
+    />
+
+    {event.faq && event.faq.length > 0 && (
+      <FAQAccordion
+        kicker="FAQ"
+        title="Before you sign up"
+        items={event.faq}
+        accentColor={accent}
+      />
+    )}
+
+    <TrustStrip label={trust.label} partners={trust.partners} />
+    <StickyCTA label={waitlistCtaLabel} href="#signup" accentColor={accent} />
+  </div>
+</BaseLayout>
+
+<style is:global>
+  /* Event pages: apply extra display font to ALL section titles consistently.
+     The page wraps everything in a class; title selectors cascade within it. */
+  .font-event-germania .hero.event .hero-event-name,
+  .font-event-germania .signup-title,
+  .font-event-germania .places-title,
+  .font-event-germania .incl-title,
+  .font-event-germania .testimonials-title,
+  .font-event-germania .credo-title,
+  .font-event-germania .faq-title,
+  .font-event-germania .event-copy h2 {
+    font-family: var(--font-extra-germany), var(--font-display) !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.005em !important;
+    text-transform: uppercase;
+    line-height: 0.95;
+  }
+
+  .font-event-questrial .hero.event .hero-event-name,
+  .font-event-questrial .signup-title,
+  .font-event-questrial .places-title,
+  .font-event-questrial .incl-title,
+  .font-event-questrial .testimonials-title,
+  .font-event-questrial .credo-title,
+  .font-event-questrial .faq-title,
+  .font-event-questrial .event-copy h2 {
+    font-family: var(--font-extra-slovenia), var(--font-display) !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.01em !important;
+    text-transform: uppercase;
+    line-height: 0.95;
+  }
+
+  .font-event-tuscany .hero.event .hero-event-name,
+  .font-event-tuscany .signup-title,
+  .font-event-tuscany .places-title,
+  .font-event-tuscany .incl-title,
+  .font-event-tuscany .testimonials-title,
+  .font-event-tuscany .credo-title,
+  .font-event-tuscany .faq-title,
+  .font-event-tuscany .event-copy h2 {
+    font-family: var(--font-extra-tuscany), var(--font-display) !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.005em !important;
+    text-transform: none;
+    line-height: 0.98;
+  }
+  .font-event-tuscany .hero.event .hero-event-name { font-style: italic; }
+
+  /* Pretzel / Boar inline SVG mascots use currentColor via inline style; shared positioning */
+  .event-mascot {
+    position: absolute;
+    top: 5.5rem;
+    right: 1rem;
+    z-index: 3;
+    width: 100px; height: 100px;
+    opacity: 0.94;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+    transform: rotate(-6deg);
+    transform-origin: center;
+    pointer-events: none;
+    max-width: 30vw;
+    max-height: 30vw;
+  }
+  .event-mascot-img {
+    filter: brightness(0) invert(1) drop-shadow(0 4px 16px rgba(0,0,0,0.35));
+    object-fit: contain;
+    width: 100%; height: 100%;
+  }
+
+  @media (min-width: 720px) {
+    .event-mascot { top: 7rem; right: 4rem; width: 200px; height: 200px; max-width: none; max-height: none; }
+  }
+  @media (min-width: 1100px) {
+    .event-mascot { right: 8rem; width: 240px; height: 240px; }
+  }
+</style>

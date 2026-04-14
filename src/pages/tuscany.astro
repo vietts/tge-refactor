@@ -1,0 +1,91 @@
+---
+import { getEntry, render } from 'astro:content';
+import EventLayout from '../layouts/EventLayout.astro';
+import { signupBenefits, credoIntro, credoPillars } from '../lib/event-defaults';
+
+const event = await getEntry('events', 'tuscany');
+if (!event) throw new Error('Event tuscany not found');
+const { Content } = await render(event);
+const data = event.data;
+
+const hub = (await getEntry('hub', 'main'))!.data;
+---
+<EventLayout
+  event={data}
+  trust={hub.trust}
+  docYoutubeId={hub.documentary.youtubeId}
+  eventNumberLabel="Event 03"
+  titleFont="tuscany"
+  waitlistCtaLabel="Join the waitlist"
+  signupBenefits={signupBenefits}
+  factsBar={[
+    { icon: 'calendar', label: 'When',     value: '10 Oct 2026',                 sub: '5 days of riding' },
+    { icon: 'pin',      label: 'Where',    value: 'Siena, Italy',                sub: 'Chianti · Val d\'Orcia' },
+    { icon: 'loop',     label: 'Format',   value: 'Loop · same start & finish',  sub: 'One base, no shuttle' },
+    { icon: 'road',     label: 'Distance', value: '600 km · 70% tarmac',         sub: '30% strade bianche' },
+  ]}
+  credoIntro={credoIntro}
+  credoPillars={credoPillars}
+  photoBreakCaptions={{
+    included: 'Val d\'Orcia, golden hour',
+    testimonials: 'Strade bianche, Chianti',
+    faq: 'Piazza del Campo, finish dinner',
+  }}
+  photoSplits={{
+    dayTitle: 'Cypress, caffè, ridge, again',
+    dayBody: "Cappuccino in a village of stone where nobody knows you. You climb a ridge between cypresses, coast down into a hamlet for pici al ragù, then roll along the strade bianche as the light turns gold. Dinner is at a long table with riders you met yesterday. Wine is included without asking.",
+    dayCaption: 'Chianti ridge, late afternoon',
+    quietTitle: "The road the painters loved",
+    quietBody: "October light in the Val d'Orcia isn't poetic — it's a physical thing. Gold on the cypresses, long shadows, sheep that don't move for you. You stop not for a photo but because continuing would break something fragile.",
+    quietCaption: 'Val d\'Orcia, October light',
+  }}
+>
+  <svg
+    slot="mascot"
+    class="event-mascot"
+    style="color: var(--red-wine);"
+    viewBox="0 0 140 140"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Boar head silhouette (Cinghiale toscano) — simplified editorial line-art -->
+      <path d="M 28 80 C 22 72, 22 58, 30 52 C 34 42, 46 36, 60 38 L 72 34 L 80 40 L 96 38 L 108 46 L 114 58 L 112 74 L 104 86 L 92 92 L 74 96 L 52 94 L 36 92 Z" />
+      <!-- Ear -->
+      <path d="M 50 44 L 58 32 L 64 44 Z" fill="currentColor" />
+      <!-- Eye -->
+      <circle cx="78" cy="58" r="2.2" fill="currentColor" stroke="none" />
+      <!-- Nostril -->
+      <circle cx="108" cy="62" r="2" fill="currentColor" stroke="none" />
+      <!-- Snout line -->
+      <path d="M 98 68 L 112 68" stroke-width="2" />
+      <!-- Tusks -->
+      <path d="M 100 74 Q 104 82, 112 82" />
+      <path d="M 108 74 Q 112 78, 118 76" />
+      <!-- Bristles on back -->
+      <path d="M 40 46 L 42 36" />
+      <path d="M 52 40 L 54 30" />
+      <path d="M 64 36 L 66 26" />
+      <path d="M 76 36 L 80 28" />
+    </g>
+  </svg>
+
+  <section slot="mdx-copy" class="event-copy-wrap">
+    <div class="container-narrow sr">
+      <div class="event-copy">
+        <Content />
+      </div>
+    </div>
+  </section>
+</EventLayout>
+
+<style is:global>
+  .event-copy-wrap { padding: var(--sp-8) 0; position: relative; }
+  .event-copy h2 { font-family: var(--font-extra-tuscany), var(--font-display); font-style: italic; font-weight: 400; font-size: var(--fs-3xl); line-height: 0.98; color: var(--red-wine); margin: 0.5rem 0 1.25rem; letter-spacing: -0.005em; text-transform: none; }
+  .event-copy h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-wine); margin: 2rem 0 0.75rem; }
+  .event-copy p { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.7; margin-bottom: 1rem; color: var(--espresso); }
+  .event-copy strong { color: var(--red-wine); font-weight: 700; }
+  .event-copy em { font-family: var(--font-extra-tuscany), Georgia, serif; font-size: 1.15em; }
+  .event-copy ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .event-copy li { font-family: var(--font-body); margin-bottom: 0.4rem; line-height: 1.55; color: var(--espresso); }
+</style>

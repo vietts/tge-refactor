@@ -1,0 +1,103 @@
+manifesto:
+  kicker: "No race · Just riding"
+  serif: "Leave the KOMs behind."
+  huge: "JUST RIDE."
+  cta: "Get the free guide"
+  ctaHref: "#signup"
+  videoSrc: "/video/hero-loop.webm"
+  posterSrc: "/video/hero-poster.jpg"
+
+documentary:
+  label: "Watch the film"
+  title: "The 2025 Documentary"
+  subtitle: "A year on the road. From Slovenia's emerald rivers to Tuscany's cypress hills."
+  youtubeId: "dQw4w9WgXcQ"
+
+documentarySecondary:
+  label: "More from the road"
+  title: "Inside a Grand Escape"
+  subtitle: "Behind the scenes: route scouting, rider stories, and the quiet moments that never make it to Strava."
+  youtubeId: "dQw4w9WgXcQ"
+
+whatIs:
+  kicker: "What is The Grand Escape"
+  title: "Three escapes. Zero KOMs."
+  body: "Three bikepacking road events without rankings, time trials, or wanna-be pro stuff. Leave the KOMs behind and ride with your head held high, watching what nature has to offer. Join like-minded people on the most beautiful roads of Europe."
+  statNumber: "3,000+"
+  statLabel: "riders who've joined us"
+  since: "Since 2023"
+
+testimonials:
+  kicker: "Rider voices"
+  title: "From the people who rode."
+  items:
+    - quote: "Best trip I've ever done. Already signed up for next year."
+      author: "Marco"
+      event: "Slovenia 2025"
+    - quote: "The route was unreal — quiet backroads, perfect pace, no ego. Exactly what I needed."
+      author: "Hanna"
+      event: "Germany 2025"
+    - quote: "I came for the cycling and left with new friends. The media team caught moments I'll keep forever."
+      author: "David"
+      event: "Tuscany 2024"
+
+values:
+  - number: "01"
+    title: "Forget the race mentality."
+    body: "Leave your power meter at home. Your Strava segments can wait. The riders around you aren't competitors: they're fellow travellers."
+    caption: "Slovenia pass"
+  - number: "02"
+    title: "Roads worth your time."
+    body: "We spend years finding the routes others miss. Hidden backroads that connect incredible places. Cycle paths that feel like private trails."
+    caption: "Tuscany backroad"
+  - number: "03"
+    title: "Your schedule. Your way."
+    body: "Take three days or take a week. Start at sunrise or sleep in. Stop for long lunches or pack energy bars. No checkpoints. No cutoff times."
+    caption: "Germany · alpine lake"
+  - number: "04"
+    title: "Stories worth telling: yours."
+    body: "Our media team follows the routes, capturing moments you'll treasure forever. Not just finish-line photos, but the real story—your face when you crest that perfect hill, the coffee stop that turned into an hour of laughter."
+    caption: "Media team on the route"
+
+threeEscapes:
+  title: "Three escapes. Three worlds."
+  subtitle: "Each one has its own color, its own mascot, its own soul."
+
+origin:
+  kicker: "Why we started"
+  imageCaption: "Before every hill became a competition."
+  title: "Cycling, like the first time."
+  body:
+    - "We believe cycling should feel like it did when you first discovered the joy of two wheels. Before power meters and social media turned rides into spreadsheets."
+    - "Tuscany Trail, 2014 → Bike Adventure Series, 2022 → The Grand Escape, today."
+
+signup:
+  kicker: "Free · Route previews · 2027 first access"
+  title: "Get the Escape Guide."
+  body: "Route previews, packing lists, and first-access notifications for 2027 dates. Tell us which escape interests you — we'll send relevant updates only."
+  cta: "Send me the guide"
+  legal: "Powered by Brevo. No spam — unsubscribe anytime."
+
+signupBottom:
+  kicker: "Still reading? Don't leave empty-handed."
+  title: "Take the guide with you."
+  body: "We'll send you route previews, packing lists, and the first invite when 2027 spots open. Promise: no spam, ever."
+  cta: "Send me the guide"
+  legal: "Powered by Brevo. Unsubscribe anytime."
+
+trust:
+  label: "Part of"
+  partners:
+    - name: "Bike Adventure Series"
+      logo: "/brand/bas-logo.webp"
+      isMain: true
+    - name: "Vittoria"
+      logo: "/brand/vittoria.webp"
+    - name: "RideWithGPS"
+      logo: "/brand/rwgps.png"
+    - name: "Miss Grape"
+      logo: "/brand/missgrape.webp"
+    - name: "Sportler"
+      logo: "/brand/sportler.png"
+    - name: "Ragazzi Hogan"
+      logo: "/brand/ragazzihogan.webp"

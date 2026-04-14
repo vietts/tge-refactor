@@ -1,0 +1,62 @@
+---
+interface Props {
+  kicker: string;
+  title: string;
+  items: string[];
+  accentColor?: string;
+}
+const { kicker, title, items, accentColor } = Astro.props;
+---
+<section class="incl" style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <div class="container">
+    <header class="incl-head sr">
+      <div class="kicker">{kicker}</div>
+      <h2 class="incl-title display">{title}</h2>
+    </header>
+
+    <ul class="incl-grid">
+      {items.map((label, i) => (
+        <li class="incl-item sr" style={`transition-delay:${Math.min(i * 30, 420)}ms`}>
+          <span class="bullet" aria-hidden="true">●</span>
+          <span class="label">{label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .incl { padding: var(--sp-8) 0; position: relative; }
+  .incl-head { max-width: 640px; margin: 0 auto 2rem; text-align: center; }
+  .incl-head .kicker { color: var(--accent, var(--fern)); margin-bottom: 0.75rem; }
+  .incl-title { font-size: var(--fs-3xl); line-height: 0.95; color: var(--red-wine); }
+
+  .incl-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem 1.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .incl-item {
+    display: flex; gap: 0.6rem; align-items: flex-start;
+    font-family: var(--font-body);
+    font-size: 1rem; line-height: 1.45;
+    color: var(--espresso);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(107,68,35,0.14);
+  }
+  .bullet {
+    color: var(--accent, var(--red-wine));
+    font-size: 0.7rem;
+    line-height: 1.7;
+    flex-shrink: 0;
+  }
+  .label { flex: 1; }
+
+  @media (min-width: 640px) {
+    .incl-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>

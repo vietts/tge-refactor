@@ -1,0 +1,55 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="foot">
+  <div class="container foot-inner">
+    <div class="foot-top">
+      <a href="/" class="foot-brand">
+        <img src="/brand/tge-logo-dark.png" alt="The Grand Escape" width="260" height="88" />
+      </a>
+      <div class="foot-links">
+        <div>
+          <div class="foot-label">Escapes</div>
+          <a href="/slovenia">Slovenia</a>
+          <a href="/germany">Germany</a>
+          <a href="/tuscany">Tuscany</a>
+        </div>
+        <div>
+          <div class="foot-label">Info</div>
+          <a href="/#about">About</a>
+          <a href="/#faq">FAQ</a>
+          <a href="/contact">Contact</a>
+        </div>
+        <div>
+          <div class="foot-label">Follow</div>
+          <a href="https://instagram.com/bikeadventureseries" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://youtube.com/@bikeadventureseries" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© {year} The Grand Escape · Part of Bike Adventure Series</span>
+      <a href="/privacy">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot { background: var(--espresso); color: var(--paper-1); padding: 3rem 0 2rem; margin-top: 0; position: relative; }
+  .foot-inner { display: flex; flex-direction: column; gap: 2.5rem; }
+  .foot-top { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+  .foot-brand img { height: 44px; width: auto; filter: brightness(0) invert(1); opacity: 0.95; }
+  .foot-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .foot-label { font-family: var(--font-display); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--caramel); margin-bottom: 0.6rem; }
+  .foot-links a { display: block; font-size: 0.9rem; opacity: 0.82; margin-bottom: 0.35rem; transition: opacity 160ms; }
+  .foot-links a:hover { opacity: 1; }
+  .foot-bottom {
+    display: flex; justify-content: space-between; gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.75rem; opacity: 0.6; letter-spacing: 0.06em;
+  }
+  @media (min-width: 720px) {
+    .foot-top { grid-template-columns: 1fr 2fr; align-items: center; }
+  }
+</style>

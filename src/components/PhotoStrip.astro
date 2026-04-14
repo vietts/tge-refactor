@@ -1,0 +1,60 @@
+---
+interface Photo { bg: string; caption?: string }
+interface Props {
+  photos?: Photo[];
+  accentColor?: string;
+}
+
+const { photos, accentColor } = Astro.props;
+
+const defaults: Photo[] = [
+  { bg: 'radial-gradient(ellipse at 30% 40%, #b3c88e 0%, transparent 55%), linear-gradient(160deg, #5a7938 0%, #1e2c12 100%)', caption: 'Seefeld plateau, 7 AM' },
+  { bg: 'radial-gradient(ellipse at 60% 35%, #c9d9e6 0%, transparent 55%), linear-gradient(160deg, #4a6a8a 0%, #1a2a3d 100%)', caption: 'Lake Achensee' },
+  { bg: 'radial-gradient(ellipse at 45% 40%, #d9b87a 0%, transparent 55%), linear-gradient(160deg, #8a5830 0%, #3e2815 100%)', caption: 'Mittenwald old town' },
+  { bg: 'radial-gradient(ellipse at 55% 35%, #f0d2a0 0%, transparent 55%), linear-gradient(160deg, #b8794a 0%, #4a2e18 100%)', caption: 'Allgäu meadows' },
+];
+const items = photos ?? defaults;
+---
+<section class="pstrip" style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <div class="pstrip-grid">
+    {items.map((p, i) => (
+      <figure class:list={['pshot', `sr`, `d${i % 3}`]} style={`background:${p.bg}`}>
+        <div class="pshot-fade" aria-hidden="true"></div>
+        {p.caption && <figcaption class="pshot-cap">● {p.caption}</figcaption>}
+      </figure>
+    ))}
+  </div>
+</section>
+
+<style>
+  .pstrip { padding: 0; position: relative; }
+  .pstrip-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+  .pshot {
+    position: relative;
+    aspect-ratio: 4/3;
+    min-height: 220px;
+    background-size: cover; background-position: center;
+    overflow: hidden;
+    display: flex; align-items: flex-end;
+    padding: 1rem;
+  }
+  .pshot-fade {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%);
+  }
+  .pshot-cap {
+    position: relative;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #fff;
+  }
+  @media (min-width: 720px) {
+    .pstrip-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .pshot { aspect-ratio: 3/4; min-height: 420px; }
+  }
+</style>

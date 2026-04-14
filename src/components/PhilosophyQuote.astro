@@ -1,0 +1,59 @@
+---
+interface Props {
+  quote: string;
+  imageBg?: string;
+  accentColor?: string;
+}
+const { quote, imageBg, accentColor } = Astro.props;
+const bg = imageBg ?? 'radial-gradient(ellipse at 50% 40%, #f0d2a0 0%, transparent 55%), linear-gradient(180deg, #a67244 0%, #3e2815 100%)';
+---
+<section class="philo" style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <div class="philo-image" style={`background:${bg}`} aria-hidden="true"></div>
+  <div class="philo-overlay" aria-hidden="true"></div>
+  <div class="container philo-content sr">
+    <span class="quote-mark" aria-hidden="true">"</span>
+    <p class="philo-quote">{quote}</p>
+  </div>
+</section>
+
+<style>
+  .philo {
+    position: relative;
+    min-height: 420px;
+    display: flex; align-items: center;
+    padding: var(--sp-8) 0;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .philo-image {
+    position: absolute; inset: 0; z-index: -2;
+    background-size: cover; background-position: center;
+  }
+  .philo-overlay {
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, rgba(44,31,21,0.35) 0%, rgba(44,31,21,0.7) 100%);
+  }
+  .philo-content {
+    max-width: 760px; color: var(--paper-1);
+    position: relative;
+  }
+  .quote-mark {
+    font-family: Georgia, serif;
+    font-size: 6rem; line-height: 0.1;
+    color: var(--accent, var(--caramel));
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+  .philo-quote {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.4rem; line-height: 1.4;
+    max-width: 32ch;
+  }
+  @media (min-width: 720px) {
+    .philo { min-height: 520px; }
+    .philo-quote { font-size: 1.8rem; line-height: 1.35; }
+    .quote-mark { font-size: 8rem; }
+  }
+</style>

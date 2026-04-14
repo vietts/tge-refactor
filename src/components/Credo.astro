@@ -1,0 +1,151 @@
+---
+interface Pillar {
+  title: string;
+  body: string;
+}
+interface Authority {
+  kicker?: string;
+  body: string;
+  logo?: string;
+  logoAlt?: string;
+  href?: string;
+}
+interface Props {
+  kicker: string;
+  title: string;
+  intro: string[];
+  pillars: Pillar[];
+  authority?: Authority;
+  accentColor?: string;
+}
+const { kicker, title, intro, pillars, authority, accentColor } = Astro.props;
+---
+<section class="credo" style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <div class="container">
+    <header class="credo-head sr">
+      <div class="kicker">{kicker}</div>
+      <h2 class="credo-title display">{title}</h2>
+    </header>
+
+    <div class="credo-intro sr d1">
+      {intro.map((p) => <p>{p}</p>)}
+    </div>
+
+    <ol class="pillars">
+      {pillars.map((p, i) => (
+        <li class="pillar sr" style={`transition-delay:${Math.min(i * 80, 320)}ms`}>
+          <div class="pillar-num">{String(i + 1).padStart(2, '0')}</div>
+          <h3 class="pillar-title display">{p.title}</h3>
+          <p class="pillar-body">{p.body}</p>
+        </li>
+      ))}
+    </ol>
+
+    {authority && (
+      <aside class="authority sr">
+        {authority.logo && (
+          authority.href ? (
+            <a href={authority.href} target="_blank" rel="noopener" class="authority-logo">
+              <img src={authority.logo} alt={authority.logoAlt ?? ''} loading="lazy" />
+            </a>
+          ) : (
+            <div class="authority-logo">
+              <img src={authority.logo} alt={authority.logoAlt ?? ''} loading="lazy" />
+            </div>
+          )
+        )}
+        <div class="authority-text">
+          {authority.kicker && <div class="kicker">{authority.kicker}</div>}
+          <p>{authority.body}</p>
+        </div>
+      </aside>
+    )}
+  </div>
+</section>
+
+<style>
+  .credo { padding: var(--sp-8) 0; position: relative; }
+  .credo-head { max-width: 760px; margin: 0 auto 2rem; text-align: center; }
+  .credo-head .kicker { color: var(--accent, var(--fern)); margin-bottom: 0.75rem; }
+  .credo-title { font-size: var(--fs-3xl); line-height: 0.95; color: var(--red-wine); }
+
+  .credo-intro {
+    max-width: 640px; margin: 0 auto 3rem;
+    font-family: var(--font-body);
+    font-size: 1.05rem; line-height: 1.7;
+    color: var(--espresso);
+  }
+  .credo-intro p { margin-bottom: 1rem; }
+  .credo-intro p:last-child {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 1.15rem; line-height: 1.35;
+    letter-spacing: -0.005em;
+    color: var(--red-wine);
+    text-transform: none;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(107,68,35,0.2);
+  }
+
+  .pillars {
+    list-style: none; padding: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    max-width: 1000px; margin: 0 auto 3rem;
+  }
+  .pillar {
+    padding: 1.5rem;
+    border: 1px solid rgba(107,68,35,0.18);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.45);
+    backdrop-filter: blur(4px);
+  }
+  .pillar-num {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent, var(--fern));
+    margin-bottom: 0.6rem;
+  }
+  .pillar-title {
+    font-size: 1.55rem; line-height: 1;
+    color: var(--red-wine);
+    margin-bottom: 0.75rem;
+  }
+  .pillar-body {
+    font-family: var(--font-body);
+    font-size: 0.98rem; line-height: 1.6;
+    color: var(--espresso);
+  }
+
+  .authority {
+    max-width: 780px; margin: 0 auto;
+    padding: 1.75rem;
+    border: 1px solid rgba(107,68,35,0.25);
+    border-radius: 12px;
+    background: rgba(44,31,21,0.04);
+    display: flex; flex-direction: column; gap: 1rem;
+    align-items: center; text-align: center;
+  }
+  .authority-logo img {
+    height: 56px; width: auto; max-width: 220px;
+    filter: grayscale(0.2);
+    opacity: 0.92;
+  }
+  .authority-text .kicker {
+    color: var(--accent, var(--fern));
+    margin-bottom: 0.4rem;
+  }
+  .authority-text p {
+    font-family: var(--font-body);
+    font-size: 0.98rem; line-height: 1.55;
+    color: var(--espresso);
+    max-width: 56ch;
+  }
+
+  @media (min-width: 720px) {
+    .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+    .authority { flex-direction: row; text-align: left; gap: 1.75rem; padding: 2rem 2.25rem; }
+    .authority-text p { text-align: left; }
+  }
+</style>

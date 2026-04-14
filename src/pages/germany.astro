@@ -1,0 +1,76 @@
+---
+import { getEntry, render } from 'astro:content';
+import EventLayout from '../layouts/EventLayout.astro';
+import { signupBenefits, credoIntro, credoPillars } from '../lib/event-defaults';
+
+const event = await getEntry('events', 'germany');
+if (!event) throw new Error('Event germany not found');
+const { Content } = await render(event);
+const data = event.data;
+
+const hub = (await getEntry('hub', 'main'))!.data;
+---
+<EventLayout
+  event={data}
+  trust={hub.trust}
+  docYoutubeId={hub.documentary.youtubeId}
+  eventNumberLabel="Event 02"
+  titleFont="germania"
+  waitlistCtaLabel="Join the waitlist"
+  signupBenefits={signupBenefits}
+  factsBar={[
+    { icon: 'calendar', label: 'When',     value: '5 Sep 2026',                  sub: '4 days of riding' },
+    { icon: 'pin',      label: 'Where',    value: 'Innsbruck, Austria',          sub: 'Through Tyrol & Bavaria' },
+    { icon: 'loop',     label: 'Format',   value: 'Loop · same start & finish',  sub: 'One base, no shuttle' },
+    { icon: 'road',     label: 'Distance', value: '500 km · all tarmac',         sub: 'Moderate difficulty' },
+  ]}
+  credoIntro={credoIntro}
+  credoPillars={credoPillars}
+  photoBreakCaptions={{
+    included: 'Above Achensee, day 3',
+    testimonials: 'Early light, Allgäu',
+    faq: 'Finish line — see you in September',
+  }}
+  photoSplits={{
+    dayTitle: 'Coffee, climbs, and no hurry',
+    dayBody: "You wake up in a mountain village. Pastries and espresso on a sunlit terrace. You spin out gently, chatting with the rider you met yesterday. By noon you're cooling your legs at the edge of a lake. Afternoon: one climb, then a long downhill to tonight's guesthouse. Dinner is loud. Everyone sleeps well.",
+    dayCaption: 'Morning espresso, Seefeld',
+    quietTitle: "You'll remember the silences",
+    quietBody: "Not the numbers. Not the distance, not the D+. What stays with you, months later, is the minute at the top of the pass before the descent. The cowbells in the Allgäu. The sound of coffee cups on a hut terrace at 1,800 metres. That's what this event is for.",
+    quietCaption: 'Pass summit, afternoon light',
+  }}
+>
+  <svg slot="mascot" class="event-mascot" style="color: var(--caramel);" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 58 24 Q 70 8, 82 24 L 82 30 L 58 30 Z" />
+      <path d="M 54 30 L 86 30" stroke-width="4" />
+      <path d="M 56 34 L 84 34" stroke-width="2" opacity="0.7" />
+      <path d="M 78 22 Q 88 14, 94 22 Q 90 20, 86 22" />
+      <path d="M 40 88 C 18 80, 18 52, 40 48 C 58 46, 66 62, 70 70 C 74 62, 82 46, 100 48 C 122 52, 122 80, 100 88" />
+      <path d="M 55 76 C 65 90, 75 90, 85 76" />
+      <circle cx="36" cy="64" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="70" cy="60" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="104" cy="64" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="50" cy="82" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="90" cy="82" r="1.5" fill="currentColor" stroke="none" />
+    </g>
+  </svg>
+
+  <section slot="mdx-copy" class="event-copy-wrap">
+    <div class="container-narrow sr">
+      <div class="event-copy">
+        <Content />
+      </div>
+    </div>
+  </section>
+</EventLayout>
+
+<style is:global>
+  .event-copy-wrap { padding: var(--sp-8) 0; position: relative; }
+  .event-copy h2 { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-3xl); line-height: 0.95; color: var(--red-wine); margin: 0.5rem 0 1.25rem; letter-spacing: -0.015em; text-transform: uppercase; }
+  .event-copy h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-wine); margin: 2rem 0 0.75rem; }
+  .event-copy p { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.7; margin-bottom: 1rem; color: var(--espresso); }
+  .event-copy strong { color: var(--red-wine); font-weight: 700; }
+  .event-copy ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .event-copy li { font-family: var(--font-body); margin-bottom: 0.4rem; line-height: 1.55; color: var(--espresso); }
+</style>

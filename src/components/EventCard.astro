@@ -1,0 +1,87 @@
+---
+interface Props {
+  slug: 'slovenia' | 'germany' | 'tuscany';
+  order: string;
+  name: string;
+  dateLabel: string;
+  distanceKm: number;
+  elevationD: number;
+  days: number;
+  quote: string;
+  status: 'open' | 'limited' | 'sold';
+  statusLabel: string;
+  subBrandColor: string;
+}
+
+const { slug, order, name, dateLabel, distanceKm, elevationD, days, quote, status, statusLabel, subBrandColor } = Astro.props;
+const textOnAccent = slug === 'germany' ? '#1a1a1a' : '#fff';
+---
+<a href={`/${slug}`} class:list={['evcard', slug]} style={`--accent:${subBrandColor};--text:${textOnAccent}`}>
+  <div class="evcard-bg" aria-hidden="true"></div>
+  <div class="evcard-fade" aria-hidden="true"></div>
+
+  <span class:list={['evbadge', status]}>{statusLabel}</span>
+
+  <div class="evcard-body">
+    <span class="evdate">{order} · {dateLabel}</span>
+    <h3 class="evname display">{name}</h3>
+    <p class="evquote serif">"{quote}"</p>
+    <div class="evstats">
+      <span>{distanceKm} km</span>
+      <span>{elevationD.toLocaleString()} D+</span>
+      <span>{days} days</span>
+    </div>
+    <span class="evcta">{status === 'sold' ? 'Join waitlist' : 'Discover'} →</span>
+  </div>
+</a>
+
+<style>
+  .evcard {
+    position: relative;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    min-height: 360px;
+    padding: 1.5rem;
+    border-radius: 12px;
+    color: var(--text, #fff);
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 220ms var(--ease-out);
+  }
+  .evcard:hover { transform: translateY(-3px); }
+
+  .evcard-bg {
+    position: absolute; inset: 0; z-index: -2;
+    background: var(--accent);
+  }
+  .evcard.slovenia .evcard-bg { background: radial-gradient(ellipse at 30% 30%, #8fa862 0%, transparent 60%), linear-gradient(180deg, #617D42 0%, #2a3818 100%); }
+  .evcard.germany .evcard-bg  { background: radial-gradient(ellipse at 70% 30%, #fcd8b0 0%, transparent 60%), linear-gradient(180deg, #FABF80 0%, #8a5830 100%); }
+  .evcard.tuscany .evcard-bg  { background: radial-gradient(ellipse at 40% 30%, #c44642 0%, transparent 60%), linear-gradient(180deg, #A32C29 0%, #4e1412 100%); }
+
+  .evcard-fade {
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.55) 100%);
+  }
+  .evcard.germany .evcard-fade { background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.25) 100%); }
+
+  .evbadge {
+    position: absolute; top: 1rem; left: 1rem;
+    padding: 0.35em 0.75em;
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
+    background: rgba(0,0,0,0.55); color: #fff; border-radius: 4px;
+  }
+  .evbadge.sold { background: var(--red-wine); }
+
+  .evcard-body { position: relative; z-index: 2; }
+  .evdate { display: block; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.95; font-weight: 700; }
+  .evname { font-size: 2.25rem; line-height: 0.9; margin: 0.25rem 0 0.75rem; color: var(--text, #fff); }
+  .evquote { font-size: 0.95rem; line-height: 1.35; opacity: 0.95; margin-bottom: 0.75rem; max-width: 28ch; }
+  .evstats { display: flex; gap: 1rem; font-size: 0.78rem; opacity: 0.88; margin-bottom: 1rem; font-weight: 500; }
+  .evcta {
+    align-self: flex-start;
+    padding: 0.6em 0.9em;
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+    background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); backdrop-filter: blur(4px);
+    border-radius: 999px;
+  }
+  .evcard.germany .evcta { background: rgba(0,0,0,0.2); border-color: rgba(0,0,0,0.3); }
+</style>

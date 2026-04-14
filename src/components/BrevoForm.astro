@@ -1,0 +1,225 @@
+---
+interface Props {
+  variant?: 'hub' | 'event';
+  eventSegment?: 'slovenia' | 'germany' | 'tuscany';
+  kicker?: string;
+  title: string;
+  body?: string;
+  benefits?: string[];
+  ctaLabel?: string;
+  legal?: string;
+  accentColor?: string;
+  anchorId?: string;
+}
+
+const {
+  variant = 'hub',
+  eventSegment,
+  kicker,
+  title,
+  body,
+  benefits,
+  ctaLabel = 'Send me the guide',
+  legal,
+  accentColor,
+  anchorId = 'signup',
+} = Astro.props;
+
+const formId = `brevo-${variant}-${Math.random().toString(36).slice(2, 8)}`;
+---
+<section id={anchorId} class="signup">
+  <div class="container-narrow sr">
+    {kicker && <div class="kicker signup-kicker">{kicker}</div>}
+    <h2 class="signup-title display">{title}</h2>
+    {body && <p class="signup-body">{body}</p>}
+    {benefits && benefits.length > 0 && (
+      <ul class="signup-benefits">
+        {benefits.map((b) => (
+          <li>
+            <span class="bmark" aria-hidden="true">✓</span>
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    <form id={formId} class="signup-form" novalidate>
+      <label class="sr-only" for={`${formId}-email`}>Email</label>
+      <input
+        id={`${formId}-email`}
+        type="email"
+        name="email"
+        placeholder="your@email.com"
+        autocomplete="email"
+        required
+      />
+
+      {variant === 'hub' && (
+        <fieldset class="segments">
+          <legend class="segments-legend">Which escape interests you?</legend>
+          <label class="seg"><input type="checkbox" name="events" value="slovenia" /><span>Slovenia</span></label>
+          <label class="seg"><input type="checkbox" name="events" value="germany" /><span>Germany</span></label>
+          <label class="seg"><input type="checkbox" name="events" value="tuscany" /><span>Tuscany</span></label>
+        </fieldset>
+      )}
+
+      {variant === 'event' && eventSegment && (
+        <input type="hidden" name="events" value={eventSegment} />
+      )}
+
+      <label class="consent">
+        <input type="checkbox" name="consent" required />
+        <span>I agree to the <a href="/privacy">privacy policy</a>.</span>
+      </label>
+
+      <button type="submit" class="cta-pill cta-primary signup-submit" style={accentColor ? `background:${accentColor};color:#1a1a1a;` : undefined}>
+        <span class="btn-label">{ctaLabel}</span>
+        <span aria-hidden="true">→</span>
+      </button>
+
+      {legal && <p class="signup-legal">{legal}</p>}
+
+      <p class="signup-success" role="status" aria-live="polite" hidden>
+        ✓ You're on the list. Check your inbox for the guide.
+      </p>
+      <p class="signup-error" role="alert" aria-live="assertive" hidden>
+        Something went wrong. Please try again.
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .signup {
+    padding: var(--sp-8) 0;
+    position: relative;
+  }
+  .signup-kicker { color: var(--fern); margin-bottom: 0.75rem; }
+  .signup-title { font-size: var(--fs-3xl); color: var(--red-wine); margin-bottom: 0.5rem; }
+  .signup-body { max-width: 54ch; margin: 0 0 1.25rem; color: var(--espresso); line-height: 1.6; }
+
+  .signup-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    max-width: 520px;
+    display: flex; flex-direction: column; gap: 0.55rem;
+  }
+  .signup-benefits li {
+    display: flex; gap: 0.65rem; align-items: flex-start;
+    font-family: var(--font-body);
+    font-size: 0.98rem; line-height: 1.45;
+    color: var(--espresso);
+  }
+  .signup-benefits .bmark {
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.3rem; height: 1.3rem;
+    margin-top: 0.1rem;
+    border-radius: 50%;
+    background: var(--accent, var(--fern));
+    color: var(--espresso);
+    font-size: 0.72rem; font-weight: 800;
+    line-height: 1;
+  }
+
+  .signup-form { display: flex; flex-direction: column; gap: 0.85rem; max-width: 520px; }
+  .signup-form input[type="email"] {
+    width: 100%; padding: 0.9rem 1rem;
+    font: inherit; font-size: 1rem;
+    color: var(--espresso);
+    border: 1px solid rgba(107,68,35,0.25);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.7);
+  }
+  .signup-form input[type="email"]:focus { outline: 2px solid var(--fern); outline-offset: 2px; border-color: var(--fern); }
+
+  .segments { border: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .segments-legend { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--espresso); margin-bottom: 0.5rem; width: 100%; opacity: 0.75; }
+  .seg { flex: 1 1 30%; cursor: pointer; }
+  .seg input { position: absolute; opacity: 0; pointer-events: none; }
+  .seg span {
+    display: block; text-align: center; padding: 0.65rem 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--espresso);
+    border: 1px solid rgba(107,68,35,0.25);
+    border-radius: 6px;
+    transition: all 140ms;
+    background: rgba(255,255,255,0.6);
+  }
+  .seg input[value="slovenia"]:checked + span {
+    background: var(--fern); color: #fff; border-color: var(--fern);
+  }
+  .seg input[value="germany"]:checked + span {
+    background: var(--caramel); color: var(--espresso); border-color: var(--caramel);
+  }
+  .seg input[value="tuscany"]:checked + span {
+    background: var(--red-wine); color: #fff; border-color: var(--red-wine);
+  }
+  .seg input:focus-visible + span { outline: 2px solid currentColor; outline-offset: 2px; }
+
+  .consent { display: flex; gap: 0.5rem; font-size: 0.78rem; color: var(--espresso); opacity: 0.75; line-height: 1.5; }
+  .consent a { text-decoration: underline; }
+
+  .signup-submit { width: 100%; justify-content: center; padding: 1rem 1.4rem; font-size: 0.9rem; }
+  .signup-legal { font-size: 0.72rem; opacity: 0.55; text-align: center; letter-spacing: 0.06em; margin-top: 0.5rem; }
+
+  .signup-success {
+    padding: 1rem 1.25rem; background: rgba(99,125,66,0.14); color: var(--fern);
+    border-radius: 8px; font-weight: 600;
+  }
+  .signup-error {
+    padding: 1rem 1.25rem; background: rgba(163,44,41,0.14); color: var(--red-wine);
+    border-radius: 8px; font-weight: 600;
+  }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+</style>
+
+<script define:vars={{ formId, variant, eventSegment }}>
+  const form = document.getElementById(formId);
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const success = form.querySelector('.signup-success');
+      const error = form.querySelector('.signup-error');
+      const button = form.querySelector('.signup-submit');
+      const label = button.querySelector('.btn-label');
+      const originalLabel = label.textContent;
+
+      success.hidden = true;
+      error.hidden = true;
+      button.disabled = true;
+      label.textContent = 'Sending…';
+
+      const data = new FormData(form);
+      const events = data.getAll('events');
+      const payload = {
+        email: data.get('email'),
+        consent: data.get('consent') === 'on',
+        events,
+        variant,
+        eventSegment: eventSegment ?? null,
+        source: window.location.pathname,
+      };
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        success.hidden = false;
+      } catch (err) {
+        console.error('subscribe error', err);
+        error.hidden = false;
+      } finally {
+        button.disabled = false;
+        label.textContent = originalLabel;
+      }
+    });
+  }
+</script>

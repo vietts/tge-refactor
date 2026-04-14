@@ -1,0 +1,148 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import BrevoForm from '../components/BrevoForm.astro';
+import DocumentaryEmbed from '../components/DocumentaryEmbed.astro';
+import WhatIs from '../components/WhatIs.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ValueBlock from '../components/ValueBlock.astro';
+import EventCard from '../components/EventCard.astro';
+import OriginStory from '../components/OriginStory.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+
+const hub = (await getEntry('hub', 'main'))!.data;
+
+const eventsCollection = await getCollection('events');
+const events = eventsCollection
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
+---
+<BaseLayout
+  title="The Grand Escape — No-race bikepacking across Europe"
+  description="Three curated bikepacking road events. No rankings. No KOMs. Just the most beautiful roads of Europe, at your own pace."
+  theme="dark"
+>
+  <Hero
+    variant="manifesto"
+    kicker={hub.manifesto.kicker}
+    serif={hub.manifesto.serif}
+    huge={hub.manifesto.huge}
+    ctaLabel={hub.manifesto.cta}
+    ctaHref={hub.manifesto.ctaHref}
+    videoSrc={hub.manifesto.videoSrc}
+    posterSrc={hub.manifesto.posterSrc}
+  />
+
+  <BrevoForm
+    variant="hub"
+    kicker={hub.signup.kicker}
+    title={hub.signup.title}
+    body={hub.signup.body}
+    ctaLabel={hub.signup.cta}
+    legal={hub.signup.legal}
+  />
+
+  <DocumentaryEmbed
+    youtubeId={hub.documentary.youtubeId}
+    label={hub.documentary.label}
+    title={hub.documentary.title}
+    subtitle={hub.documentary.subtitle}
+  />
+
+  <WhatIs
+    kicker={hub.whatIs.kicker}
+    title={hub.whatIs.title}
+    body={hub.whatIs.body}
+    statNumber={hub.whatIs.statNumber}
+    statLabel={hub.whatIs.statLabel}
+    since={hub.whatIs.since}
+  />
+
+  <section id="escapes" class="escapes">
+    <div class="container escapes-head sr">
+      <h2 class="escapes-title display">{hub.threeEscapes.title}</h2>
+      <p class="escapes-sub serif">{hub.threeEscapes.subtitle}</p>
+    </div>
+    <div class="container escapes-grid">
+      {events.map((e) => (
+        <EventCard
+          slug={e.slug}
+          order={String(e.order).padStart(2, '0')}
+          name={e.name}
+          dateLabel={e.dateLabel}
+          distanceKm={e.distanceKm}
+          elevationD={e.elevationD}
+          days={e.days}
+          quote={e.quote}
+          status={e.status}
+          statusLabel={e.statusLabel}
+          subBrandColor={e.subBrandColor}
+        />
+      ))}
+    </div>
+  </section>
+
+  <DocumentaryEmbed
+    youtubeId={hub.documentarySecondary.youtubeId}
+    label={hub.documentarySecondary.label}
+    title={hub.documentarySecondary.title}
+    subtitle={hub.documentarySecondary.subtitle}
+  />
+
+  <Testimonials
+    kicker={hub.testimonials.kicker}
+    title={hub.testimonials.title}
+    items={hub.testimonials.items}
+  />
+
+  <section class="values">
+    {hub.values.map((v, i) => (
+      <ValueBlock
+        number={v.number}
+        title={v.title}
+        body={v.body}
+        caption={v.caption}
+        alt={i % 2 === 1}
+      />
+    ))}
+  </section>
+
+  <OriginStory
+    kicker={hub.origin.kicker}
+    imageCaption={hub.origin.imageCaption}
+    title={hub.origin.title}
+    body={hub.origin.body}
+  />
+
+  <BrevoForm
+    variant="hub"
+    kicker={hub.signupBottom.kicker}
+    title={hub.signupBottom.title}
+    body={hub.signupBottom.body}
+    ctaLabel={hub.signupBottom.cta}
+    legal={hub.signupBottom.legal}
+  />
+
+  <TrustStrip
+    label={hub.trust.label}
+    partners={hub.trust.partners}
+  />
+</BaseLayout>
+
+<style>
+  .values { position: relative; }
+
+  .escapes { background: var(--espresso); color: var(--paper-1); padding: var(--sp-8) 0; position: relative; }
+  .escapes-head { margin-bottom: 2rem; }
+  .escapes-title { font-size: var(--fs-3xl); line-height: 0.92; color: var(--paper-1); margin-bottom: 0.5rem; }
+  .escapes-sub { font-family: var(--font-body); font-size: 1.05rem; color: rgba(243,236,224,0.78); max-width: 48ch; line-height: 1.55; }
+
+  .escapes-grid {
+    display: grid; grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 720px) {
+    .escapes-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

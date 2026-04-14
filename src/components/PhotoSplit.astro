@@ -1,0 +1,83 @@
+---
+interface Props {
+  kicker?: string;
+  title: string;
+  body: string;
+  imageBg?: string;
+  imageAlt?: string;
+  imageCaption?: string;
+  reverse?: boolean;
+  accentColor?: string;
+}
+const {
+  kicker, title, body,
+  imageBg, imageCaption,
+  reverse = false,
+  accentColor,
+} = Astro.props;
+
+const bg = imageBg ?? 'radial-gradient(ellipse at 50% 40%, #d9b87a 0%, transparent 55%), linear-gradient(160deg, #8a5830 0%, #3e2815 100%)';
+---
+<section class:list={['psplit', { reverse }]} style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <div class="psplit-image sr" style={`background:${bg}`}>
+    <div class="psplit-fade" aria-hidden="true"></div>
+    {imageCaption && <span class="psplit-cap">● {imageCaption}</span>}
+  </div>
+  <div class="psplit-text sr d1">
+    <div class="psplit-inner">
+      {kicker && <div class="kicker">{kicker}</div>}
+      <h2 class="psplit-title display">{title}</h2>
+      <p class="psplit-body">{body}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .psplit {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    position: relative;
+  }
+  .psplit-image {
+    position: relative;
+    min-height: 340px;
+    aspect-ratio: 4/3;
+    background-size: cover; background-position: center;
+    display: flex; align-items: flex-end;
+    padding: 1.25rem;
+  }
+  .psplit-fade {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.5) 100%);
+  }
+  .psplit-cap {
+    position: relative;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #fff;
+  }
+  .psplit-text {
+    padding: var(--sp-7) var(--sp-5);
+    display: flex; align-items: center;
+  }
+  .psplit-inner { max-width: 540px; }
+  .psplit-inner .kicker { color: var(--accent, var(--fern)); margin-bottom: 0.75rem; }
+  .psplit-title {
+    font-size: var(--fs-2xl); line-height: 0.95;
+    color: var(--red-wine);
+    margin-bottom: 1rem;
+  }
+  .psplit-body {
+    font-family: var(--font-body);
+    font-size: 1.05rem; line-height: 1.65;
+    color: var(--espresso);
+  }
+
+  @media (min-width: 900px) {
+    .psplit { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
+    .psplit.reverse .psplit-image { order: 2; }
+    .psplit-image { min-height: 540px; aspect-ratio: auto; padding: 2rem; }
+    .psplit-text { padding: var(--sp-8) var(--sp-7); }
+    .psplit-title { font-size: var(--fs-3xl); }
+  }
+</style>

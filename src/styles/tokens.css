@@ -1,0 +1,192 @@
+/* ============================================================
+   The Grand Escape — Design tokens (brandbook-aligned)
+   ============================================================ */
+
+:root {
+  /* Brand colors (brandbook) */
+  --red-wine:    #A32C29;  /* Brown Red — primary brand / titles */
+  --fern:        #617D42;  /* Fern — accents / kickers */
+  --graphite:    #262626;  /* Grafite — reserved */
+  --caramel:     #FABF80;  /* Light Caramel — Germany sub-brand */
+  --navy:        #1D3B5F;  /* Regal Navy — subtitles */
+  --cream:       #F5F7F5;  /* Cloud White — reserved */
+
+  /* Warm earth tones (texture + dark sections) */
+  --espresso:    #2C1F15;  /* warm ink — body text & dark sections */
+  --walnut:      #3A2A1D;
+  --coffee:      #6B4423;
+  --wheat:       #C9A27A;
+
+  /* Organic paper */
+  --paper-1:     #F3ECE0;  /* base ivory */
+  --paper-2:     #EDE4D2;  /* warmer */
+  --paper-3:     #E8DCC4;  /* tan ivory */
+
+  /* Sub-brand per-event */
+  --slovenia:    var(--fern);
+  --germany:     var(--caramel);
+  --tuscany:     var(--red-wine);
+
+  /* Typography (brandbook) */
+  --font-display: 'DM Sans', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --font-sans:    'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-extra-slovenia: 'Questrial', var(--font-sans);
+  --font-extra-germany:  'Germania One', var(--font-sans);
+  --font-extra-tuscany:  'DM Serif Display', Georgia, 'Times New Roman', serif;
+
+  /* Type scale (mobile-first) */
+  --fs-xs:   11px;
+  --fs-sm:   13px;
+  --fs-base: 15px;
+  --fs-md:   17px;
+  --fs-lg:   20px;
+  --fs-xl:   26px;
+  --fs-2xl:  34px;
+  --fs-3xl:  48px;
+  --fs-4xl:  64px;
+  --fs-5xl:  88px;
+
+  /* Spacing */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+
+  --container: 1200px;
+  --container-narrow: 720px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --fs-2xl: 44px;
+    --fs-3xl: 64px;
+    --fs-4xl: 88px;
+    --fs-5xl: 120px;
+  }
+}
+
+/* ============================================================
+   Base reset
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  color: var(--espresso);
+  background-color: var(--paper-1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+}
+
+main, section, article { max-width: 100%; }
+img, video, svg { max-width: 100%; height: auto; }
+
+/* Organic paper texture — fixed layers behind content */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Layer 1: radial warm gradients + fiber noise */
+body::before {
+  background:
+    radial-gradient(1200px 800px at 20% 10%, var(--paper-2) 0%, transparent 60%),
+    radial-gradient(900px 600px at 90% 80%, var(--paper-3) 0%, transparent 55%);
+}
+
+/* Layer 2: impurity flecks + fiber grain (tiled SVG) */
+body::after {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><g fill='%238B5E3C' opacity='0.55'><circle cx='42' cy='78' r='1.4'/><circle cx='120' cy='34' r='0.9'/><circle cx='188' cy='102' r='1.7'/><circle cx='258' cy='44' r='0.7'/><circle cx='332' cy='92' r='1.3'/><circle cx='412' cy='58' r='1.1'/><circle cx='488' cy='120' r='1.6'/><circle cx='552' cy='64' r='0.9'/><circle cx='82' cy='188' r='1.2'/><circle cx='164' cy='222' r='0.8'/><circle cx='244' cy='176' r='1.5'/><circle cx='320' cy='248' r='1.0'/><circle cx='404' cy='192' r='0.7'/><circle cx='478' cy='258' r='1.4'/><circle cx='568' cy='210' r='1.0'/><circle cx='34' cy='318' r='1.6'/><circle cx='128' cy='362' r='0.8'/><circle cx='212' cy='304' r='1.2'/><circle cx='296' cy='354' r='0.9'/><circle cx='388' cy='322' r='1.7'/><circle cx='462' cy='388' r='1.0'/><circle cx='548' cy='346' r='1.3'/><circle cx='66' cy='452' r='0.9'/><circle cx='152' cy='498' r='1.5'/><circle cx='236' cy='432' r='1.1'/><circle cx='324' cy='478' r='0.7'/><circle cx='408' cy='442' r='1.4'/><circle cx='496' cy='516' r='1.0'/><circle cx='580' cy='468' r='0.8'/></g><g fill='%236B4423' opacity='0.45'><ellipse cx='94' cy='142' rx='2.8' ry='1.1' transform='rotate(22 94 142)'/><ellipse cx='278' cy='212' rx='3.4' ry='1.3' transform='rotate(-38 278 212)'/><ellipse cx='442' cy='138' rx='2.2' ry='0.9' transform='rotate(66 442 138)'/><ellipse cx='118' cy='386' rx='3.1' ry='1.2' transform='rotate(14 118 386)'/><ellipse cx='354' cy='412' rx='2.6' ry='1.0' transform='rotate(-52 354 412)'/><ellipse cx='522' cy='282' rx='3.6' ry='1.4' transform='rotate(80 522 282)'/><ellipse cx='208' cy='552' rx='2.4' ry='1.0' transform='rotate(-24 208 552)'/><ellipse cx='448' cy='564' rx='3.0' ry='1.2' transform='rotate(44 448 564)'/></g><g fill='%23A67244' opacity='0.42'><circle cx='22' cy='240' r='0.6'/><circle cx='176' cy='72' r='0.5'/><circle cx='356' cy='18' r='0.7'/><circle cx='532' cy='42' r='0.6'/><circle cx='64' cy='522' r='0.5'/><circle cx='266' cy='586' r='0.7'/><circle cx='512' cy='580' r='0.6'/></g></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.25  0 0 0 0 0.15  0 0 0 0.14 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 600px 600px, 220px 220px;
+  background-repeat: repeat, repeat;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
+
+/* Typography — brandbook: DM Sans Bold for headers, Inter for body */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  color: var(--red-wine);
+  text-transform: uppercase;
+}
+
+a { color: inherit; text-decoration: none; }
+img, video, svg { display: block; max-width: 100%; height: auto; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+/* Utilities */
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--sp-5); position: relative; }
+.container-narrow { max-width: var(--container-narrow); margin: 0 auto; padding: 0 var(--sp-5); position: relative; }
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.015em;
+}
+
+.font-germania { font-family: var(--font-extra-germany); font-weight: 400; letter-spacing: 0.01em; }
+.font-questrial { font-family: var(--font-extra-slovenia); font-weight: 400; letter-spacing: 0; }
+
+.kicker {
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--fern);
+}
+
+.cta-pill {
+  display: inline-flex; align-items: center; gap: 0.4em;
+  padding: 0.85em 1.4em;
+  font-family: var(--font-display); font-size: var(--fs-sm); font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  border-radius: 999px; transition: transform 160ms var(--ease-out), filter 160ms;
+}
+.cta-pill:hover { transform: translateY(-1px); filter: brightness(1.08); }
+
+.cta-primary { background: var(--red-wine); color: #fff; }
+.cta-on-dark { background: var(--paper-1); color: var(--espresso); }
+.cta-outline { border: 1px solid currentColor; }
+
+/* Reveal (only when JS is active) */
+.js .sr { opacity: 0; transform: translateY(20px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+.js .sr.visible { opacity: 1; transform: translateY(0); }
+.js .sr.d1 { transition-delay: 120ms; }
+.js .sr.d2 { transition-delay: 240ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

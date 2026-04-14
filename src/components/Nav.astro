@@ -1,0 +1,45 @@
+---
+interface Props { theme?: 'dark' | 'light'; }
+const { theme = 'light' } = Astro.props;
+---
+<nav class:list={['nav', theme]}>
+  <a href="/" class="nav-logo" aria-label="The Grand Escape — home">
+    <img src="/brand/tge-logo-dark.png" alt="The Grand Escape" width="200" height="68" />
+  </a>
+  <div class="nav-links">
+    <a href="/#escapes">Escapes</a>
+    <a href="/#signup" class="nav-cta">Get the guide</a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.8rem 1.25rem;
+    background: rgba(243, 236, 224, 0.82);
+    backdrop-filter: saturate(1.2) blur(10px);
+    -webkit-backdrop-filter: saturate(1.2) blur(10px);
+    border-bottom: 1px solid rgba(107,68,35,0.12);
+  }
+  .nav.dark {
+    background: rgba(44, 31, 21, 0.72);
+    border-bottom-color: rgba(243,236,224,0.1);
+  }
+  .nav-logo img { height: 34px; width: auto; }
+  .nav.dark .nav-logo img { filter: brightness(0) invert(1); }
+  .nav-links { display: flex; align-items: center; gap: 1.25rem; font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .nav-links a { color: var(--red-wine); }
+  .nav.dark .nav-links a { color: var(--paper-1); }
+  .nav-cta {
+    padding: 0.55em 1em;
+    background: var(--red-wine);
+    color: #fff !important;
+    border-radius: 999px;
+    font-size: 0.75rem; letter-spacing: 0.12em;
+  }
+  @media (max-width: 520px) {
+    .nav-logo img { height: 28px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+</style>

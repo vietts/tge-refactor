@@ -1,0 +1,52 @@
+---
+interface Props {
+  imageBg?: string;
+  caption?: string;
+  height?: 'sm' | 'md' | 'lg';
+  accentColor?: string;
+}
+const { imageBg, caption, height = 'md', accentColor } = Astro.props;
+const bg = imageBg ?? 'radial-gradient(ellipse at 50% 40%, #c9d9e6 0%, transparent 55%), linear-gradient(160deg, #4a6a8a 0%, #1a2a3d 100%)';
+---
+<figure class:list={['pbreak', `h-${height}`]} style={`background:${bg};${accentColor ? `--accent:${accentColor}` : ''}`}>
+  <div class="pbreak-fade" aria-hidden="true"></div>
+  {caption && (
+    <figcaption class="pbreak-cap">
+      <span class="dot" aria-hidden="true">●</span>
+      <span>{caption}</span>
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .pbreak {
+    position: relative;
+    width: 100%;
+    background-size: cover; background-position: center;
+    display: flex; align-items: flex-end;
+    padding: 1.25rem;
+    overflow: hidden;
+  }
+  .h-sm { aspect-ratio: 16 / 7; min-height: 220px; }
+  .h-md { aspect-ratio: 16 / 9; min-height: 300px; }
+  .h-lg { aspect-ratio: 4 / 5; min-height: 380px; }
+
+  .pbreak-fade {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(44,31,21,0.55) 100%);
+  }
+  .pbreak-cap {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--paper-1);
+  }
+  .pbreak-cap .dot { color: var(--accent, var(--caramel)); font-size: 0.7em; }
+
+  @media (min-width: 720px) {
+    .h-sm { aspect-ratio: 21 / 7; min-height: 280px; }
+    .h-md { aspect-ratio: 21 / 9; min-height: 420px; }
+    .h-lg { aspect-ratio: 16 / 9; min-height: 520px; }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  body: string;
+  caption: string;
+  alt?: boolean;
+  imageBg?: string;
+}
+
+const { number, title, body, caption, alt = false, imageBg } = Astro.props;
+
+const bgMap: Record<string, string> = {
+  '01': 'radial-gradient(ellipse at 50% 40%, #8fa862 0%, transparent 55%), linear-gradient(180deg, #3a5028 0%, #0e1808 100%)',
+  '02': 'radial-gradient(ellipse at 40% 40%, #d48a42 0%, transparent 55%), linear-gradient(180deg, #6b4228 0%, #2e1808 100%)',
+  '03': 'radial-gradient(ellipse at 60% 40%, #a8c0e0 0%, transparent 55%), linear-gradient(180deg, #1D3B5F 0%, #0a1a30 100%)',
+  '04': 'radial-gradient(ellipse at 45% 40%, #c44642 0%, transparent 55%), linear-gradient(180deg, #6b1c1a 0%, #2e0808 100%)',
+};
+const bg = imageBg ?? bgMap[number] ?? bgMap['01'];
+---
+<article class:list={['valblock', { alt }]}>
+  <div class="val-img" style={`background:${bg}`}>
+    <span class="val-num display">{number}</span>
+    <span class="val-cap">● {caption}</span>
+  </div>
+  <div class="val-text sr">
+    <h3 class="val-title display">{title}</h3>
+    <p class="val-body">{body}</p>
+  </div>
+</article>
+
+<style>
+  .valblock { display: grid; grid-template-columns: 1fr; position: relative; }
+  .valblock.alt { }
+  .val-img {
+    position: relative; aspect-ratio: 16/10;
+    min-height: 220px;
+    background-size: cover; background-position: center;
+  }
+  .val-num {
+    position: absolute; top: 1rem; left: 1.25rem;
+    font-size: 3rem; line-height: 1; color: rgba(255,255,255,0.85);
+  }
+  .val-cap {
+    position: absolute; bottom: 0.75rem; right: 1rem;
+    font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #fff; opacity: 0.85; font-weight: 600;
+  }
+  .val-text { padding: var(--sp-6) var(--sp-5) var(--sp-7); }
+  .val-title {
+    font-size: var(--fs-2xl); line-height: 0.95; color: var(--red-wine); margin-bottom: 0.75rem;
+  }
+  .val-body { font-family: var(--font-body); font-size: 1rem; line-height: 1.65; color: var(--espresso); max-width: 58ch; }
+
+  @media (min-width: 900px) {
+    .valblock { grid-template-columns: 1fr 1fr; align-items: stretch; }
+    .valblock.alt .val-img { order: 2; }
+    .val-img { aspect-ratio: auto; min-height: 420px; }
+    .val-text { display: flex; flex-direction: column; justify-content: center; padding: var(--sp-8) var(--sp-7); }
+  }
+</style>

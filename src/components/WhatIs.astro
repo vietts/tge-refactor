@@ -1,0 +1,36 @@
+---
+interface Props {
+  kicker: string;
+  title: string;
+  body: string;
+  statNumber: string;
+  statLabel: string;
+  since: string;
+}
+const { kicker, title, body, statNumber, statLabel, since } = Astro.props;
+---
+<section class="whatis">
+  <div class="container-narrow whatis-inner sr">
+    <div class="kicker whatis-kicker">{kicker}</div>
+    <h2 class="whatis-title display">{title}</h2>
+    <p class="whatis-body">{body}</p>
+
+    <div class="stat">
+      <div class="stat-num display">{statNumber}</div>
+      <div class="stat-lbl serif">{statLabel}</div>
+      <div class="stat-since kicker">{since}</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .whatis { padding: var(--sp-8) 0; position: relative; }
+  .whatis-inner { text-align: center; }
+  .whatis-kicker { color: var(--fern); margin-bottom: 1rem; }
+  .whatis-title { font-size: var(--fs-3xl); color: var(--red-wine); margin-bottom: 1rem; }
+  .whatis-body { max-width: 58ch; margin: 0 auto 2.5rem; color: var(--espresso); line-height: 1.65; text-align: left; }
+  .stat { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+  .stat-num { font-size: var(--fs-5xl); line-height: 0.88; color: var(--red-wine); }
+  .stat-lbl { font-family: var(--font-body); font-size: 1.05rem; color: var(--navy); font-weight: 600; }
+  .stat-since { color: var(--fern); margin-top: 0.25rem; }
+</style>
