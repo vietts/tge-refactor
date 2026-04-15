@@ -103,6 +103,7 @@ const events = eventsCollection
         title={v.title}
         body={v.body}
         caption={v.caption}
+        image={v.image}
         alt={i % 2 === 1}
       />
     ))}
@@ -113,6 +114,7 @@ const events = eventsCollection
     imageCaption={hub.origin.imageCaption}
     title={hub.origin.title}
     body={hub.origin.body}
+    image={hub.origin.image}
   />
 
   <BrevoForm

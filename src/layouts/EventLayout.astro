@@ -19,9 +19,11 @@ type EventFontKey = 'germania' | 'questrial' | 'tuscany';
 type IconKey = 'calendar' | 'pin' | 'loop' | 'road' | 'clock' | 'mountain';
 
 interface Fact { icon: IconKey; label: string; value: string; sub?: string }
-interface Place { name: string; description: string; size?: 'sm' | 'md' | 'lg' }
+interface Place { name: string; description: string; size?: 'sm' | 'md' | 'lg'; image?: string }
 interface Testi { quote: string; author: string; event?: string }
 interface FaqItem { q: string; a: string }
+interface PhotoSplitSide { title: string; body: string; caption: string; image?: string }
+interface PhotoBreakItem { caption?: string; image?: string }
 interface PageEvent {
   name: string;
   dateLabel: string;
@@ -32,10 +34,13 @@ interface PageEvent {
   distanceKm: number;
   brevoSegment: 'slovenia' | 'germany' | 'tuscany';
   philosophyQuote?: string;
+  heroImage?: string;
   places?: Place[];
   included?: string[];
   testimonials?: Testi[];
   faq?: FaqItem[];
+  photoSplits?: { day: PhotoSplitSide; quiet: PhotoSplitSide };
+  photoBreaks?: { included?: PhotoBreakItem; testimonials?: PhotoBreakItem; faq?: PhotoBreakItem };
 }
 interface TrustData {
   label: string;
@@ -80,6 +85,28 @@ const {
 
 const accent = event.subBrandColor;
 
+// Prefer frontmatter photoSplits (CMS-editable new shape { day, quiet }); fall back to legacy prop shape.
+const splits = event.photoSplits
+  ? {
+      dayTitle: event.photoSplits.day.title,
+      dayBody: event.photoSplits.day.body,
+      dayCaption: event.photoSplits.day.caption,
+      dayImage: event.photoSplits.day.image,
+      quietTitle: event.photoSplits.quiet.title,
+      quietBody: event.photoSplits.quiet.body,
+      quietCaption: event.photoSplits.quiet.caption,
+      quietImage: event.photoSplits.quiet.image,
+    }
+  : photoSplits
+  ? { ...photoSplits, dayImage: undefined, quietImage: undefined }
+  : null;
+
+const breaks = {
+  included: event.photoBreaks?.included ?? { caption: photoBreakCaptions.included },
+  testimonials: event.photoBreaks?.testimonials ?? { caption: photoBreakCaptions.testimonials },
+  faq: event.photoBreaks?.faq ?? { caption: photoBreakCaptions.faq },
+};
+
 const fontClassMap: Record<EventFontKey, string> = {
   germania: 'font-event-germania',
   questrial: 'font-event-questrial',
@@ -103,6 +130,7 @@ const fontClass = fontClassMap[titleFont];
       ctaLabel={waitlistCtaLabel}
       ctaHref="#signup"
       subBrandColor={accent}
+      image={event.heroImage}
     >
       <slot name="mascot" slot="mascot" />
     </Hero>
@@ -145,12 +173,13 @@ const fontClass = fontClassMap[titleFont];
 
     <slot name="mdx-copy" />
 
-    {photoSplits && (
+    {splits && (
       <PhotoSplit
         kicker="A day on the road"
-        title={photoSplits.dayTitle}
-        body={photoSplits.dayBody}
-        imageCaption={photoSplits.dayCaption}
+        title={splits.dayTitle}
+        body={splits.dayBody}
+        imageCaption={splits.dayCaption}
+        image={splits.dayImage}
         accentColor={accent}
       />
     )}
@@ -166,7 +195,8 @@ const fontClass = fontClassMap[titleFont];
 
     <PhotoBreak
       height="md"
-      caption={photoBreakCaptions.included ?? 'On the road'}
+      caption={breaks.included.caption ?? 'On the road'}
+      image={breaks.included.image}
       accentColor={accent}
     />
 
@@ -180,7 +210,8 @@ const fontClass = fontClassMap[titleFont];
 
     <PhotoBreak
       height="md"
-      caption={photoBreakCaptions.testimonials ?? 'Early light'}
+      caption={breaks.testimonials.caption ?? 'Early light'}
+      image={breaks.testimonials.image}
       accentColor={accent}
     />
 
@@ -199,13 +230,14 @@ const fontClass = fontClassMap[titleFont];
       accentColor={accent}
     />
 
-    {photoSplits && (
+    {splits && (
       <PhotoSplit
         reverse
         kicker="The quiet between climbs"
-        title={photoSplits.quietTitle}
-        body={photoSplits.quietBody}
-        imageCaption={photoSplits.quietCaption}
+        title={splits.quietTitle}
+        body={splits.quietBody}
+        imageCaption={splits.quietCaption}
+        image={splits.quietImage}
         accentColor={accent}
       />
     )}
@@ -225,7 +257,8 @@ const fontClass = fontClassMap[titleFont];
 
     <PhotoBreak
       height="sm"
-      caption={photoBreakCaptions.faq ?? 'See you on the road'}
+      caption={breaks.faq.caption ?? 'See you on the road'}
+      image={breaks.faq.image}
       accentColor={accent}
     />
 

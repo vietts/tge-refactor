@@ -12,6 +12,7 @@ interface Props {
   subBrandColor?: string;
   dateLabel?: string;
   statusLabel?: string;
+  image?: string;
 }
 
 const {
@@ -27,9 +28,14 @@ const {
   subBrandColor,
   dateLabel,
   statusLabel,
+  image,
 } = Astro.props;
+const heroStyle = [
+  subBrandColor ? `--accent:${subBrandColor}` : '',
+  image ? `background-image:url('${image}');background-size:cover;background-position:center;` : '',
+].filter(Boolean).join(';');
 ---
-<section class:list={['hero', variant]} style={subBrandColor ? `--accent:${subBrandColor}` : undefined}>
+<section class:list={['hero', variant]} style={heroStyle || undefined}>
   {videoSrc && (
     <video class="hero-video" autoplay muted loop playsinline poster={posterSrc} aria-hidden="true">
       <source src={videoSrc} type="video/webm" />
@@ -97,7 +103,7 @@ const {
   .hero-content { position: relative; z-index: 3; max-width: 720px; width: 100%; margin: 0 auto; }
   .hero-kicker { color: var(--caramel); margin-bottom: 1rem; }
   .hero-serif { font-family: var(--font-body); font-size: var(--fs-lg); line-height: 1.4; margin-bottom: 1rem; color: rgba(243,236,224,0.9); }
-  .hero-huge { font-size: var(--fs-5xl); line-height: 0.92; color: var(--paper-1); }
+  .hero-huge { font-size: var(--fs-4xl); line-height: 0.95; color: var(--paper-1); text-transform: none; letter-spacing: -0.02em; max-width: 18ch; }
 
   .hero.event { align-items: flex-end; }
   .hero-event-name { font-size: var(--fs-5xl); line-height: 0.92; color: var(--accent, var(--paper-1)); }

@@ -1,12 +1,13 @@
 ---
 interface Props {
   imageBg?: string;
+  image?: string;
   caption?: string;
   height?: 'sm' | 'md' | 'lg';
   accentColor?: string;
 }
-const { imageBg, caption, height = 'md', accentColor } = Astro.props;
-const bg = imageBg ?? 'radial-gradient(ellipse at 50% 40%, #c9d9e6 0%, transparent 55%), linear-gradient(160deg, #4a6a8a 0%, #1a2a3d 100%)';
+const { imageBg, image, caption, height = 'md', accentColor } = Astro.props;
+const bg = image ? `url('${image}') center/cover no-repeat` : (imageBg ?? 'radial-gradient(ellipse at 50% 40%, #c9d9e6 0%, transparent 55%), linear-gradient(160deg, #4a6a8a 0%, #1a2a3d 100%)');
 ---
 <figure class:list={['pbreak', `h-${height}`]} style={`background:${bg};${accentColor ? `--accent:${accentColor}` : ''}`}>
   <div class="pbreak-fade" aria-hidden="true"></div>

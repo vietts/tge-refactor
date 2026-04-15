@@ -1,7 +1,7 @@
 manifesto:
   kicker: "No race · Just riding"
-  serif: "Leave the KOMs behind."
-  huge: "JUST RIDE."
+  serif: "Three routes across Europe. You ride at your pace — no rankings, no cutoffs, no clock."
+  huge: "Road bikepacking, without the race."
   cta: "Get the free guide"
   ctaHref: "#signup"
   videoSrc: "/video/hero-loop.webm"
@@ -22,7 +22,7 @@ documentarySecondary:
 whatIs:
   kicker: "What is The Grand Escape"
   title: "Three escapes. Zero KOMs."
-  body: "Three bikepacking road events without rankings, time trials, or wanna-be pro stuff. Leave the KOMs behind and ride with your head held high, watching what nature has to offer. Join like-minded people on the most beautiful roads of Europe."
+  body: "Three road bikepacking events. No rankings, no time trials, no wanna-be pro stuff. Ride with your head up, watch the landscape go by, and share the road with people who get it. Backroads, cycle paths, hills, mountain passes across Europe."
   statNumber: "3,000+"
   statLabel: "riders who've joined us"
   since: "Since 2023"
@@ -34,7 +34,7 @@ testimonials:
     - quote: "Best trip I've ever done. Already signed up for next year."
       author: "Marco"
       event: "Slovenia 2025"
-    - quote: "The route was unreal — quiet backroads, perfect pace, no ego. Exactly what I needed."
+    - quote: "Quiet backroads, perfect pace, no ego. Exactly what I needed."
       author: "Hanna"
       event: "Germany 2025"
     - quote: "I came for the cycling and left with new friends. The media team caught moments I'll keep forever."

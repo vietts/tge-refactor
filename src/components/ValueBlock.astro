@@ -6,9 +6,10 @@ interface Props {
   caption: string;
   alt?: boolean;
   imageBg?: string;
+  image?: string;
 }
 
-const { number, title, body, caption, alt = false, imageBg } = Astro.props;
+const { number, title, body, caption, alt = false, imageBg, image } = Astro.props;
 
 const bgMap: Record<string, string> = {
   '01': 'radial-gradient(ellipse at 50% 40%, #8fa862 0%, transparent 55%), linear-gradient(180deg, #3a5028 0%, #0e1808 100%)',
@@ -16,7 +17,7 @@ const bgMap: Record<string, string> = {
   '03': 'radial-gradient(ellipse at 60% 40%, #a8c0e0 0%, transparent 55%), linear-gradient(180deg, #1D3B5F 0%, #0a1a30 100%)',
   '04': 'radial-gradient(ellipse at 45% 40%, #c44642 0%, transparent 55%), linear-gradient(180deg, #6b1c1a 0%, #2e0808 100%)',
 };
-const bg = imageBg ?? bgMap[number] ?? bgMap['01'];
+const bg = image ? `url('${image}') center/cover no-repeat` : (imageBg ?? bgMap[number] ?? bgMap['01']);
 ---
 <article class:list={['valblock', { alt }]}>
   <div class="val-img" style={`background:${bg}`}>

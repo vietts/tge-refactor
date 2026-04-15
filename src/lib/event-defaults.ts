@@ -29,6 +29,6 @@ export const credoPillars = [
   },
   {
     title: 'Your pace, your time',
-    body: "No fixed times, no checkpoints, no cut-offs. Take 4 days or take a week. You decide where to sleep, where to eat, when to stop. The definitive unsupported bikepacking experience — your way.",
+    body: "No fixed times, no checkpoints, no cut-offs. Ride it fast or ride it slow. The route doesn't care. You decide where to sleep, where to eat, when to stop. The definitive unsupported bikepacking experience — your way.",
   },
 ];

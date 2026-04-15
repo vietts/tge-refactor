@@ -15,6 +15,7 @@ const { facts, accentColor } = Astro.props;
   <div class="facts-grid">
     {facts.map((f) => (
       <div class="fact sr">
+        <div class="fact-head">
         <div class="fact-icon" aria-hidden="true">
           {f.icon === 'calendar' && (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg>
@@ -36,8 +37,11 @@ const { facts, accentColor } = Astro.props;
           )}
         </div>
         <div class="fact-label">{f.label}</div>
-        <div class="fact-value">{f.value}</div>
-        {f.sub && <div class="fact-sub">{f.sub}</div>}
+        </div>
+        <div class="fact-body">
+          <div class="fact-value">{f.value}</div>
+          {f.sub && <div class="fact-sub">{f.sub}</div>}
+        </div>
       </div>
     ))}
   </div>
@@ -54,43 +58,63 @@ const { facts, accentColor } = Astro.props;
   }
   .facts-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5rem 1rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
     max-width: 1100px; margin: 0 auto;
   }
+  /* Mobile: horizontal row — icon+label left, value+sub right — equal weight per row */
   .fact {
-    display: flex; flex-direction: column; align-items: flex-start;
-    gap: 0.4rem;
-    text-align: left;
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(44,31,21,0.12);
   }
+  .fact:last-child { border-bottom: 0; }
+  .fact-head { display: flex; align-items: center; gap: 0.55rem; }
+  .fact-body { min-width: 0; }
+
   .fact-icon {
-    width: 32px; height: 32px;
+    width: 22px; height: 22px;
     color: var(--espresso);
     opacity: 0.85;
+    flex-shrink: 0;
   }
   .fact-icon svg { width: 100%; height: 100%; }
   .fact-label {
     font-family: var(--font-display); font-weight: 700;
-    font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--espresso); opacity: 0.65;
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--espresso); opacity: 0.7;
   }
   .fact-value {
     font-family: var(--font-display); font-weight: 800;
-    font-size: 1.35rem; line-height: 1.05;
-    letter-spacing: -0.01em;
+    font-size: 1rem; line-height: 1.15;
+    letter-spacing: -0.005em;
     color: var(--espresso);
     text-transform: uppercase;
   }
   .fact-sub {
     font-family: var(--font-body);
-    font-size: 0.82rem; line-height: 1.3;
-    color: var(--espresso); opacity: 0.75;
+    font-size: 0.78rem; line-height: 1.3;
+    color: var(--espresso); opacity: 0.7;
+    margin-top: 0.15rem;
   }
 
+  /* Desktop: 4-column vertical cards — icon on top, label, value, sub */
   @media (min-width: 720px) {
     .facts { padding: var(--sp-7) var(--sp-5); }
     .facts-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem 1.5rem; }
+    .fact {
+      display: flex; flex-direction: column; align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0;
+      border-bottom: 0;
+    }
+    .fact-head { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
     .fact-icon { width: 40px; height: 40px; }
+    .fact-label { font-size: 0.68rem; letter-spacing: 0.22em; opacity: 0.65; }
     .fact-value { font-size: 1.55rem; }
+    .fact-sub { font-size: 0.82rem; margin-top: 0; }
   }
 </style>

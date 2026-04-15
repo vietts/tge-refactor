@@ -6,17 +6,18 @@ interface Props {
   imageBg?: string;
   imageAlt?: string;
   imageCaption?: string;
+  image?: string;
   reverse?: boolean;
   accentColor?: string;
 }
 const {
   kicker, title, body,
-  imageBg, imageCaption,
+  imageBg, imageCaption, image,
   reverse = false,
   accentColor,
 } = Astro.props;
 
-const bg = imageBg ?? 'radial-gradient(ellipse at 50% 40%, #d9b87a 0%, transparent 55%), linear-gradient(160deg, #8a5830 0%, #3e2815 100%)';
+const bg = image ? `url('${image}') center/cover no-repeat` : (imageBg ?? 'radial-gradient(ellipse at 50% 40%, #d9b87a 0%, transparent 55%), linear-gradient(160deg, #8a5830 0%, #3e2815 100%)');
 ---
 <section class:list={['psplit', { reverse }]} style={accentColor ? `--accent:${accentColor}` : undefined}>
   <div class="psplit-image sr" style={`background:${bg}`}>

@@ -3,6 +3,7 @@ interface Place {
   name: string;
   description: string;
   size?: 'sm' | 'md' | 'lg';
+  image?: string;
 }
 interface Props {
   kicker: string;
@@ -35,7 +36,7 @@ const gradients = [
     <div class="bento">
       {places.map((p, i) => (
         <article class:list={['cell', `cell-${p.size ?? 'md'}`]}
-                 style={`background:${gradients[i % gradients.length]}`}>
+                 style={`background:${p.image ? `url('${p.image}') center/cover no-repeat` : gradients[i % gradients.length]}`}>
           <div class="cell-top">
             <span class="cell-num">{String(i + 1).padStart(2, '0')}</span>
           </div>

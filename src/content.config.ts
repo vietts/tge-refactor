@@ -1,9 +1,21 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const photoSplitSide = z.object({
+  title: z.string(),
+  body: z.string(),
+  caption: z.string(),
+  image: z.string().optional(),
+});
+
+const photoBreakItem = z.object({
+  caption: z.string().optional(),
+  image: z.string().optional(),
+});
+
 const events = defineCollection({
   loader: glob({ pattern: '*/index.mdx', base: './src/content/events' }),
-  schema: ({ image }) =>
+  schema: () =>
     z.object({
       slug: z.enum(['slovenia', 'germany', 'tuscany']),
       order: z.number(),
@@ -18,9 +30,9 @@ const events = defineCollection({
       status: z.enum(['open', 'limited', 'sold']),
       statusLabel: z.string(),
       subBrandColor: z.string(),
-      heroImage: image().optional(),
+      heroImage: z.string().optional(),
       heroImageAlt: z.string().optional(),
-      mascotImage: image().optional(),
+      mascotImage: z.string().optional(),
       registrationUrl: z.string().url().optional(),
       brevoListId: z.number().optional(),
       brevoSegment: z.string(),
@@ -35,6 +47,7 @@ const events = defineCollection({
             name: z.string(),
             description: z.string(),
             size: z.enum(['sm', 'md', 'lg']).optional(),
+            image: z.string().optional(),
           })
         )
         .optional(),
@@ -50,6 +63,19 @@ const events = defineCollection({
         .optional(),
       faq: z
         .array(z.object({ q: z.string(), a: z.string() }))
+        .optional(),
+      photoSplits: z
+        .object({
+          day: photoSplitSide,
+          quiet: photoSplitSide,
+        })
+        .optional(),
+      photoBreaks: z
+        .object({
+          included: photoBreakItem.optional(),
+          testimonials: photoBreakItem.optional(),
+          faq: photoBreakItem.optional(),
+        })
         .optional(),
     }),
 });
@@ -112,6 +138,7 @@ const hub = defineCollection({
           title: z.string(),
           body: z.string(),
           caption: z.string(),
+          image: z.string().optional(),
         })
       ),
       threeEscapes: z.object({
@@ -123,6 +150,7 @@ const hub = defineCollection({
         imageCaption: z.string(),
         title: z.string(),
         body: z.array(z.string()),
+        image: z.string().optional(),
       }),
       signup: z.object({
         kicker: z.string(),

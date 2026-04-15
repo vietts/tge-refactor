@@ -5,9 +5,10 @@ interface Props {
   title: string;
   body: string[];
   imageBg?: string;
+  image?: string;
 }
-const { kicker, imageCaption, title, body, imageBg } = Astro.props;
-const bg = imageBg ?? 'radial-gradient(ellipse at 30% 40%, #d48a42 0%, transparent 60%), linear-gradient(180deg, #6b4228 0%, #2e1808 100%)';
+const { kicker, imageCaption, title, body, imageBg, image } = Astro.props;
+const bg = image ? `url('${image}') center/cover no-repeat` : (imageBg ?? 'radial-gradient(ellipse at 30% 40%, #d48a42 0%, transparent 60%), linear-gradient(180deg, #6b4228 0%, #2e1808 100%)');
 ---
 <section class="origin">
   <div class="origin-image sr" style={`background:${bg}`}>

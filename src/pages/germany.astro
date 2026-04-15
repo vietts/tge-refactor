@@ -19,42 +19,21 @@ const hub = (await getEntry('hub', 'main'))!.data;
   waitlistCtaLabel="Join the waitlist"
   signupBenefits={signupBenefits}
   factsBar={[
-    { icon: 'calendar', label: 'When',     value: '5 Sep 2026',                  sub: '4 days of riding' },
+    { icon: 'calendar', label: 'When',     value: '5 Sep 2026' },
     { icon: 'pin',      label: 'Where',    value: 'Innsbruck, Austria',          sub: 'Through Tyrol & Bavaria' },
     { icon: 'loop',     label: 'Format',   value: 'Loop · same start & finish',  sub: 'One base, no shuttle' },
-    { icon: 'road',     label: 'Distance', value: '500 km · all tarmac',         sub: 'Moderate difficulty' },
+    { icon: 'road',     label: 'Distance', value: '~500 km · ~7,000 m D+' },
   ]}
   credoIntro={credoIntro}
   credoPillars={credoPillars}
-  photoBreakCaptions={{
-    included: 'Above Achensee, day 3',
-    testimonials: 'Early light, Allgäu',
-    faq: 'Finish line — see you in September',
-  }}
-  photoSplits={{
-    dayTitle: 'Coffee, climbs, and no hurry',
-    dayBody: "You wake up in a mountain village. Pastries and espresso on a sunlit terrace. You spin out gently, chatting with the rider you met yesterday. By noon you're cooling your legs at the edge of a lake. Afternoon: one climb, then a long downhill to tonight's guesthouse. Dinner is loud. Everyone sleeps well.",
-    dayCaption: 'Morning espresso, Seefeld',
-    quietTitle: "You'll remember the silences",
-    quietBody: "Not the numbers. Not the distance, not the D+. What stays with you, months later, is the minute at the top of the pass before the descent. The cowbells in the Allgäu. The sound of coffee cups on a hut terrace at 1,800 metres. That's what this event is for.",
-    quietCaption: 'Pass summit, afternoon light',
-  }}
 >
-  <svg slot="mascot" class="event-mascot" style="color: var(--caramel);" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M 58 24 Q 70 8, 82 24 L 82 30 L 58 30 Z" />
-      <path d="M 54 30 L 86 30" stroke-width="4" />
-      <path d="M 56 34 L 84 34" stroke-width="2" opacity="0.7" />
-      <path d="M 78 22 Q 88 14, 94 22 Q 90 20, 86 22" />
-      <path d="M 40 88 C 18 80, 18 52, 40 48 C 58 46, 66 62, 70 70 C 74 62, 82 46, 100 48 C 122 52, 122 80, 100 88" />
-      <path d="M 55 76 C 65 90, 75 90, 85 76" />
-      <circle cx="36" cy="64" r="1.5" fill="currentColor" stroke="none" />
-      <circle cx="70" cy="60" r="1.5" fill="currentColor" stroke="none" />
-      <circle cx="104" cy="64" r="1.5" fill="currentColor" stroke="none" />
-      <circle cx="50" cy="82" r="1.5" fill="currentColor" stroke="none" />
-      <circle cx="90" cy="82" r="1.5" fill="currentColor" stroke="none" />
-    </g>
-  </svg>
+  <img
+    slot="mascot"
+    src="/brand/mascot-pretzel.svg"
+    alt="Pretzel — Germany mascot"
+    class="event-mascot event-mascot-img"
+    loading="lazy"
+  />
 
   <section slot="mdx-copy" class="event-copy-wrap">
     <div class="container-narrow sr">
