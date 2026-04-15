@@ -25,7 +25,6 @@ const events = defineCollection({
       dateLabel: z.string(),
       distanceKm: z.number(),
       elevationD: z.number(),
-      days: z.number(),
       quote: z.string(),
       status: z.enum(['open', 'limited', 'sold']),
       statusLabel: z.string(),
@@ -39,7 +38,6 @@ const events = defineCollection({
       tagline: z.string().optional(),
       startFinish: z.string().optional(),
       surface: z.string().optional(),
-      difficulty: z.string().optional(),
       philosophyQuote: z.string().optional(),
       places: z
         .array(

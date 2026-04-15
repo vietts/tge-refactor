@@ -19,7 +19,7 @@ content:
     path: src/content/hub/main/index.yaml
     fields:
       - name: manifesto
-        label: "1. Hero manifesto"
+        label: "Hero manifesto"
         type: object
         fields:
           - { name: kicker,     label: Kicker,                 type: string }
@@ -31,7 +31,7 @@ content:
           - { name: posterSrc,  label: "Hero video poster",    type: string }
 
       - name: signup
-        label: "2. Signup form — primary (after hero)"
+        label: "Signup — top (after hero)"
         type: object
         fields:
           - { name: kicker, label: Kicker,   type: string }
@@ -41,7 +41,7 @@ content:
           - { name: legal,  label: "Legal line", type: text }
 
       - name: documentary
-        label: "3. Primary documentary"
+        label: "Documentary — top"
         type: object
         fields:
           - { name: label,     label: "Kicker",  type: string }
@@ -50,7 +50,7 @@ content:
           - { name: youtubeId, label: "YouTube ID", type: string }
 
       - name: whatIs
-        label: "4. What is TGE"
+        label: "What is TGE"
         type: object
         fields:
           - { name: kicker,     label: Kicker,       type: string }
@@ -61,14 +61,14 @@ content:
           - { name: since,      label: "Since label", type: string }
 
       - name: threeEscapes
-        label: "5. Three escapes — head"
+        label: "Three escapes — section head"
         type: object
         fields:
           - { name: title,    label: Title,    type: string }
           - { name: subtitle, label: Subtitle, type: string }
 
       - name: documentarySecondary
-        label: "6. Secondary documentary (after events)"
+        label: "Documentary — bottom (after events)"
         type: object
         fields:
           - { name: label,     label: Kicker,    type: string }
@@ -77,7 +77,7 @@ content:
           - { name: youtubeId, label: "YouTube ID", type: string }
 
       - name: testimonials
-        label: "7. Testimonials"
+        label: "Testimonials"
         type: object
         fields:
           - { name: kicker, label: Kicker, type: string }
@@ -92,7 +92,7 @@ content:
               - { name: event,  label: "Event (e.g. Slovenia 2025)", type: string, required: false }
 
       - name: values
-        label: "8. Values (4 blocks)"
+        label: "Values (4 blocks)"
         type: object
         list: true
         fields:
@@ -103,7 +103,7 @@ content:
           - { name: image,   label: "Block image",          type: image, required: false }
 
       - name: origin
-        label: "9. Origin story"
+        label: "Origin story"
         type: object
         fields:
           - { name: kicker,       label: Kicker,         type: string }
@@ -113,7 +113,7 @@ content:
           - { name: image,        label: "Origin image", type: image, required: false }
 
       - name: signupBottom
-        label: "10. Signup form — bottom (before footer)"
+        label: "Signup — bottom (before footer)"
         type: object
         fields:
           - { name: kicker, label: Kicker,   type: string }
@@ -123,7 +123,7 @@ content:
           - { name: legal,  label: "Legal line", type: text }
 
       - name: trust
-        label: "11. Trust / Part of"
+        label: "Trust / Part of"
         type: object
         fields:
           - { name: label, label: Kicker, type: string }
@@ -153,8 +153,7 @@ content:
       - { name: dateLabel,     label: "Date label (human)", type: string }
       - { name: distanceKm,    label: "Distance (km)",  type: number }
       - { name: elevationD,    label: "Elevation D+ (m)", type: number }
-      - { name: days,          label: "Days of riding", type: number }
-      - { name: quote,         label: "Poetic quote",   type: string }
+      - { name: quote,         label: "Short tagline (shown on home event card)", type: string }
       - { name: status,        label: Status,           type: select, options: { values: [open, limited, sold] } }
       - { name: statusLabel,   label: "Status label",   type: string }
       - { name: subBrandColor, label: "Sub-brand hex color", type: string }
@@ -165,7 +164,6 @@ content:
       - { name: tagline,       label: "Tagline (serif under hero)", type: string, required: false }
       - { name: startFinish,   label: "Start/Finish (e.g. Loop from Siena)", type: string, required: false }
       - { name: surface,       label: "Surface (e.g. 70% tarmac)", type: string, required: false }
-      - { name: difficulty,    label: "Difficulty",     type: string, required: false }
       - { name: philosophyQuote, label: "Philosophy quote (section after facts)", type: text, required: false }
       - name: places
         label: "Places you'll cross (bento cells)"

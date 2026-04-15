@@ -6,14 +6,13 @@ interface Props {
   dateLabel: string;
   distanceKm: number;
   elevationD: number;
-  days: number;
   quote: string;
   status: 'open' | 'limited' | 'sold';
   statusLabel: string;
   subBrandColor: string;
 }
 
-const { slug, order, name, dateLabel, distanceKm, elevationD, days, quote, status, statusLabel, subBrandColor } = Astro.props;
+const { slug, order, name, dateLabel, distanceKm, elevationD, quote, status, statusLabel, subBrandColor } = Astro.props;
 const textOnAccent = slug === 'germany' ? '#1a1a1a' : '#fff';
 ---
 <a href={`/${slug}`} class:list={['evcard', slug]} style={`--accent:${subBrandColor};--text:${textOnAccent}`}>
