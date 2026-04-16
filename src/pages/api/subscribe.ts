@@ -14,6 +14,8 @@
  */
 
 import type { APIRoute } from 'astro';
+// @ts-expect-error virtual module provided by @astrojs/cloudflare at runtime
+import { env as cfEnv } from 'cloudflare:workers';
 
 export const prerender = false;
 
@@ -110,12 +112,11 @@ async function sendCapiLead(args: {
   return { ok: true };
 }
 
-const handlePost: APIRoute = async ({ request, locals }) => {
-  // Cloudflare runtime exposes env via locals.runtime.env (Astro adapter)
-  const runtime = (locals as { runtime?: { env?: Env } }).runtime;
-  const env: Env = runtime?.env ?? {};
+const handlePost: APIRoute = async ({ request }) => {
+  // Astro 6 + @astrojs/cloudflare exposes env via the cloudflare:workers virtual module
+  const env = cfEnv as Env;
   if (!env.BREVO_API_KEY || !env.BREVO_LIST_ID) {
-    return json({ error: 'server_misconfigured', hasRuntime: !!runtime, envKeys: Object.keys(env) }, 500);
+    return json({ error: 'server_misconfigured', envKeys: Object.keys(env ?? {}) }, 500);
   }
 
   let payload: Payload;
