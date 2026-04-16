@@ -1,121 +1,148 @@
 manifesto:
-  kicker: "No race · Just riding"
-  serif: "Three routes across Europe. You ride at your pace — no rankings, no cutoffs, no clock."
-  huge: "Road bikepacking, without the race."
-  cta: "Get the free guide"
+  kicker: No race road bikepacking event
+  serif: Three routes across Europe. You ride at your pace — no rankings, no
+    cutoffs, no clock.
+  huge: Road bikepacking, without the race.
+  cta: Get the free guide
   ctaHref: "#signup"
-  videoSrc: "/video/hero-loop.webm"
-  posterSrc: "/video/hero-poster.jpg"
-
+  videoSrc: /video/hero-loop.webm
+  posterSrc: /video/hero-poster.jpg
+signup:
+  kicker: Free · Route previews · 2027 first access
+  title: Get the Route Guides
+  body: "Route previews, packing lists, and first access to registration. "
+  cta: Send me the guide
+  legal: Powered by Brevo. No spam — unsubscribe anytime.
 documentary:
-  label: "Watch the film"
-  title: "The 2025 Documentary"
-  subtitle: "A year on the road. From Slovenia's emerald rivers to Tuscany's cypress hills."
-  youtubeId: "dQw4w9WgXcQ"
-
-documentarySecondary:
-  label: "More from the road"
-  title: "Inside a Grand Escape"
-  subtitle: "Behind the scenes: route scouting, rider stories, and the quiet moments that never make it to Strava."
-  youtubeId: "dQw4w9WgXcQ"
-
+  label: See it with your own eyes
+  title: The 2025 Documentary
+  subtitle: A year on the road. From Slovenia's emerald rivers to Tuscany's
+    cypress hills.
+  youtubeId: dQw4w9WgXcQ
 whatIs:
-  kicker: "What is The Grand Escape"
-  title: "Three escapes. Zero KOMs."
-  body: "Three road bikepacking events. No rankings, no time trials, no wanna-be pro stuff. Ride with your head up, watch the landscape go by, and share the road with people who get it. Backroads, cycle paths, hills, mountain passes across Europe."
-  statNumber: "3,000+"
-  statLabel: "riders who've joined us"
-  since: "Since 2023"
-
+  kicker: What is The Grand Escape
+  title: Three escapes. Zero KOMs.
+  body: Three road bikepacking events. No rankings, no time trials, no wanna-be
+    pro stuff. Ride with your head up, watch the landscape go by, and share the
+    road with people who get it. Backroads, cycle paths, hills, mountain passes
+    across Europe.
+  statNumber: 3,000+
+  statLabel: riders who've joined us
+  since: Since 2023
+threeEscapes:
+  title: Three escapes. Three worlds.
+  subtitle: Each one has its own color, its own mascot, its own soul.
+documentarySecondary:
+  label: More from the road
+  title: Inside a Grand Escape
+  subtitle: "Behind the scenes: route scouting, rider stories, and the quiet
+    moments that never make it to Strava."
+  youtubeId: dQw4w9WgXcQ
 testimonials:
-  kicker: "Rider voices"
-  title: "From the people who rode."
+  kicker: Rider voices
+  title: From the people who rode.
   items:
-    - quote: "Each climb takes you to a more beautiful place than the next. A true celebration of cycling."
-      author: "Francesco"
-      event: "Italy"
-    - quote: "Whoever designed this route, thank you. It pulls you into the landscape and makes you the protagonist of all that beauty. The moment you live on the bicycle becomes magical."
-      author: "Francesco"
-      event: "Italy"
-    - quote: "I had tears in my eyes more than once. The people you meet along the route are incredibly kind, helpful, friendly. The nature you experience — it's an adventure."
-      author: "Tanja"
-      event: "Austria"
-    - quote: "We were surprised by how many cycle paths there were — always protected, completely safe, never stressed by traffic."
-      author: "Celine"
-      event: "France"
-    - quote: "Taking part in an event like this is different. What I'll remember is the landscape, passing other riders I'd met the day before, stopping to talk."
-      author: "Carlos"
-      event: "Portugal"
-    - quote: "It was better than I expected — so much so that when we had to ride on roads with traffic, I was annoyed. There were so many paths just for bicycles."
-      author: "Joanne"
-      event: "United Kingdom"
-    - quote: "A good dose of rest, of recharging. These days took me right out of my daily routine. I feel more fulfilled when I'm here, even just for a few days."
-      author: "Roland"
-      event: "Hungary"
-    - quote: "The special thing about an organized event is that you just follow the route. You can't get lost, you don't have to think about right or left — you just enjoy nature, enjoy the ride, turn off your brain."
-      author: "Timo"
-      event: "Germany"
-    - quote: "Since this isn't a race but an event, everyone was helping each other. We had a flat tire and every single person stopped to ask if they could help."
-      author: "Caitlin"
-      event: "Netherlands"
-
+    - quote: Each climb takes you to a more beautiful place than the next. A true
+        celebration of cycling.
+      author: Francesco
+      event: Italy
+    - quote: I had tears in my eyes more than once. The people you meet along the
+        route are incredibly kind, helpful, friendly. The nature you experience
+        — it's an adventure.
+      author: Tanja
+      event: Austria
+    - quote: We were surprised by how many cycle paths there were — always protected,
+        completely safe, never stressed by traffic.
+      author: Celine
+      event: France
+    - quote: Taking part in an event like this is different. What I'll remember is the
+        landscape, passing other riders I'd met the day before, stopping to
+        talk.
+      author: Carlos
+      event: Portugal
+    - quote: Whoever designed this route, thank you. It pulls you into the landscape
+        and makes you the protagonist of all that beauty. The moment you live on
+        the bicycle becomes magical.
+      author: Francesco
+      event: Italy
+    - quote: It was better than I expected — so much so that when we had to ride on
+        roads with traffic, I was annoyed. There were so many paths just for
+        bicycles.
+      author: Joanne
+      event: United Kingdom
+    - quote: A good dose of rest, of recharging. These days took me right out of my
+        daily routine. I feel more fulfilled when I'm here, even just for a few
+        days.
+      author: Roland
+      event: Hungary
+    - quote: The special thing about an organized event is that you just follow the
+        route. You can't get lost, you don't have to think about right or left —
+        you just enjoy nature, enjoy the ride, turn off your brain.
+      author: Timo
+      event: Germany
+    - quote: Since this isn't a race but an event, everyone was helping each other. We
+        had a flat tire and every single person stopped to ask if they could
+        help.
+      author: Caitlin
+      event: Netherlands
 values:
   - number: "01"
-    title: "Forget the race mentality."
-    body: "Leave your power meter at home. Your Strava segments can wait. The riders around you aren't competitors: they're fellow travellers."
-    caption: "Slovenia pass"
+    title: Forget the race mentality.
+    body: "Leave your power meter at home. Your Strava segments can wait. The riders
+      around you aren't competitors: they're fellow travellers."
+    caption: Slovenia pass
   - number: "02"
-    title: "Roads worth your time."
-    body: "We spend years finding the routes others miss. Hidden backroads that connect incredible places. Cycle paths that feel like private trails."
-    caption: "Tuscany backroad"
+    title: Roads worth your time.
+    body: We spend years finding the routes others miss. Hidden backroads that
+      connect incredible places. Cycle paths that feel like private trails.
+    caption: Tuscany backroad
   - number: "03"
-    title: "Your schedule. Your way."
-    body: "Take three days or take a week. Start at sunrise or sleep in. Stop for long lunches or pack energy bars. No checkpoints. No cutoff times."
-    caption: "Germany · alpine lake"
+    title: Your schedule. Your way.
+    body: Take three days or take a week. Start at sunrise or sleep in. Stop for
+      long lunches or pack energy bars. No checkpoints. No cutoff times.
+    caption: Germany · alpine lake
   - number: "04"
     title: "Stories worth telling: yours."
-    body: "Our media team follows the routes, capturing moments you'll treasure forever. Not just finish-line photos, but the real story—your face when you crest that perfect hill, the coffee stop that turned into an hour of laughter."
-    caption: "Media team on the route"
-
-threeEscapes:
-  title: "Three escapes. Three worlds."
-  subtitle: "Each one has its own color, its own mascot, its own soul."
-
+    body: Our media team follows the routes, capturing moments you'll treasure
+      forever. Not just finish-line photos, but the real story—your face when
+      you crest that perfect hill, the coffee stop that turned into an hour of
+      laughter.
+    caption: Media team on the route
 origin:
-  kicker: "Why we started"
-  imageCaption: "Before every hill became a competition."
-  title: "Cycling, like the first time."
+  kicker: Why we started
+  imageCaption: Before every hill became a competition.
+  title: Cycling, like the first time.
   body:
-    - "We believe cycling should feel like it did when you first discovered the joy of two wheels. Before power meters and social media turned rides into spreadsheets."
-    - "Tuscany Trail, 2014 → Bike Adventure Series, 2022 → The Grand Escape, today."
-
-signup:
-  kicker: "Free · Route previews · 2027 first access"
-  title: "Get the Escape Guide."
-  body: "Route previews, packing lists, and first-access notifications for 2027 dates. Tell us which escape interests you — we'll send relevant updates only."
-  cta: "Send me the guide"
-  legal: "Powered by Brevo. No spam — unsubscribe anytime."
-
+    - We believe cycling should feel like it did when you first discovered the
+      joy of two wheels. Before power meters and social media turned rides into
+      spreadsheets.
+    - Tuscany Trail, 2014 → Bike Adventure Series, 2022 → The Grand Escape,
+      today.
 signupBottom:
-  kicker: "Still reading? Don't leave empty-handed."
-  title: "Take the guide with you."
-  body: "We'll send you route previews, packing lists, and the first invite when 2027 spots open. Promise: no spam, ever."
-  cta: "Send me the guide"
-  legal: "Powered by Brevo. Unsubscribe anytime."
-
+  kicker: Still reading? Don't leave empty-handed.
+  title: Take the guide with you.
+  body: "We'll send you route previews, packing lists, and the first invite when
+    2027 spots open. Promise: no spam, ever."
+  cta: Send me the guide
+  legal: Powered by Brevo. Unsubscribe anytime.
 trust:
-  label: "Part of"
+  label: Part of
   partners:
-    - name: "Bike Adventure Series"
-      logo: "/brand/bas-logo.webp"
+    - name: Bike Adventure Series
+      logo: /brand/bas-logo.webp
       isMain: true
-    - name: "Vittoria"
-      logo: "/brand/vittoria.webp"
-    - name: "RideWithGPS"
-      logo: "/brand/rwgps.png"
-    - name: "Miss Grape"
-      logo: "/brand/missgrape.webp"
-    - name: "Sportler"
-      logo: "/brand/sportler.png"
-    - name: "Ragazzi Hogan"
-      logo: "/brand/ragazzihogan.webp"
+    - name: Vittoria
+      logo: /brand/vittoria.webp
+      isMain: false
+    - name: RideWithGPS
+      logo: /brand/rwgps.png
+      isMain: false
+    - name: Miss Grape
+      logo: /brand/missgrape.webp
+      isMain: false
+    - name: Sportler
+      logo: /brand/sportler.png
+      isMain: false
+    - name: Ragazzi Hogan
+      logo: /brand/ragazzihogan.webp
+      isMain: false
