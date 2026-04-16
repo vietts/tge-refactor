@@ -2,6 +2,7 @@
 import '../styles/tokens.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import WhatsAppBadge from '../components/WhatsAppBadge.astro';
 
 interface Props {
   title: string;
@@ -46,6 +47,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://thegrandesc
       <slot />
     </main>
     <Footer />
+    <WhatsAppBadge />
 
     <script is:inline>
       document.documentElement.classList.add('js');

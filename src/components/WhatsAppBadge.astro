@@ -1,0 +1,62 @@
+---
+interface Props {
+  phone?: string;       // international, no +, no spaces
+  label?: string;       // aria-label
+  message?: string;     // prefilled message (optional)
+}
+const {
+  phone = '393517198039',
+  label = 'Chat on WhatsApp',
+  message = "Hi! I'd like to know more about The Grand Escape.",
+} = Astro.props;
+
+const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+---
+<a
+  href={href}
+  class="wa-badge"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={label}
+>
+  <svg viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <path
+      fill="currentColor"
+      d="M19.11 17.59c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.35-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.83-2.01-.22-.53-.45-.45-.61-.46l-.52-.01c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.63 1.11 2.81.14.18 1.92 2.94 4.66 4.12.65.28 1.16.45 1.56.58.65.21 1.25.18 1.72.11.52-.08 1.6-.65 1.83-1.28.22-.63.22-1.17.16-1.28-.07-.11-.25-.18-.52-.32ZM16.03 4.8c-6.17 0-11.17 5-11.17 11.16 0 1.97.52 3.89 1.5 5.58L4.8 27.2l5.78-1.52a11.12 11.12 0 0 0 5.44 1.39h.01c6.17 0 11.17-5 11.17-11.17 0-2.98-1.16-5.79-3.27-7.9a11.1 11.1 0 0 0-7.9-3.2Zm0 20.47h-.01a9.3 9.3 0 0 1-4.73-1.3l-.34-.2-3.52.93.94-3.43-.22-.35a9.3 9.3 0 0 1-1.43-4.94c0-5.12 4.17-9.29 9.3-9.29 2.49 0 4.82.97 6.58 2.72a9.28 9.28 0 0 1 2.73 6.58 9.3 9.3 0 0 1-9.3 9.29Z"
+    />
+  </svg>
+  <span class="sr-only">{label}</span>
+</a>
+
+<style>
+  .wa-badge {
+    position: fixed;
+    right: 1.25rem; bottom: 1.25rem;
+    z-index: 850;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: #25D366;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+  }
+  .wa-badge:hover { transform: scale(1.06); box-shadow: 0 10px 28px rgba(0,0,0,0.28); }
+  .wa-badge:active { transform: scale(0.95); }
+  .wa-badge svg { width: 28px; height: 28px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  /* Lift above the mobile sticky CTA when both are present on the same page */
+  :global(body):has(.sticky-cta) .wa-badge { bottom: 5rem; }
+
+  @media (min-width: 720px) {
+    .wa-badge { width: 60px; height: 60px; right: 1.5rem; bottom: 1.5rem; }
+    .wa-badge svg { width: 30px; height: 30px; }
+    /* Sticky CTA is hidden on desktop, reset bottom even if selector matches */
+    :global(body):has(.sticky-cta) .wa-badge { bottom: 1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wa-badge { transition: none; }
+  }
+</style>
