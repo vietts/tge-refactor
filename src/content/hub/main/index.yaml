@@ -38,6 +38,14 @@ documentarySecondary:
   subtitle: "Behind the scenes: route scouting, rider stories, and the quiet
     moments that never make it to Strava."
   youtubeId: dQw4w9WgXcQ
+registrationOpens:
+  date: "2026-06-02T10:00:00+02:00"
+  kicker: Registration opens
+  title: The countdown is on.
+  body: Spots are limited. The waitlist gets priority access — and the guide, packing list and route previews in the meantime.
+  ctaLabel: Join the waitlist
+  ctaHref: "#signup"
+  openLabel: Registration is open
 testimonials:
   kicker: Rider voices
   title: From the people who rode.

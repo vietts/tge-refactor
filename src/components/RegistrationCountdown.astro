@@ -1,0 +1,143 @@
+---
+interface Props {
+  targetIso: string;
+  kicker?: string;
+  title: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  openLabel?: string;
+  accentColor?: string;
+}
+const {
+  targetIso,
+  kicker = 'Registration opens',
+  title,
+  body,
+  ctaLabel = 'Join the waitlist',
+  ctaHref = '#signup',
+  openLabel = 'Registration is open',
+  accentColor,
+} = Astro.props;
+
+const uid = 'rc-' + Math.random().toString(36).slice(2, 8);
+---
+<section class="rc" style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <div class="container-narrow rc-inner sr">
+    <div class="kicker rc-kicker">{kicker}</div>
+    <h2 class="rc-title display">{title}</h2>
+    {body && <p class="rc-body">{body}</p>}
+
+    <div class="rc-grid" id={uid} data-target={targetIso} data-open-label={openLabel}>
+      <div class="rc-cell"><span class="rc-num" data-unit="d">--</span><span class="rc-lab">Days</span></div>
+      <div class="rc-sep" aria-hidden="true">:</div>
+      <div class="rc-cell"><span class="rc-num" data-unit="h">--</span><span class="rc-lab">Hours</span></div>
+      <div class="rc-sep" aria-hidden="true">:</div>
+      <div class="rc-cell"><span class="rc-num" data-unit="m">--</span><span class="rc-lab">Min</span></div>
+      <div class="rc-sep" aria-hidden="true">:</div>
+      <div class="rc-cell"><span class="rc-num" data-unit="s">--</span><span class="rc-lab">Sec</span></div>
+    </div>
+
+    <p class="rc-open" id={`${uid}-open`} hidden>{openLabel}</p>
+
+    <a class="cta-pill cta-on-dark rc-cta" href={ctaHref}>
+      {ctaLabel} <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<script define:vars={{ uid }}>
+  const root = document.getElementById(uid);
+  if (root) {
+    const target = new Date(root.dataset.target).getTime();
+    const openMsg = document.getElementById(uid + '-open');
+    const cells = {
+      d: root.querySelector('[data-unit="d"]'),
+      h: root.querySelector('[data-unit="h"]'),
+      m: root.querySelector('[data-unit="m"]'),
+      s: root.querySelector('[data-unit="s"]'),
+    };
+    const pad = (n) => String(Math.max(0, n)).padStart(2, '0');
+    const tick = () => {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        root.hidden = true;
+        if (openMsg) openMsg.hidden = false;
+        return true;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      cells.d.textContent = String(d);
+      cells.h.textContent = pad(h);
+      cells.m.textContent = pad(m);
+      cells.s.textContent = pad(s);
+      return false;
+    };
+    if (!tick()) {
+      const interval = setInterval(() => { if (tick()) clearInterval(interval); }, 1000);
+    }
+  }
+</script>
+
+<style>
+  .rc {
+    background: var(--espresso);
+    color: var(--paper-1);
+    padding: var(--sp-8) 0;
+    position: relative;
+  }
+  .rc-inner { text-align: center; }
+  .rc-kicker { color: var(--accent, var(--caramel)); margin-bottom: 0.75rem; }
+  .rc-title { font-size: var(--fs-3xl); line-height: 0.95; color: var(--paper-1); margin-bottom: 0.75rem; }
+  .rc-body { max-width: 48ch; margin: 0 auto 2rem; line-height: 1.55; opacity: 0.85; font-family: var(--font-body); }
+
+  .rc-grid {
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    align-items: center;
+    gap: 0.4rem 0.5rem;
+    margin: 0 auto 2rem;
+  }
+  .rc-cell {
+    display: flex; flex-direction: column; align-items: center;
+    min-width: 3.5rem;
+    padding: 0.75rem 0.6rem;
+    background: rgba(243,236,224,0.06);
+    border: 1px solid rgba(243,236,224,0.12);
+    border-radius: 8px;
+  }
+  .rc-num {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 2rem; line-height: 1;
+    color: var(--accent, var(--caramel));
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .rc-lab {
+    margin-top: 0.3rem;
+    font-family: var(--font-display);
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(243,236,224,0.6);
+  }
+  .rc-sep {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 1.8rem;
+    color: rgba(243,236,224,0.35);
+    line-height: 1;
+  }
+  .rc-open {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 1.4rem; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--accent, var(--caramel));
+    margin-bottom: 2rem;
+  }
+  .rc-cta { margin-top: 0.5rem; }
+
+  @media (min-width: 720px) {
+    .rc-cell { min-width: 4.5rem; padding: 1rem 1rem; }
+    .rc-num { font-size: 2.6rem; }
+    .rc-sep { font-size: 2.4rem; }
+  }
+</style>

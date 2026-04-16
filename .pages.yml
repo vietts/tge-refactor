@@ -76,6 +76,19 @@ content:
           - { name: subtitle,  label: Subtitle,  type: text }
           - { name: youtubeId, label: "YouTube ID", type: string }
 
+      - name: registrationOpens
+        label: "Registration opens countdown (before Testimonials)"
+        type: object
+        required: false
+        fields:
+          - { name: date,      label: "Target date/time (ISO 8601 with timezone)", type: string }
+          - { name: kicker,    label: Kicker,   type: string, required: false }
+          - { name: title,     label: Title,    type: string }
+          - { name: body,      label: Body,     type: text, required: false }
+          - { name: ctaLabel,  label: "CTA label",    type: string, required: false }
+          - { name: ctaHref,   label: "CTA link/anchor", type: string, required: false }
+          - { name: openLabel, label: "Label when registration is open", type: string, required: false }
+
       - name: testimonials
         label: "Testimonials"
         type: object

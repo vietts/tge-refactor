@@ -116,6 +116,17 @@ const hub = defineCollection({
           })
         ),
       }),
+      registrationOpens: z
+        .object({
+          date: z.string(),
+          kicker: z.string().optional(),
+          title: z.string(),
+          body: z.string().optional(),
+          ctaLabel: z.string().optional(),
+          ctaHref: z.string().optional(),
+          openLabel: z.string().optional(),
+        })
+        .optional(),
       signupBottom: z.object({
         kicker: z.string(),
         title: z.string(),

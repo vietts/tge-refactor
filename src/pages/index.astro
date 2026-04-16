@@ -9,6 +9,7 @@ import Testimonials from '../components/Testimonials.astro';
 import ValueBlock from '../components/ValueBlock.astro';
 import EventCard from '../components/EventCard.astro';
 import OriginStory from '../components/OriginStory.astro';
+import RegistrationCountdown from '../components/RegistrationCountdown.astro';
 import TrustStrip from '../components/TrustStrip.astro';
 
 const hub = (await getEntry('hub', 'main'))!.data;
@@ -88,6 +89,18 @@ const events = eventsCollection
     title={hub.documentarySecondary.title}
     subtitle={hub.documentarySecondary.subtitle}
   />
+
+  {hub.registrationOpens && (
+    <RegistrationCountdown
+      targetIso={hub.registrationOpens.date}
+      kicker={hub.registrationOpens.kicker}
+      title={hub.registrationOpens.title}
+      body={hub.registrationOpens.body}
+      ctaLabel={hub.registrationOpens.ctaLabel}
+      ctaHref={hub.registrationOpens.ctaHref}
+      openLabel={hub.registrationOpens.openLabel}
+    />
+  )}
 
   <Testimonials
     kicker={hub.testimonials.kicker}
