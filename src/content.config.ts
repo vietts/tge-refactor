@@ -39,6 +39,7 @@ const events = defineCollection({
       startFinish: z.string().optional(),
       surface: z.string().optional(),
       philosophyQuote: z.string().optional(),
+      philosophyImage: z.string().optional(),
       places: z
         .array(
           z.object({

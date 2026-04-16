@@ -2,10 +2,13 @@
 interface Props {
   quote: string;
   imageBg?: string;
+  image?: string;
   accentColor?: string;
 }
-const { quote, imageBg, accentColor } = Astro.props;
-const bg = imageBg ?? 'radial-gradient(ellipse at 50% 40%, #f0d2a0 0%, transparent 55%), linear-gradient(180deg, #a67244 0%, #3e2815 100%)';
+const { quote, imageBg, image, accentColor } = Astro.props;
+const bg = image
+  ? `url('${image}') center/cover no-repeat`
+  : (imageBg ?? 'radial-gradient(ellipse at 50% 40%, #f0d2a0 0%, transparent 55%), linear-gradient(180deg, #a67244 0%, #3e2815 100%)');
 ---
 <section class="philo" style={accentColor ? `--accent:${accentColor}` : undefined}>
   <div class="philo-image" style={`background:${bg}`} aria-hidden="true"></div>

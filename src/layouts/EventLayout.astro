@@ -34,6 +34,7 @@ interface PageEvent {
   distanceKm: number;
   brevoSegment: 'slovenia' | 'germany' | 'tuscany';
   philosophyQuote?: string;
+  philosophyImage?: string;
   heroImage?: string;
   places?: Place[];
   included?: string[];
@@ -151,7 +152,7 @@ const fontClass = fontClassMap[titleFont];
     />
 
     {event.philosophyQuote && (
-      <PhilosophyQuote quote={event.philosophyQuote} accentColor={accent} />
+      <PhilosophyQuote quote={event.philosophyQuote} image={event.philosophyImage} accentColor={accent} />
     )}
 
     <DocumentaryEmbed

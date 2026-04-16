@@ -165,6 +165,7 @@ content:
       - { name: startFinish,   label: "Start/Finish (e.g. Loop from Siena)", type: string, required: false }
       - { name: surface,       label: "Surface (e.g. 70% tarmac)", type: string, required: false }
       - { name: philosophyQuote, label: "Philosophy quote (section after facts)", type: text, required: false }
+      - { name: philosophyImage, label: "Philosophy section background image", type: image, required: false }
       - name: places
         label: "Places you'll cross (bento cells)"
         type: object
