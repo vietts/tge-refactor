@@ -110,10 +110,13 @@ async function sendCapiLead(args: {
   return { ok: true };
 }
 
-export const POST: APIRoute = async ({ request, locals }) => {
+const handlePost: APIRoute = async ({ request, locals }) => {
   // Cloudflare runtime exposes env via locals.runtime.env (Astro adapter)
-  const env = ((locals as { runtime?: { env?: Env } }).runtime?.env ?? {}) as Env;
-  if (!env.BREVO_API_KEY || !env.BREVO_LIST_ID) return json({ error: 'server_misconfigured' }, 500);
+  const runtime = (locals as { runtime?: { env?: Env } }).runtime;
+  const env: Env = runtime?.env ?? {};
+  if (!env.BREVO_API_KEY || !env.BREVO_LIST_ID) {
+    return json({ error: 'server_misconfigured', hasRuntime: !!runtime, envKeys: Object.keys(env) }, 500);
+  }
 
   let payload: Payload;
   try {
@@ -186,6 +189,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   return json({ ok: true });
+};
+
+export const POST: APIRoute = async (ctx) => {
+  try {
+    return await handlePost(ctx);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    const stack = err instanceof Error ? err.stack : undefined;
+    console.error('subscribe_fatal', message, stack);
+    return json({ error: 'fatal', message, stack }, 500);
+  }
 };
 
 export const GET: APIRoute = () => json({ error: 'method_not_allowed' }, 405);
