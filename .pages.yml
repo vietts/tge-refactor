@@ -179,6 +179,18 @@ content:
       - { name: surface,       label: "Surface (e.g. 70% tarmac)", type: string, required: false }
       - { name: philosophyQuote, label: "Philosophy quote (section after facts)", type: text, required: false }
       - { name: philosophyImage, label: "Philosophy section background image", type: image, required: false }
+      - name: registrationOpens
+        label: "Registration opens countdown (after first signup)"
+        type: object
+        required: false
+        fields:
+          - { name: date,      label: "Target date/time (ISO 8601 with timezone)", type: string }
+          - { name: kicker,    label: Kicker,   type: string, required: false }
+          - { name: title,     label: Title,    type: string }
+          - { name: body,      label: Body,     type: text, required: false }
+          - { name: ctaLabel,  label: "CTA label",    type: string, required: false }
+          - { name: ctaHref,   label: "CTA link/anchor", type: string, required: false }
+          - { name: openLabel, label: "Label when registration is open", type: string, required: false }
       - name: places
         label: "Places you'll cross (bento cells)"
         type: object

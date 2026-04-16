@@ -40,6 +40,17 @@ const events = defineCollection({
       surface: z.string().optional(),
       philosophyQuote: z.string().optional(),
       philosophyImage: z.string().optional(),
+      registrationOpens: z
+        .object({
+          date: z.string(),
+          kicker: z.string().optional(),
+          title: z.string(),
+          body: z.string().optional(),
+          ctaLabel: z.string().optional(),
+          ctaHref: z.string().optional(),
+          openLabel: z.string().optional(),
+        })
+        .optional(),
       places: z
         .array(
           z.object({

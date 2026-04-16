@@ -5,6 +5,7 @@ import FactsBar from '../components/FactsBar.astro';
 import BrevoForm from '../components/BrevoForm.astro';
 import DocumentaryEmbed from '../components/DocumentaryEmbed.astro';
 import PhilosophyQuote from '../components/PhilosophyQuote.astro';
+import RegistrationCountdown from '../components/RegistrationCountdown.astro';
 import PlacesBento from '../components/PlacesBento.astro';
 import PhotoSplit from '../components/PhotoSplit.astro';
 import PhotoBreak from '../components/PhotoBreak.astro';
@@ -35,6 +36,15 @@ interface PageEvent {
   brevoSegment: 'slovenia' | 'germany' | 'tuscany';
   philosophyQuote?: string;
   philosophyImage?: string;
+  registrationOpens?: {
+    date: string;
+    kicker?: string;
+    title: string;
+    body?: string;
+    ctaLabel?: string;
+    ctaHref?: string;
+    openLabel?: string;
+  };
   heroImage?: string;
   places?: Place[];
   included?: string[];
@@ -150,6 +160,19 @@ const fontClass = fontClassMap[titleFont];
       accentColor={accent}
       anchorId="signup"
     />
+
+    {event.registrationOpens && (
+      <RegistrationCountdown
+        targetIso={event.registrationOpens.date}
+        kicker={event.registrationOpens.kicker}
+        title={event.registrationOpens.title}
+        body={event.registrationOpens.body}
+        ctaLabel={event.registrationOpens.ctaLabel ?? waitlistCtaLabel}
+        ctaHref={event.registrationOpens.ctaHref ?? '#signup'}
+        openLabel={event.registrationOpens.openLabel}
+        accentColor={accent}
+      />
+    )}
 
     {event.philosophyQuote && (
       <PhilosophyQuote quote={event.philosophyQuote} image={event.philosophyImage} accentColor={accent} />
