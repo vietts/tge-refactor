@@ -18,6 +18,7 @@ const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   target="_blank"
   rel="noopener noreferrer"
   aria-label={label}
+  onclick="if(window.tgeTrack)window.tgeTrack('Contact',{content_name:'WhatsApp'});"
 >
   <svg viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
     <path

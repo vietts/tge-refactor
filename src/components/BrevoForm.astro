@@ -195,6 +195,16 @@ const formId = `brevo-${variant}-${Math.random().toString(36).slice(2, 8)}`;
 
       const data = new FormData(form);
       const events = data.getAll('events');
+      const eventId = (window.crypto && window.crypto.randomUUID)
+        ? window.crypto.randomUUID()
+        : 'tge-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+
+      const cookies = Object.fromEntries(
+        document.cookie.split(';').map((c) => c.trim().split('=').map(decodeURIComponent)).filter((p) => p[0])
+      );
+      const consentRaw = (() => { try { return JSON.parse(localStorage.getItem('tge_consent') || 'null'); } catch { return null; } })();
+      const marketingConsent = !!(consentRaw && consentRaw.marketing);
+
       const payload = {
         email: data.get('email'),
         consent: data.get('consent') === 'on',
@@ -202,6 +212,13 @@ const formId = `brevo-${variant}-${Math.random().toString(36).slice(2, 8)}`;
         variant,
         eventSegment: eventSegment ?? null,
         source: window.location.pathname,
+        meta: {
+          eventId,
+          marketingConsent,
+          fbp: cookies._fbp || null,
+          fbc: cookies._fbc || null,
+          eventSourceUrl: window.location.href,
+        },
       };
 
       try {
@@ -213,6 +230,16 @@ const formId = `brevo-${variant}-${Math.random().toString(36).slice(2, 8)}`;
         if (!res.ok) throw new Error(String(res.status));
         form.reset();
         success.hidden = false;
+
+        // Meta Pixel client-side Lead event (only fires if marketing consent was granted)
+        if (marketingConsent && typeof window.tgeTrack === 'function') {
+          const category = events && events.length ? events.join(',') : (eventSegment || 'hub');
+          window.tgeTrack(
+            'Lead',
+            { content_name: 'TGE Waitlist', content_category: category, currency: 'EUR', value: 0 },
+            { eventID: eventId }
+          );
+        }
       } catch (err) {
         console.error('subscribe error', err);
         error.hidden = false;

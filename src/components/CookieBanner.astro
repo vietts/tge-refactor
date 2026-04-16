@@ -1,0 +1,87 @@
+---
+// Lightweight GDPR cookie banner.
+// Stores choice in localStorage as JSON: { necessary: true, marketing: bool, ts: ISO }
+// Dispatches a `tge:consent-change` CustomEvent when the choice is updated, so
+// the Meta Pixel and any other listener can react without a full page reload.
+---
+<div id="tge-cookie-banner" class="cb" role="dialog" aria-live="polite" aria-label="Cookie preferences" hidden>
+  <div class="cb-inner">
+    <p class="cb-text">
+      We use cookies to make the site work and, with your permission, to measure ad
+      performance via Meta Pixel. <a href="/privacy">Read more</a>.
+    </p>
+    <div class="cb-actions">
+      <button type="button" class="cb-btn cb-btn-ghost" data-cb="reject">Reject</button>
+      <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Accept all</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const KEY = 'tge_consent';
+    const banner = document.getElementById('tge-cookie-banner');
+    if (!banner) return;
+
+    function read() {
+      try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { return null; }
+    }
+    function write(marketing) {
+      const value = { necessary: true, marketing: !!marketing, ts: new Date().toISOString() };
+      localStorage.setItem(KEY, JSON.stringify(value));
+      window.dispatchEvent(new CustomEvent('tge:consent-change', { detail: value }));
+    }
+    function hide() { banner.hidden = true; }
+    function show() { banner.hidden = false; }
+
+    const current = read();
+    if (current === null) show();
+
+    banner.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-cb]');
+      if (!btn) return;
+      write(btn.dataset.cb === 'accept');
+      hide();
+    });
+
+    // Expose tiny helper so other scripts can check consent.
+    window.tgeConsent = { get: read, accept: () => { write(true); hide(); }, reject: () => { write(false); hide(); }, show };
+  })();
+</script>
+
+<style>
+  .cb {
+    position: fixed;
+    left: 1rem; right: 1rem; bottom: 1rem;
+    z-index: 950;
+    background: var(--espresso);
+    color: var(--paper-1);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    padding: 1rem 1.1rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .cb-inner { display: flex; flex-direction: column; gap: 0.8rem; align-items: stretch; }
+  .cb-text { font-family: var(--font-body); font-size: 0.85rem; line-height: 1.45; margin: 0; opacity: 0.92; }
+  .cb-text a { text-decoration: underline; color: var(--caramel); }
+  .cb-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+  .cb-btn {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 0.65rem 1rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .cb-btn-primary { background: var(--caramel); color: var(--espresso); }
+  .cb-btn-ghost   { background: transparent; color: var(--paper-1); border-color: rgba(243,236,224,0.3); }
+  .cb-btn-primary:hover { filter: brightness(1.05); }
+  .cb-btn-ghost:hover   { background: rgba(243,236,224,0.06); }
+
+  @media (min-width: 720px) {
+    .cb-inner { flex-direction: row; align-items: center; gap: 1.5rem; }
+    .cb-text { flex: 1; font-size: 0.88rem; }
+    .cb-actions { flex-shrink: 0; }
+  }
+</style>
