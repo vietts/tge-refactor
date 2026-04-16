@@ -1,32 +1,29 @@
 /**
- * Cloudflare Pages Function — Brevo subscribe proxy + Meta CAPI Lead event.
- * Hides the Brevo and Meta tokens. All submissions go to one master list;
- * per-event interest is tracked in the EVENT_INTEREST contact attribute as a
- * comma-separated list that merges across multiple signups. When the user
- * grants marketing consent, the same Lead is also sent to Meta CAPI with the
- * shared eventId so it dedupes against the browser pixel.
+ * Astro API endpoint — Brevo subscribe proxy + Meta CAPI Lead event.
  *
- * Env vars (Cloudflare Pages → Settings → Environment variables):
+ * Cloudflare Pages auto-injects @astrojs/cloudflare in SSR mode, so this
+ * endpoint runs on Workers. Env vars come from `locals.runtime.env`.
+ *
+ * Env vars (Cloudflare Pages → Settings → Variables and secrets):
  *   BREVO_API_KEY         — required, server-side only
  *   BREVO_LIST_ID         — required, numeric master list id
  *   BREVO_ATTR_NAME       — optional, defaults to "EVENT_INTEREST"
  *   META_PIXEL_ID         — required for CAPI
  *   META_CAPI_TOKEN       — required for CAPI (system-user access token)
- *   META_TEST_EVENT_CODE  — optional, used during Events Manager test
+ *   META_TEST_EVENT_CODE  — optional, set during Events Manager test then remove
  */
 
+import type { APIRoute } from 'astro';
+
+export const prerender = false;
+
 type Env = {
-  BREVO_API_KEY: string;
-  BREVO_LIST_ID: string;
+  BREVO_API_KEY?: string;
+  BREVO_LIST_ID?: string;
   BREVO_ATTR_NAME?: string;
   META_PIXEL_ID?: string;
   META_CAPI_TOKEN?: string;
   META_TEST_EVENT_CODE?: string;
-};
-
-type PagesContext = {
-  request: Request;
-  env: Env;
 };
 
 type Payload = {
@@ -113,7 +110,9 @@ async function sendCapiLead(args: {
   return { ok: true };
 }
 
-export const onRequestPost = async ({ request, env }: PagesContext) => {
+export const POST: APIRoute = async ({ request, locals }) => {
+  // Cloudflare runtime exposes env via locals.runtime.env (Astro adapter)
+  const env = ((locals as { runtime?: { env?: Env } }).runtime?.env ?? {}) as Env;
   if (!env.BREVO_API_KEY || !env.BREVO_LIST_ID) return json({ error: 'server_misconfigured' }, 500);
 
   let payload: Payload;
@@ -128,7 +127,7 @@ export const onRequestPost = async ({ request, env }: PagesContext) => {
   if (!payload.consent) return json({ error: 'consent_required' }, 400);
 
   const incoming = Array.isArray(payload.events)
-    ? payload.events.filter((s) => typeof s === 'string' && VALID_EVENTS.has(s))
+    ? payload.events.filter((s): s is string => typeof s === 'string' && VALID_EVENTS.has(s))
     : [];
 
   const attrName = env.BREVO_ATTR_NAME || 'EVENT_INTEREST';
@@ -189,7 +188,4 @@ export const onRequestPost = async ({ request, env }: PagesContext) => {
   return json({ ok: true });
 };
 
-export const onRequest = async (ctx: PagesContext) => {
-  if (ctx.request.method === 'POST') return onRequestPost(ctx);
-  return json({ error: 'method_not_allowed' }, 405);
-};
+export const GET: APIRoute = () => json({ error: 'method_not_allowed' }, 405);
