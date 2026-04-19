@@ -30,6 +30,25 @@ content:
           - { name: videoSrc,   label: "Hero video (.webm)",   type: string }
           - { name: posterSrc,  label: "Hero video poster",    type: string }
 
+      - name: sectionOrder
+        label: "Section order (drag to reorder — leave empty for default)"
+        description: "Add each section once; drag to reorder. Sections you don't add fall back to the default position. Hero stays on top, Trust strip stays at the bottom."
+        type: select
+        list: true
+        required: false
+        options:
+          values:
+            - { value: signupTop,            label: "Signup — top (after hero)" }
+            - { value: documentary,          label: "Documentary — top" }
+            - { value: whatIs,               label: "What is TGE" }
+            - { value: escapes,              label: "Three escapes grid" }
+            - { value: documentarySecondary, label: "Documentary — bottom" }
+            - { value: countdown,            label: "Registration countdown" }
+            - { value: testimonials,         label: "Testimonials" }
+            - { value: values,               label: "Values (4 blocks)" }
+            - { value: origin,               label: "Origin story" }
+            - { value: signupBottom,         label: "Signup — bottom" }
+
       - name: signup
         label: "Signup — top (after hero)"
         type: object

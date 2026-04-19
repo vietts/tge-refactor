@@ -12,12 +12,50 @@ import OriginStory from '../components/OriginStory.astro';
 import RegistrationCountdown from '../components/RegistrationCountdown.astro';
 import TrustStrip from '../components/TrustStrip.astro';
 
+type HubSectionKey =
+  | 'signupTop'
+  | 'documentary'
+  | 'whatIs'
+  | 'escapes'
+  | 'documentarySecondary'
+  | 'countdown'
+  | 'testimonials'
+  | 'values'
+  | 'origin'
+  | 'signupBottom';
+
+const DEFAULT_HUB_SECTION_ORDER: HubSectionKey[] = [
+  'signupTop',
+  'documentary',
+  'whatIs',
+  'escapes',
+  'documentarySecondary',
+  'countdown',
+  'testimonials',
+  'values',
+  'origin',
+  'signupBottom',
+];
+
 const hub = (await getEntry('hub', 'main'))!.data;
 
 const eventsCollection = await getCollection('events');
 const events = eventsCollection
   .map((e) => e.data)
   .sort((a, b) => a.order - b.order);
+
+const requested = hub.sectionOrder ?? DEFAULT_HUB_SECTION_ORDER;
+const seen = new Set<HubSectionKey>();
+const sectionOrder: HubSectionKey[] = [];
+for (const k of requested) {
+  if (DEFAULT_HUB_SECTION_ORDER.includes(k as HubSectionKey) && !seen.has(k as HubSectionKey)) {
+    sectionOrder.push(k as HubSectionKey);
+    seen.add(k as HubSectionKey);
+  }
+}
+for (const k of DEFAULT_HUB_SECTION_ORDER) {
+  if (!seen.has(k)) sectionOrder.push(k);
+}
 ---
 <BaseLayout
   title="The Grand Escape — No-race bikepacking across Europe"
@@ -35,108 +73,130 @@ const events = eventsCollection
     posterSrc={hub.manifesto.posterSrc}
   />
 
-  <BrevoForm
-    variant="hub"
-    kicker={hub.signup.kicker}
-    title={hub.signup.title}
-    body={hub.signup.body}
-    ctaLabel={hub.signup.cta}
-    legal={hub.signup.legal}
-  />
-
-  <DocumentaryEmbed
-    youtubeId={hub.documentary.youtubeId}
-    label={hub.documentary.label}
-    title={hub.documentary.title}
-    subtitle={hub.documentary.subtitle}
-  />
-
-  <WhatIs
-    kicker={hub.whatIs.kicker}
-    title={hub.whatIs.title}
-    body={hub.whatIs.body}
-    statNumber={hub.whatIs.statNumber}
-    statLabel={hub.whatIs.statLabel}
-    since={hub.whatIs.since}
-  />
-
-  <section id="escapes" class="escapes">
-    <div class="container escapes-head sr">
-      <h2 class="escapes-title display">{hub.threeEscapes.title}</h2>
-      <p class="escapes-sub serif">{hub.threeEscapes.subtitle}</p>
-    </div>
-    <div class="container escapes-grid">
-      {events.map((e) => (
-        <EventCard
-          slug={e.slug}
-          order={String(e.order).padStart(2, '0')}
-          name={e.name}
-          dateLabel={e.dateLabel}
-          distanceKm={e.distanceKm}
-          elevationD={e.elevationD}
-          quote={e.quote}
-          status={e.status}
-          statusLabel={e.statusLabel}
-          subBrandColor={e.subBrandColor}
+  {sectionOrder.map((key) => (
+    <>
+      {key === 'signupTop' && (
+        <BrevoForm
+          variant="hub"
+          kicker={hub.signup.kicker}
+          title={hub.signup.title}
+          body={hub.signup.body}
+          ctaLabel={hub.signup.cta}
+          legal={hub.signup.legal}
         />
-      ))}
-    </div>
-  </section>
+      )}
 
-  <DocumentaryEmbed
-    youtubeId={hub.documentarySecondary.youtubeId}
-    label={hub.documentarySecondary.label}
-    title={hub.documentarySecondary.title}
-    subtitle={hub.documentarySecondary.subtitle}
-  />
+      {key === 'documentary' && (
+        <DocumentaryEmbed
+          youtubeId={hub.documentary.youtubeId}
+          label={hub.documentary.label}
+          title={hub.documentary.title}
+          subtitle={hub.documentary.subtitle}
+        />
+      )}
 
-  {hub.registrationOpens && (
-    <RegistrationCountdown
-      targetIso={hub.registrationOpens.date}
-      kicker={hub.registrationOpens.kicker}
-      title={hub.registrationOpens.title}
-      body={hub.registrationOpens.body}
-      ctaLabel={hub.registrationOpens.ctaLabel}
-      ctaHref={hub.registrationOpens.ctaHref}
-      openLabel={hub.registrationOpens.openLabel}
-    />
-  )}
+      {key === 'whatIs' && (
+        <WhatIs
+          kicker={hub.whatIs.kicker}
+          title={hub.whatIs.title}
+          body={hub.whatIs.body}
+          statNumber={hub.whatIs.statNumber}
+          statLabel={hub.whatIs.statLabel}
+          since={hub.whatIs.since}
+        />
+      )}
 
-  <Testimonials
-    kicker={hub.testimonials.kicker}
-    title={hub.testimonials.title}
-    items={hub.testimonials.items}
-  />
+      {key === 'escapes' && (
+        <section id="escapes" class="escapes">
+          <div class="container escapes-head sr">
+            <h2 class="escapes-title display">{hub.threeEscapes.title}</h2>
+            <p class="escapes-sub serif">{hub.threeEscapes.subtitle}</p>
+          </div>
+          <div class="container escapes-grid">
+            {events.map((e) => (
+              <EventCard
+                slug={e.slug}
+                order={String(e.order).padStart(2, '0')}
+                name={e.name}
+                dateLabel={e.dateLabel}
+                distanceKm={e.distanceKm}
+                elevationD={e.elevationD}
+                quote={e.quote}
+                status={e.status}
+                statusLabel={e.statusLabel}
+                subBrandColor={e.subBrandColor}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
-  <section class="values">
-    {hub.values.map((v, i) => (
-      <ValueBlock
-        number={v.number}
-        title={v.title}
-        body={v.body}
-        caption={v.caption}
-        image={v.image}
-        alt={i % 2 === 1}
-      />
-    ))}
-  </section>
+      {key === 'documentarySecondary' && (
+        <DocumentaryEmbed
+          youtubeId={hub.documentarySecondary.youtubeId}
+          label={hub.documentarySecondary.label}
+          title={hub.documentarySecondary.title}
+          subtitle={hub.documentarySecondary.subtitle}
+        />
+      )}
 
-  <OriginStory
-    kicker={hub.origin.kicker}
-    imageCaption={hub.origin.imageCaption}
-    title={hub.origin.title}
-    body={hub.origin.body}
-    image={hub.origin.image}
-  />
+      {key === 'countdown' && hub.registrationOpens && (
+        <RegistrationCountdown
+          targetIso={hub.registrationOpens.date}
+          kicker={hub.registrationOpens.kicker}
+          title={hub.registrationOpens.title}
+          body={hub.registrationOpens.body}
+          ctaLabel={hub.registrationOpens.ctaLabel}
+          ctaHref={hub.registrationOpens.ctaHref}
+          openLabel={hub.registrationOpens.openLabel}
+        />
+      )}
 
-  <BrevoForm
-    variant="hub"
-    kicker={hub.signupBottom.kicker}
-    title={hub.signupBottom.title}
-    body={hub.signupBottom.body}
-    ctaLabel={hub.signupBottom.cta}
-    legal={hub.signupBottom.legal}
-  />
+      {key === 'testimonials' && (
+        <Testimonials
+          kicker={hub.testimonials.kicker}
+          title={hub.testimonials.title}
+          items={hub.testimonials.items}
+        />
+      )}
+
+      {key === 'values' && (
+        <section class="values">
+          {hub.values.map((v, i) => (
+            <ValueBlock
+              number={v.number}
+              title={v.title}
+              body={v.body}
+              caption={v.caption}
+              image={v.image}
+              alt={i % 2 === 1}
+            />
+          ))}
+        </section>
+      )}
+
+      {key === 'origin' && (
+        <OriginStory
+          kicker={hub.origin.kicker}
+          imageCaption={hub.origin.imageCaption}
+          title={hub.origin.title}
+          body={hub.origin.body}
+          image={hub.origin.image}
+        />
+      )}
+
+      {key === 'signupBottom' && (
+        <BrevoForm
+          variant="hub"
+          kicker={hub.signupBottom.kicker}
+          title={hub.signupBottom.title}
+          body={hub.signupBottom.body}
+          ctaLabel={hub.signupBottom.cta}
+          legal={hub.signupBottom.legal}
+        />
+      )}
+    </>
+  ))}
 
   <TrustStrip
     label={hub.trust.label}

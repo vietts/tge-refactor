@@ -213,6 +213,22 @@ const hub = defineCollection({
           })
         ),
       }),
+      sectionOrder: z
+        .array(
+          z.enum([
+            'signupTop',
+            'documentary',
+            'whatIs',
+            'escapes',
+            'documentarySecondary',
+            'countdown',
+            'testimonials',
+            'values',
+            'origin',
+            'signupBottom',
+          ])
+        )
+        .optional(),
     }),
 });
 
