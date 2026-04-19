@@ -1,11 +1,13 @@
 ---
+import { EVENT_PATH } from '../lib/event-urls';
 interface Props { theme?: 'dark' | 'light'; }
 const { theme = 'light' } = Astro.props;
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/slovenia', label: 'Slovenia' },
-  { href: '/germany', label: 'Germany' },
-  { href: '/tuscany', label: 'Tuscany' },
+  { href: EVENT_PATH.slovenia, label: 'Slovenia' },
+  { href: EVENT_PATH.germany,  label: 'Germany' },
+  { href: EVENT_PATH.tuscany,  label: 'Tuscany' },
+  { href: '/the-grand-escape-2026-registrations', label: 'Register' },
 ];
 ---
 <nav class:list={['nav', theme]}>

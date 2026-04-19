@@ -1,4 +1,5 @@
 ---
+import { EVENT_PATH } from '../lib/event-urls';
 const year = new Date().getFullYear();
 ---
 <footer class="foot">
@@ -10,15 +11,15 @@ const year = new Date().getFullYear();
       <div class="foot-links">
         <div>
           <div class="foot-label">Escapes</div>
-          <a href="/slovenia">Slovenia</a>
-          <a href="/germany">Germany</a>
-          <a href="/tuscany">Tuscany</a>
+          <a href={EVENT_PATH.slovenia}>Slovenia</a>
+          <a href={EVENT_PATH.germany}>Germany</a>
+          <a href={EVENT_PATH.tuscany}>Tuscany</a>
         </div>
         <div>
           <div class="foot-label">Info</div>
+          <a href="/the-grand-escape-2026-registrations">Register</a>
+          <a href="/rules-and-regulations">Rules</a>
           <a href="/#about">About</a>
-          <a href="/#faq">FAQ</a>
-          <a href="/contact">Contact</a>
         </div>
         <div>
           <div class="foot-label">Follow</div>

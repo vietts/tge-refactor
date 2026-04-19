@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { EVENT_PATH } from '../lib/event-urls';
 
 interface Props {
   slug: 'slovenia' | 'germany' | 'tuscany';
@@ -17,7 +18,7 @@ interface Props {
 const { slug, order, name, dateLabel, distanceKm, elevationD, quote, status, statusLabel, subBrandColor } = Astro.props;
 const textOnAccent = slug === 'germany' ? '#1a1a1a' : '#fff';
 ---
-<a href={`/${slug}`} class:list={['evcard', slug]} style={`--accent:${subBrandColor};--text:${textOnAccent}`}>
+<a href={EVENT_PATH[slug]} class:list={['evcard', slug]} style={`--accent:${subBrandColor};--text:${textOnAccent}`}>
   <div class="evcard-bg" aria-hidden="true"></div>
   <div class="evcard-fade" aria-hidden="true"></div>
 
