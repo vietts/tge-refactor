@@ -1,3 +1,9 @@
+featured:
+  eventSlug: auto
+  kicker: NEXT
+  heading: Germany/Austria 2026
+  body: Registration will open on May 14 2026 with limited spots.
+  ctaLabel: Look at the route
 manifesto:
   kicker: No race road bikepacking event
   serif: Three routes across Europe. You ride at your pace. No rankings, no
@@ -154,8 +160,6 @@ signupBottom:
     registration opens. Promise: no spam, ever."
   cta: Send me the guide
   legal: Powered by Brevo. Unsubscribe anytime.
-featured:
-  eventSlug: auto
 trust:
   label: Part of
   partners:
