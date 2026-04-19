@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   targetIso: string;
   kicker?: string;
@@ -30,18 +32,18 @@ const uid = 'rc-' + Math.random().toString(36).slice(2, 8);
 
     <div class="rc-grid" id={uid} data-target={targetIso} data-open-label={openLabel}>
       <div class="rc-cell"><span class="rc-num" data-unit="d">--</span><span class="rc-lab">Days</span></div>
-      <div class="rc-sep" aria-hidden="true">:</div>
+      <div class="rc-sep" aria-hidden="true"></div>
       <div class="rc-cell"><span class="rc-num" data-unit="h">--</span><span class="rc-lab">Hours</span></div>
-      <div class="rc-sep" aria-hidden="true">:</div>
+      <div class="rc-sep" aria-hidden="true"></div>
       <div class="rc-cell"><span class="rc-num" data-unit="m">--</span><span class="rc-lab">Min</span></div>
-      <div class="rc-sep" aria-hidden="true">:</div>
+      <div class="rc-sep" aria-hidden="true"></div>
       <div class="rc-cell"><span class="rc-num" data-unit="s">--</span><span class="rc-lab">Sec</span></div>
     </div>
 
     <p class="rc-open" id={`${uid}-open`} hidden>{openLabel}</p>
 
     <a class="cta-pill cta-on-dark rc-cta" href={ctaHref}>
-      {ctaLabel} <span aria-hidden="true">→</span>
+      {ctaLabel} <Icon name="arrow" size={14} />
     </a>
   </div>
 </section>
@@ -122,10 +124,23 @@ const uid = 'rc-' + Math.random().toString(36).slice(2, 8);
     color: rgba(243,236,224,0.6);
   }
   .rc-sep {
-    font-family: var(--font-display); font-weight: 800;
-    font-size: 1.8rem;
-    color: rgba(243,236,224,0.35);
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2px;
+    color: var(--accent, var(--caramel));
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0;
     line-height: 1;
+  }
+  .rc-sep::before {
+    content: "\00B7\00A\00B7";
+    white-space: pre-line;
+    line-height: 0.55;
+    font-size: 28px;
+    text-align: center;
   }
   .rc-open {
     font-family: var(--font-display); font-weight: 700;
@@ -138,6 +153,6 @@ const uid = 'rc-' + Math.random().toString(36).slice(2, 8);
   @media (min-width: 720px) {
     .rc-cell { min-width: 4.5rem; padding: 1rem 1rem; }
     .rc-num { font-size: 2.6rem; }
-    .rc-sep { font-size: 2.4rem; }
+    .rc-sep::before { font-size: 36px; }
   }
 </style>

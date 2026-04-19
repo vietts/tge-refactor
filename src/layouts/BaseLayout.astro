@@ -11,9 +11,10 @@ interface Props {
   description: string;
   ogImage?: string;
   theme?: 'dark' | 'light';
+  dataEvent?: 'slovenia' | 'germany' | 'tuscany';
 }
 
-const { title, description, ogImage = '/og/hub.jpg', theme = 'light' } = Astro.props;
+const { title, description, ogImage = '/og/hub.jpg', theme = 'light', dataEvent } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://thegrandescape.cc').toString();
 ---
 <!doctype html>
@@ -39,12 +40,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://thegrandesc
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=Questrial&family=Germania+One&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=Questrial&family=Germania+One&display=swap"
       rel="stylesheet"
     />
     <MetaPixel />
   </head>
-  <body data-theme={theme}>
+  <body data-theme={theme} data-event={dataEvent}>
     <Nav theme={theme} />
     <main>
       <slot />

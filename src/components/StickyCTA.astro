@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   label: string;
   href: string;
@@ -8,7 +10,7 @@ const { label, href, accentColor } = Astro.props;
 ---
 <a class="sticky-cta" href={href} style={accentColor ? `--accent:${accentColor}` : undefined}>
   <span class="sticky-label">{label}</span>
-  <span class="sticky-arrow" aria-hidden="true">→</span>
+  <span class="sticky-arrow"><Icon name="arrow" size={16} /></span>
 </a>
 
 <style>

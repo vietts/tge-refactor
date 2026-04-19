@@ -87,6 +87,29 @@ const events = defineCollection({
           faq: photoBreakItem.optional(),
         })
         .optional(),
+      sectionOrder: z
+        .array(
+          z.enum([
+            'facts',
+            'signupTop',
+            'countdown',
+            'philosophy',
+            'documentary',
+            'places',
+            'mdxBody',
+            'photoSplitDay',
+            'included',
+            'photoBreakIncluded',
+            'testimonials',
+            'photoBreakTestimonials',
+            'credo',
+            'photoSplitQuiet',
+            'signupBottom',
+            'photoBreakFaq',
+            'faq',
+          ])
+        )
+        .optional(),
     }),
 });
 

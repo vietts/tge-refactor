@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 interface Testimonial {
   quote: string;
   author: string;
@@ -36,7 +38,7 @@ const { kicker, title, items } = Astro.props;
 
   <div class="scroll-hint" aria-hidden="true">
     <span>Swipe</span>
-    <span class="arrow">→</span>
+    <span class="arrow"><Icon name="arrow" size={14} /></span>
   </div>
 </section>
 

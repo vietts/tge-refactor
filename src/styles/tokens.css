@@ -5,14 +5,15 @@
 :root {
   /* Brand colors (brandbook) */
   --red-wine:    #A32C29;  /* Brown Red — primary brand / titles */
-  --fern:        #617D42;  /* Fern — accents / kickers */
-  --graphite:    #262626;  /* Grafite — reserved */
+  --fern:        #637D42;  /* Fern — accents / kickers (brandbook) */
+  --graphite:    #262626;  /* Grafite — reserved for footer captions only */
   --caramel:     #FABF80;  /* Light Caramel — Germany sub-brand */
   --navy:        #1D3B5F;  /* Regal Navy — subtitles */
   --cream:       #F5F7F5;  /* Cloud White — reserved */
 
   /* Warm earth tones (texture + dark sections) */
-  --espresso:    #2C1F15;  /* warm ink — body text & dark sections */
+  --espresso:    #2C1F15;  /* warm ink — body text & dark sections.
+                              Deliberately warmer than brandbook graphite. */
   --walnut:      #3A2A1D;
   --coffee:      #6B4423;
   --wheat:       #C9A27A;
@@ -33,19 +34,19 @@
   --font-body:    'Inter', system-ui, -apple-system, sans-serif;
   --font-extra-slovenia: 'Questrial', var(--font-sans);
   --font-extra-germany:  'Germania One', var(--font-sans);
-  --font-extra-tuscany:  'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-extra-tuscany:  'Cormorant Garamond', 'DM Serif Display', Georgia, serif;
 
-  /* Type scale (mobile-first) */
-  --fs-xs:   11px;
-  --fs-sm:   13px;
-  --fs-base: 15px;
-  --fs-md:   17px;
-  --fs-lg:   20px;
-  --fs-xl:   26px;
-  --fs-2xl:  34px;
-  --fs-3xl:  48px;
-  --fs-4xl:  64px;
-  --fs-5xl:  88px;
+  /* Fluid type scale */
+  --fs-xs:   clamp(10px, 0.55vw + 8px, 11px);
+  --fs-sm:   clamp(12px, 0.6vw + 10px, 13px);
+  --fs-base: clamp(15px, 0.5vw + 13px, 16px);
+  --fs-md:   clamp(16px, 0.7vw + 14px, 18px);
+  --fs-lg:   clamp(19px, 1vw + 16px, 22px);
+  --fs-xl:   clamp(24px, 1.6vw + 18px, 30px);
+  --fs-2xl:  clamp(32px, 2.4vw + 20px, 48px);
+  --fs-3xl:  clamp(40px, 3.5vw + 22px, 68px);
+  --fs-4xl:  clamp(52px, 5vw + 24px, 96px);
+  --fs-5xl:  clamp(68px, 7vw + 28px, 128px);
 
   /* Spacing */
   --sp-1: 0.25rem;
@@ -63,15 +64,6 @@
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-@media (min-width: 768px) {
-  :root {
-    --fs-2xl: 44px;
-    --fs-3xl: 64px;
-    --fs-4xl: 88px;
-    --fs-5xl: 120px;
-  }
 }
 
 /* ============================================================
@@ -120,6 +112,28 @@ body::before {
     radial-gradient(900px 600px at 90% 80%, var(--paper-3) 0%, transparent 55%);
 }
 
+/* Per-event tinted paper — applied on <body data-event="slovenia|germany|tuscany"> */
+body[data-event]::before {
+  background:
+    radial-gradient(1200px 800px at 20% 10%,
+      color-mix(in oklab, var(--accent) var(--tint-a, 24%), var(--paper-2)) 0%,
+      transparent 60%),
+    radial-gradient(900px 600px at 90% 80%,
+      color-mix(in oklab, var(--accent) var(--tint-b, 16%), var(--paper-3)) 0%,
+      transparent 55%),
+    radial-gradient(700px 500px at 50% 110%,
+      color-mix(in oklab, var(--accent) var(--tint-c, 10%), var(--paper-1)) 0%,
+      transparent 60%);
+}
+
+/* Per-event tint intensity curve (accent-intensity approved per-event).
+   Germany can push harder (caramel is light).
+   Tuscany is lighter (wine is dark — 20% would go pink).
+   Slovenia sits in the middle. */
+body[data-event="slovenia"] { --accent: var(--fern);     --tint-a: 22%; --tint-b: 14%; --tint-c:  8%; }
+body[data-event="germany"]  { --accent: var(--caramel);  --tint-a: 32%; --tint-b: 22%; --tint-c: 14%; }
+body[data-event="tuscany"]  { --accent: var(--red-wine); --tint-a: 12%; --tint-b:  8%; --tint-c:  5%; }
+
 /* Layer 2: impurity flecks + fiber grain (tiled SVG) */
 body::after {
   background-image:
@@ -131,6 +145,13 @@ body::after {
   opacity: 0.85;
 }
 
+@media (max-width: 480px) {
+  body::after { opacity: 0.55; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 /* Typography — brandbook: DM Sans Bold for headers, Inter for body */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -140,6 +161,10 @@ h1, h2, h3, h4 {
   color: var(--red-wine);
   text-transform: uppercase;
 }
+
+/* Opt-in title color classes — override the default wine where needed */
+.t-brand  { color: var(--red-wine); }
+.t-accent { color: var(--accent, var(--red-wine)); }
 
 a { color: inherit; text-decoration: none; }
 img, video, svg { display: block; max-width: 100%; height: auto; }
@@ -176,6 +201,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   border-radius: 999px; transition: transform 160ms var(--ease-out), filter 160ms;
 }
 .cta-pill:hover { transform: translateY(-1px); filter: brightness(1.08); }
+.cta-pill:focus-visible {
+  outline: 2px solid var(--fern);
+  outline-offset: 3px;
+}
 
 .cta-primary { background: var(--red-wine); color: #fff; }
 .cta-on-dark { background: var(--paper-1); color: var(--espresso); }
@@ -190,3 +219,19 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* Drop-cap on MDX philosophy paragraph — font switches per event via --dropcap-font */
+.philosophy-dropcap p:first-of-type::first-letter,
+.mdx-copy p:first-of-type::first-letter {
+  font-family: var(--dropcap-font, var(--font-extra-tuscany));
+  font-weight: 500;
+  float: left;
+  font-size: clamp(68px, 7vw + 20px, 120px);
+  line-height: 0.85;
+  padding: 6px 12px 0 0;
+  color: var(--accent, var(--red-wine));
+}
+
+body[data-event="slovenia"] { --dropcap-font: var(--font-extra-slovenia); }
+body[data-event="germany"]  { --dropcap-font: var(--font-extra-germany); }
+body[data-event="tuscany"]  { --dropcap-font: var(--font-extra-tuscany); }

@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   slug: 'slovenia' | 'germany' | 'tuscany';
   order: string;
@@ -29,7 +31,7 @@ const textOnAccent = slug === 'germany' ? '#1a1a1a' : '#fff';
       <span>{distanceKm} km</span>
       <span>{elevationD.toLocaleString()} D+</span>
     </div>
-    <span class="evcta">{status === 'sold' ? 'Join waitlist' : 'Discover'} →</span>
+    <span class="evcta">{status === 'sold' ? 'Join waitlist' : 'Discover'} <Icon name="arrow" size={14} /></span>
   </div>
 </a>
 

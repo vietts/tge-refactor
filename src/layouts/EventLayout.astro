@@ -25,7 +25,47 @@ interface Testi { quote: string; author: string; event?: string }
 interface FaqItem { q: string; a: string }
 interface PhotoSplitSide { title: string; body: string; caption: string; image?: string }
 interface PhotoBreakItem { caption?: string; image?: string }
+type SectionKey =
+  | 'facts'
+  | 'signupTop'
+  | 'countdown'
+  | 'philosophy'
+  | 'documentary'
+  | 'places'
+  | 'mdxBody'
+  | 'photoSplitDay'
+  | 'included'
+  | 'photoBreakIncluded'
+  | 'testimonials'
+  | 'photoBreakTestimonials'
+  | 'credo'
+  | 'photoSplitQuiet'
+  | 'signupBottom'
+  | 'photoBreakFaq'
+  | 'faq';
+
+const DEFAULT_SECTION_ORDER: SectionKey[] = [
+  'facts',
+  'signupTop',
+  'countdown',
+  'philosophy',
+  'documentary',
+  'places',
+  'mdxBody',
+  'photoSplitDay',
+  'included',
+  'photoBreakIncluded',
+  'testimonials',
+  'photoBreakTestimonials',
+  'credo',
+  'photoSplitQuiet',
+  'signupBottom',
+  'photoBreakFaq',
+  'faq',
+];
+
 interface PageEvent {
+  slug: 'slovenia' | 'germany' | 'tuscany';
   name: string;
   dateLabel: string;
   tagline?: string;
@@ -52,6 +92,7 @@ interface PageEvent {
   faq?: FaqItem[];
   photoSplits?: { day: PhotoSplitSide; quiet: PhotoSplitSide };
   photoBreaks?: { included?: PhotoBreakItem; testimonials?: PhotoBreakItem; faq?: PhotoBreakItem };
+  sectionOrder?: SectionKey[];
 }
 interface TrustData {
   label: string;
@@ -124,11 +165,27 @@ const fontClassMap: Record<EventFontKey, string> = {
   tuscany: 'font-event-tuscany',
 };
 const fontClass = fontClassMap[titleFont];
+
+// Resolve section order (editable from Pages CMS via frontmatter `sectionOrder`).
+// Unknown keys are ignored; missing keys fall back to the tail of the default order.
+const requested = event.sectionOrder ?? DEFAULT_SECTION_ORDER;
+const seen = new Set<SectionKey>();
+const sectionOrder: SectionKey[] = [];
+for (const k of requested) {
+  if (DEFAULT_SECTION_ORDER.includes(k as SectionKey) && !seen.has(k as SectionKey)) {
+    sectionOrder.push(k as SectionKey);
+    seen.add(k as SectionKey);
+  }
+}
+for (const k of DEFAULT_SECTION_ORDER) {
+  if (!seen.has(k)) sectionOrder.push(k);
+}
 ---
 <BaseLayout
   title={`The Grand Escape — ${event.name} · ${event.dateLabel}`}
   description={`${event.tagline ?? event.quote} ${event.distanceKm}km of bikepacking. Limited spots.`}
   theme="dark"
+  dataEvent={event.slug}
 >
   <div class={`event-page ${fontClass}`}>
     <Hero
@@ -146,154 +203,176 @@ const fontClass = fontClassMap[titleFont];
       <slot name="mascot" slot="mascot" />
     </Hero>
 
-    <FactsBar accentColor={accent} facts={factsBar} />
+    {sectionOrder.map((key) => (
+      <>
+        {key === 'facts' && <FactsBar accentColor={accent} facts={factsBar} />}
 
-    <BrevoForm
-      variant="event"
-      eventSegment={event.brevoSegment}
-      kicker="Waitlist · Limited spots"
-      title="Be first in line."
-      body="Leave your email and we'll send you:"
-      benefits={signupBenefits}
-      ctaLabel={waitlistCtaLabel}
-      legal="Limited spots · Unsubscribe anytime · No spam, ever"
-      accentColor={accent}
-      anchorId="signup"
-    />
+        {key === 'signupTop' && (
+          <BrevoForm
+            variant="event"
+            eventSegment={event.brevoSegment}
+            kicker="Waitlist · Limited spots"
+            title="Be first in line."
+            body="Leave your email and we'll send you:"
+            benefits={signupBenefits}
+            ctaLabel={waitlistCtaLabel}
+            legal="Limited spots · Unsubscribe anytime · No spam, ever"
+            accentColor={accent}
+            anchorId="signup"
+          />
+        )}
 
-    {event.registrationOpens && (
-      <RegistrationCountdown
-        targetIso={event.registrationOpens.date}
-        kicker={event.registrationOpens.kicker}
-        title={event.registrationOpens.title}
-        body={event.registrationOpens.body}
-        ctaLabel={event.registrationOpens.ctaLabel ?? waitlistCtaLabel}
-        ctaHref={event.registrationOpens.ctaHref ?? '#signup'}
-        openLabel={event.registrationOpens.openLabel}
-        accentColor={accent}
-      />
-    )}
+        {key === 'countdown' && event.registrationOpens && (
+          <RegistrationCountdown
+            targetIso={event.registrationOpens.date}
+            kicker={event.registrationOpens.kicker}
+            title={event.registrationOpens.title}
+            body={event.registrationOpens.body}
+            ctaLabel={event.registrationOpens.ctaLabel ?? waitlistCtaLabel}
+            ctaHref={event.registrationOpens.ctaHref ?? '#signup'}
+            openLabel={event.registrationOpens.openLabel}
+            accentColor={accent}
+          />
+        )}
 
-    {event.philosophyQuote && (
-      <PhilosophyQuote quote={event.philosophyQuote} image={event.philosophyImage} accentColor={accent} />
-    )}
+        {key === 'philosophy' && event.philosophyQuote && (
+          <PhilosophyQuote quote={event.philosophyQuote} image={event.philosophyImage} accentColor={accent} />
+        )}
 
-    <DocumentaryEmbed
-      youtubeId={docYoutubeId}
-      label={docLabel}
-      title={docTitle ?? `The Grand Escape — ${event.name}`}
-      subtitle={docSubtitle ?? "Ninety minutes with the riders of last year's edition. Pace, scenery, and the reason we don't call it a race."}
-    />
+        {key === 'documentary' && (
+          <DocumentaryEmbed
+            youtubeId={docYoutubeId}
+            label={docLabel}
+            title={docTitle ?? `The Grand Escape — ${event.name}`}
+            subtitle={docSubtitle ?? "Ninety minutes with the riders of last year's edition. Pace, scenery, and the reason we don't call it a race."}
+          />
+        )}
 
-    {event.places && event.places.length > 0 && (
-      <PlacesBento
-        kicker="Places you'll cross"
-        title={`A ride through ${event.places.length} landscapes`}
-        subtitle="The loop is curated so every day brings a different world."
-        places={event.places}
-        accentColor={accent}
-      />
-    )}
+        {key === 'places' && event.places && event.places.length > 0 && (
+          <PlacesBento
+            kicker="Places you'll cross"
+            title={`A ride through ${event.places.length} landscapes`}
+            subtitle="The loop is curated so every day brings a different world."
+            places={event.places}
+            accentColor={accent}
+          />
+        )}
 
-    <slot name="mdx-copy" />
+        {key === 'mdxBody' && (
+          <div class="mdx-copy">
+            <slot name="mdx-copy" />
+          </div>
+        )}
 
-    {splits && (
-      <PhotoSplit
-        kicker="A day on the road"
-        title={splits.dayTitle}
-        body={splits.dayBody}
-        imageCaption={splits.dayCaption}
-        image={splits.dayImage}
-        accentColor={accent}
-      />
-    )}
+        {key === 'photoSplitDay' && splits && (
+          <PhotoSplit
+            kicker="A day on the road"
+            title={splits.dayTitle}
+            body={splits.dayBody}
+            imageCaption={splits.dayCaption}
+            image={splits.dayImage}
+            accentColor={accent}
+          />
+        )}
 
-    {event.included && event.included.length > 0 && (
-      <WhatsIncluded
-        kicker="What's included"
-        title="Everything you need, nothing you don't"
-        items={event.included}
-        accentColor={accent}
-      />
-    )}
+        {key === 'included' && event.included && event.included.length > 0 && (
+          <WhatsIncluded
+            kicker="What's included"
+            title="Everything you need, nothing you don't"
+            items={event.included}
+            accentColor={accent}
+          />
+        )}
 
-    <PhotoBreak
-      height="md"
-      caption={breaks.included.caption ?? 'On the road'}
-      image={breaks.included.image}
-      accentColor={accent}
-    />
+        {key === 'photoBreakIncluded' && (
+          <PhotoBreak
+            height="md"
+            caption={breaks.included.caption ?? 'On the road'}
+            image={breaks.included.image}
+            accentColor={accent}
+          />
+        )}
 
-    {event.testimonials && event.testimonials.length > 0 && (
-      <Testimonials
-        kicker="Riders on the road"
-        title="What they remember"
-        items={event.testimonials}
-      />
-    )}
+        {key === 'testimonials' && event.testimonials && event.testimonials.length > 0 && (
+          <Testimonials
+            kicker="Riders on the road"
+            title="What they remember"
+            items={event.testimonials}
+          />
+        )}
 
-    <PhotoBreak
-      height="md"
-      caption={breaks.testimonials.caption ?? 'Early light'}
-      image={breaks.testimonials.image}
-      accentColor={accent}
-    />
+        {key === 'photoBreakTestimonials' && (
+          <PhotoBreak
+            height="md"
+            caption={breaks.testimonials.caption ?? 'Early light'}
+            image={breaks.testimonials.image}
+            accentColor={accent}
+          />
+        )}
 
-    <Credo
-      kicker="What you'll find at The Grand Escape"
-      title="Cycling, the way you first fell for it"
-      intro={credoIntro}
-      pillars={credoPillars}
-      authority={{
-        kicker: 'Organized by',
-        body: "Part of Bike Adventure Series — Europe's first no-race bikepacking series. 20,000+ cyclists across Tuscany Trail (since 2014), NorthCape4000, Unpaved Roads and The Grand Escape.",
-        logo: '/brand/bas-logo.webp',
-        logoAlt: 'Bike Adventure Series',
-        href: 'https://www.bikeadventureseries.com',
-      }}
-      accentColor={accent}
-    />
+        {key === 'credo' && (
+          <Credo
+            kicker="What you'll find at The Grand Escape"
+            title="Cycling, the way you first fell for it"
+            intro={credoIntro}
+            pillars={credoPillars}
+            authority={{
+              kicker: 'Organized by',
+              body: "Part of Bike Adventure Series — Europe's first no-race bikepacking series. 20,000+ cyclists across Tuscany Trail (since 2014), NorthCape4000, Unpaved Roads and The Grand Escape.",
+              logo: '/brand/bas-logo.webp',
+              logoAlt: 'Bike Adventure Series',
+              href: 'https://www.bikeadventureseries.com',
+            }}
+            accentColor={accent}
+          />
+        )}
 
-    {splits && (
-      <PhotoSplit
-        reverse
-        kicker="The quiet between climbs"
-        title={splits.quietTitle}
-        body={splits.quietBody}
-        imageCaption={splits.quietCaption}
-        image={splits.quietImage}
-        accentColor={accent}
-      />
-    )}
+        {key === 'photoSplitQuiet' && splits && (
+          <PhotoSplit
+            reverse
+            kicker="The quiet between climbs"
+            title={splits.quietTitle}
+            body={splits.quietBody}
+            imageCaption={splits.quietCaption}
+            image={splits.quietImage}
+            accentColor={accent}
+          />
+        )}
 
-    <BrevoForm
-      variant="event"
-      eventSegment={event.brevoSegment}
-      kicker="Still on the fence?"
-      title="Lock in your spot while you decide."
-      body="Leaving your email costs nothing and gives you:"
-      benefits={signupBenefits}
-      ctaLabel={waitlistCtaLabel}
-      legal="Limited spots · Unsubscribe anytime · No spam, ever"
-      accentColor={accent}
-      anchorId="signup-bottom"
-    />
+        {key === 'signupBottom' && (
+          <BrevoForm
+            variant="event"
+            eventSegment={event.brevoSegment}
+            kicker="Still on the fence?"
+            title="Lock in your spot while you decide."
+            body="Leaving your email costs nothing and gives you:"
+            benefits={signupBenefits}
+            ctaLabel={waitlistCtaLabel}
+            legal="Limited spots · Unsubscribe anytime · No spam, ever"
+            accentColor={accent}
+            anchorId="signup-bottom"
+          />
+        )}
 
-    <PhotoBreak
-      height="sm"
-      caption={breaks.faq.caption ?? 'See you on the road'}
-      image={breaks.faq.image}
-      accentColor={accent}
-    />
+        {key === 'photoBreakFaq' && (
+          <PhotoBreak
+            height="sm"
+            caption={breaks.faq.caption ?? 'See you on the road'}
+            image={breaks.faq.image}
+            accentColor={accent}
+          />
+        )}
 
-    {event.faq && event.faq.length > 0 && (
-      <FAQAccordion
-        kicker="FAQ"
-        title="Before you sign up"
-        items={event.faq}
-        accentColor={accent}
-      />
-    )}
+        {key === 'faq' && event.faq && event.faq.length > 0 && (
+          <FAQAccordion
+            kicker="FAQ"
+            title="Before you sign up"
+            items={event.faq}
+            accentColor={accent}
+          />
+        )}
+      </>
+    ))}
 
     <TrustStrip label={trust.label} partners={trust.partners} />
     <StickyCTA label={waitlistCtaLabel} href="#signup" accentColor={accent} />
