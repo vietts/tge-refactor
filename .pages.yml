@@ -269,11 +269,11 @@ content:
               - { name: image,   label: Image,   type: image,  required: false }
       - name: sectionOrder
         label: "Section order (drag to reorder — leave empty for default)"
+        description: "Add each section once; drag to reorder. Sections you don't add fall back to the default position."
         type: select
         list: true
         required: false
         options:
-          multiple: true
           values:
             - { value: facts,                  label: "Facts bar" }
             - { value: signupTop,              label: "Signup — top" }
