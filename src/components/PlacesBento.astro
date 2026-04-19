@@ -14,7 +14,6 @@ interface Props {
 }
 const { kicker, title, subtitle, places, accentColor } = Astro.props;
 
-// Gradient palette — rotated so adjacent cells differ
 const gradients = [
   'radial-gradient(ellipse at 30% 30%, #d9b87a 0%, transparent 55%), linear-gradient(180deg, #8a5830 0%, #3e2815 100%)',
   'radial-gradient(ellipse at 70% 40%, #a8c0e0 0%, transparent 55%), linear-gradient(180deg, #3a5a82 0%, #15243c 100%)',
@@ -37,16 +36,25 @@ const gradients = [
       {places.map((p, i) => (
         <article class:list={['cell', `cell-${p.size ?? 'md'}`]}
                  style={`background:${p.image ? `url('${p.image}') center/cover no-repeat` : gradients[i % gradients.length]}`}>
-          <div class="cell-top">
-            <span class="cell-num">{String(i + 1).padStart(2, '0')}</span>
-          </div>
-          <div class="cell-bottom">
+          <span class="cell-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <figcaption class="cell-caption">
             <h3 class="cell-name display">{p.name}</h3>
-            <p class="cell-desc">{p.description}</p>
-          </div>
+          </figcaption>
         </article>
       ))}
     </div>
+
+    <dl class="places-index">
+      {places.map((p, i) => (
+        <div class="idx-row">
+          <dt class="idx-term">
+            <span class="idx-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="idx-name display">{p.name}</span>
+          </dt>
+          <dd class="idx-desc">{p.description}</dd>
+        </div>
+      ))}
+    </dl>
   </div>
 </section>
 
@@ -64,9 +72,7 @@ const gradients = [
   }
   .cell {
     position: relative;
-    display: flex; flex-direction: column; justify-content: space-between;
-    min-height: 220px;
-    padding: 1.25rem;
+    min-height: 280px;
     border-radius: 10px;
     color: #fff;
     overflow: hidden;
@@ -75,32 +81,79 @@ const gradients = [
   .cell::after {
     content: '';
     position: absolute; inset: 0; z-index: -1;
-    background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.55) 100%);
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.45) 100%);
   }
   .cell-num {
+    position: absolute; top: 0.9rem; left: 1rem;
     font-family: var(--font-display); font-weight: 800;
-    font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
-    opacity: 0.9;
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #fff;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+    padding: 0.3rem 0.55rem;
+    border-radius: 4px;
+  }
+  .cell-caption {
+    position: absolute; left: 1.1rem; bottom: 1rem; right: 1.1rem;
   }
   .cell-name {
-    font-size: 1.75rem; line-height: 0.95; margin-bottom: 0.4rem;
+    font-size: 1.75rem; line-height: 0.95;
     color: #fff;
-  }
-  .cell-desc {
-    font-family: var(--font-body);
-    font-size: 0.9rem; line-height: 1.45;
-    max-width: 34ch;
-    opacity: 0.92;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.35);
   }
 
   @media (min-width: 720px) {
     .bento {
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      grid-auto-rows: 240px;
+      grid-auto-rows: 280px;
     }
     .cell-sm { grid-column: span 1; grid-row: span 1; min-height: auto; }
     .cell-md { grid-column: span 2; grid-row: span 1; min-height: auto; }
     .cell-lg { grid-column: span 2; grid-row: span 2; min-height: auto; }
     .cell-lg .cell-name { font-size: 2.75rem; }
+  }
+
+  /* ----- Index list (descriptions decoupled from photos) ----- */
+  .places-index {
+    margin: var(--sp-6) 0 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid color-mix(in oklab, var(--espresso) 22%, transparent);
+  }
+  .idx-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0 1rem;
+    align-items: baseline;
+  }
+  .idx-term {
+    grid-column: 1 / -1;
+    display: flex; align-items: baseline; gap: 0.8rem;
+    margin: 0 0 0.35rem;
+  }
+  .idx-num {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent, var(--fern));
+  }
+  .idx-name {
+    font-size: 1.35rem; line-height: 1;
+    color: var(--red-wine);
+  }
+  .idx-desc {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1rem; line-height: 1.55;
+    color: var(--espresso);
+    max-width: 62ch;
+  }
+
+  @media (min-width: 720px) {
+    .places-index {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 </style>
