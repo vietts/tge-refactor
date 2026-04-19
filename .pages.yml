@@ -20,12 +20,12 @@ content:
     fields:
       - name: featured
         label: "Featured event card (above documentary)"
-        description: "Card with photo + countdown shown right after the hero. By default picks the event with the earliest upcoming registration date; set a specific event to override."
+        description: "Card with photo + countdown shown right after the hero. All fields are optional — leave blank to inherit from the selected event."
         type: object
         required: false
         fields:
           - name: eventSlug
-            label: "Which event to feature"
+            label: "Source event (for fallbacks + CTA link)"
             type: select
             required: false
             options:
@@ -34,6 +34,16 @@ content:
                 - { value: slovenia, label: "Slovenia" }
                 - { value: germany,  label: "Germany" }
                 - { value: tuscany,  label: "Tuscany" }
+          - { name: kicker,         label: "Kicker override (e.g. 'Next up · Germany 2026')", type: string, required: false }
+          - { name: heading,        label: "Heading override (italic quote)",                   type: text,   required: false }
+          - { name: body,           label: "Body override (tagline under heading)",             type: text,   required: false }
+          - { name: image,          label: "Photo override",                                    type: image,  required: false }
+          - { name: imageAlt,       label: "Photo alt text",                                    type: string, required: false }
+          - { name: countdownLabel, label: "Countdown label (e.g. 'Opens in')",                 type: string, required: false }
+          - { name: dateLabel,      label: "Date label (e.g. 'Registration opens')",            type: string, required: false }
+          - { name: targetDate,     label: "Countdown target (ISO 8601) — overrides event date", type: string, required: false }
+          - { name: ctaLabel,       label: "CTA label (e.g. 'Join the waitlist')",              type: string, required: false }
+          - { name: ctaHref,        label: "CTA link (default: event page #signup)",            type: string, required: false }
 
       - name: manifesto
         label: "Hero manifesto"

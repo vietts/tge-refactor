@@ -15,12 +15,26 @@ interface EventLike {
   registrationOpens?: { date: string };
 }
 
+interface Overrides {
+  kicker?: string;
+  heading?: string;
+  body?: string;
+  image?: string;
+  imageAlt?: string;
+  countdownLabel?: string;
+  dateLabel?: string;
+  targetDate?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
 interface Props {
   events: EventLike[];
   forceSlug?: 'auto' | EventSlug;
+  overrides?: Overrides;
 }
 
-const { events, forceSlug = 'auto' } = Astro.props;
+const { events, forceSlug = 'auto', overrides = {} } = Astro.props;
 
 const now = Date.now();
 const upcoming = events
@@ -34,7 +48,7 @@ const event = forced
   ?? events.find((e) => e.status !== 'sold')
   ?? events[0];
 
-const regIso = event.registrationOpens?.date ?? '';
+const regIso = overrides.targetDate || event.registrationOpens?.date || '';
 const regDate = regIso ? new Date(regIso) : null;
 const regLabel = regDate
   ? regDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -42,8 +56,17 @@ const regLabel = regDate
 
 const textOnAccent = event.slug === 'germany' ? '#1a1a1a' : '#fff';
 const isSold = event.status === 'sold';
-const ctaLabel = isSold ? '2027 waitlist' : 'Join the waitlist';
-const cdLabel = isSold ? '2027 waitlist' : 'Opens in';
+
+const heroImage = overrides.image || event.heroImage;
+const heroImageAlt = overrides.imageAlt ?? event.heroImageAlt ?? '';
+const kicker = overrides.kicker
+  || `Next up · ${event.name}${regDate ? ` ${regDate.getFullYear()}` : ''}`;
+const heading = overrides.heading || event.quote;
+const body = overrides.body ?? event.tagline;
+const cdLabel = overrides.countdownLabel || (isSold ? '2027 waitlist' : 'Opens in');
+const dateLabel = overrides.dateLabel || 'Registration opens';
+const ctaLabel = overrides.ctaLabel || (isSold ? '2027 waitlist' : 'Join the waitlist');
+const ctaHref = overrides.ctaHref || `${EVENT_PATH[event.slug]}#signup`;
 const uid = 'fe-' + Math.random().toString(36).slice(2, 8);
 ---
 <section
@@ -52,23 +75,21 @@ const uid = 'fe-' + Math.random().toString(36).slice(2, 8);
   style={`--accent:${event.subBrandColor};--text-on-accent:${textOnAccent}`}
   aria-labelledby={`${uid}-heading`}
 >
-  <div class="featured-photo" aria-hidden={event.heroImage ? undefined : 'true'}>
-    {event.heroImage
-      ? <img src={event.heroImage} alt={event.heroImageAlt ?? ''} loading="eager" decoding="async" />
+  <div class="featured-photo" aria-hidden={heroImage ? undefined : 'true'}>
+    {heroImage
+      ? <img src={heroImage} alt={heroImageAlt} loading="eager" decoding="async" />
       : <div class="photo-fallback"></div>}
     <div class="photo-fade"></div>
   </div>
 
   <div class="featured-card">
-    <div class="card-kicker">
-      Next up · {event.name}{regDate ? ` ${regDate.getFullYear()}` : ''}
-    </div>
+    <div class="card-kicker">{kicker}</div>
 
     <h2 id={`${uid}-heading`} class="card-heading display">
-      "{event.quote}"
+      "{heading}"
     </h2>
 
-    {event.tagline && <p class="card-body">{event.tagline}</p>}
+    {body && <p class="card-body">{body}</p>}
 
     <div class="card-countdown" id={uid} data-target={regIso}>
       <div class="cd-label">{cdLabel}</div>
@@ -82,12 +103,12 @@ const uid = 'fe-' + Math.random().toString(36).slice(2, 8);
         <div class="cd-cell"><span class="n" data-cd="s">--</span><span class="u">Sec</span></div>
       </div>
       <div class="cd-reg">
-        <span class="cd-reg-label">Registration opens</span>
+        <span class="cd-reg-label">{dateLabel}</span>
         <span class="cd-reg-date">{regLabel}</span>
       </div>
     </div>
 
-    <a href={`${EVENT_PATH[event.slug]}#signup`} class="card-cta cta-pill">
+    <a href={ctaHref} class="card-cta cta-pill">
       {ctaLabel} <Icon name="arrow" size={14} />
     </a>
   </div>

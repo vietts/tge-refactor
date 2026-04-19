@@ -216,6 +216,16 @@ const hub = defineCollection({
       featured: z
         .object({
           eventSlug: z.enum(['auto', 'slovenia', 'germany', 'tuscany']).optional(),
+          kicker: z.string().optional(),
+          heading: z.string().optional(),
+          body: z.string().optional(),
+          image: z.string().optional(),
+          imageAlt: z.string().optional(),
+          countdownLabel: z.string().optional(),
+          dateLabel: z.string().optional(),
+          targetDate: z.coerce.string().optional(),
+          ctaLabel: z.string().optional(),
+          ctaHref: z.string().optional(),
         })
         .optional(),
       sectionOrder: z
