@@ -152,7 +152,7 @@ const hub = defineCollection({
       }),
       registrationOpens: z
         .object({
-          date: z.string(),
+          date: z.coerce.string(),
           kicker: z.string().optional(),
           title: z.string(),
           body: z.string().optional(),
@@ -213,6 +213,11 @@ const hub = defineCollection({
           })
         ),
       }),
+      featured: z
+        .object({
+          eventSlug: z.enum(['auto', 'slovenia', 'germany', 'tuscany']).optional(),
+        })
+        .optional(),
       sectionOrder: z
         .array(
           z.enum([

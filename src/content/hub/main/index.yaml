@@ -154,6 +154,8 @@ signupBottom:
     registration opens. Promise: no spam, ever."
   cta: Send me the guide
   legal: Powered by Brevo. Unsubscribe anytime.
+featured:
+  eventSlug: auto
 trust:
   label: Part of
   partners:

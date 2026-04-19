@@ -18,6 +18,23 @@ content:
     type: file
     path: src/content/hub/main/index.yaml
     fields:
+      - name: featured
+        label: "Featured event card (above documentary)"
+        description: "Card with photo + countdown shown right after the hero. By default picks the event with the earliest upcoming registration date; set a specific event to override."
+        type: object
+        required: false
+        fields:
+          - name: eventSlug
+            label: "Which event to feature"
+            type: select
+            required: false
+            options:
+              values:
+                - { value: auto,     label: "Auto — earliest registration opening" }
+                - { value: slovenia, label: "Slovenia" }
+                - { value: germany,  label: "Germany" }
+                - { value: tuscany,  label: "Tuscany" }
+
       - name: manifesto
         label: "Hero manifesto"
         type: object

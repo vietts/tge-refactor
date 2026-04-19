@@ -74,7 +74,7 @@ for (const k of DEFAULT_HUB_SECTION_ORDER) {
     posterSrc={hub.manifesto.posterSrc}
   />
 
-  <FeaturedEvent events={events} />
+  <FeaturedEvent events={events} forceSlug={hub.featured?.eventSlug ?? 'auto'} />
 
   {sectionOrder.map((key) => (
     <>

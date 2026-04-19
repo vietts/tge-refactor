@@ -17,16 +17,20 @@ interface EventLike {
 
 interface Props {
   events: EventLike[];
+  forceSlug?: 'auto' | EventSlug;
 }
 
-const { events } = Astro.props;
+const { events, forceSlug = 'auto' } = Astro.props;
 
 const now = Date.now();
 const upcoming = events
   .filter((e) => e.registrationOpens?.date && new Date(e.registrationOpens.date).getTime() > now)
   .sort((a, b) => new Date(a.registrationOpens!.date).getTime() - new Date(b.registrationOpens!.date).getTime());
 
-const event = upcoming[0]
+const forced = forceSlug !== 'auto' ? events.find((e) => e.slug === forceSlug) : undefined;
+
+const event = forced
+  ?? upcoming[0]
   ?? events.find((e) => e.status !== 'sold')
   ?? events[0];
 
