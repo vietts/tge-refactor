@@ -33,14 +33,14 @@ const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   .wa-badge {
     position: fixed;
     right: 1.25rem; bottom: 1.25rem;
-    z-index: 850;
+    z-index: 960;
     display: inline-flex; align-items: center; justify-content: center;
     width: 56px; height: 56px;
     border-radius: 50%;
     background: #25D366;
     color: #fff;
     box-shadow: 0 8px 24px rgba(0,0,0,0.22);
-    transition: transform 160ms ease, box-shadow 160ms ease;
+    transition: transform 160ms ease, box-shadow 160ms ease, bottom 200ms ease;
   }
   .wa-badge:hover { transform: scale(1.06); box-shadow: 0 10px 28px rgba(0,0,0,0.28); }
   .wa-badge:active { transform: scale(0.95); }
@@ -49,12 +49,18 @@ const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
   /* Lift above the mobile sticky CTA when both are present on the same page */
   :global(body):has(.sticky-cta) .wa-badge { bottom: 5rem; }
+  /* Lift above the cookie banner on mobile — banner spans the bottom-right on narrow viewports */
+  :global(body):has(.cb) .wa-badge { bottom: 11rem; }
+  :global(body):has(.cb):has(.sticky-cta) .wa-badge { bottom: 14rem; }
 
-  @media (min-width: 720px) {
+  @media (min-width: 820px) {
     .wa-badge { width: 60px; height: 60px; right: 1.5rem; bottom: 1.5rem; }
     .wa-badge svg { width: 30px; height: 30px; }
-    /* Sticky CTA is hidden on desktop, reset bottom even if selector matches */
-    :global(body):has(.sticky-cta) .wa-badge { bottom: 1.5rem; }
+    /* On desktop the cookie banner is centered (max-width 720px) and doesn't reach
+       the bottom-right corner, so no lift is needed. */
+    :global(body):has(.sticky-cta) .wa-badge,
+    :global(body):has(.cb) .wa-badge,
+    :global(body):has(.cb):has(.sticky-cta) .wa-badge { bottom: 1.5rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
