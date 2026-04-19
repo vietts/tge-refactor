@@ -67,7 +67,7 @@ const heroStyle = [
 
     {variant === 'event' && (
       <>
-        <h1 class="hero-event-name display">{huge}</h1>
+        <h1 class="hero-event-name display">{huge.replace(/\//g, '/\u200B')}</h1>
         {serif && <p class="hero-quote serif">{serif}</p>}
       </>
     )}
@@ -108,7 +108,15 @@ const heroStyle = [
   .hero-huge { font-size: var(--fs-4xl); line-height: 0.95; color: var(--paper-1); text-transform: none; letter-spacing: -0.02em; max-width: 18ch; }
 
   .hero.event { align-items: flex-end; }
-  .hero-event-name { font-size: var(--fs-5xl); line-height: 0.92; color: var(--accent, var(--paper-1)); }
+  .hero-event-name {
+    font-size: clamp(44px, 9vw + 12px, 128px);
+    line-height: 0.92;
+    color: var(--accent, var(--paper-1));
+    max-width: 100%;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    text-wrap: balance;
+  }
   .hero-quote { font-family: var(--font-body); font-size: var(--fs-lg); line-height: 1.4; margin: 1rem 0; max-width: 22ch; opacity: 0.92; }
 
   /* Ticker: status + date in one editorial line above the kicker */
