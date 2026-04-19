@@ -87,6 +87,33 @@ const events = defineCollection({
           faq: photoBreakItem.optional(),
         })
         .optional(),
+      routeMap: z
+        .object({
+          title: z.string().optional(),
+          startingPoint: z.string().optional(),
+          km: z.number().optional(),
+          elev: z.number().optional(),
+          mapImage: z.string().optional(),
+          mapImageAlt: z.string().optional(),
+          elevationImage: z.string().optional(),
+          elevationImageAlt: z.string().optional(),
+          elevationRange: z.string().optional(),
+          mapScale: z.string().optional(),
+          tracks: z
+            .array(
+              z.object({
+                key: z.string(),
+                label: z.string(),
+                km: z.number(),
+                elev: z.number(),
+                mapImage: z.string().optional(),
+                elevationImage: z.string().optional(),
+                elevationRange: z.string().optional(),
+              })
+            )
+            .optional(),
+        })
+        .optional(),
       sectionOrder: z
         .array(
           z.enum([
@@ -96,6 +123,7 @@ const events = defineCollection({
             'philosophy',
             'documentary',
             'places',
+            'routeMap',
             'mdxBody',
             'photoSplitDay',
             'included',

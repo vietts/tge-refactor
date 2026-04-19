@@ -1,0 +1,380 @@
+---
+type EventSlug = 'slovenia' | 'germany' | 'tuscany';
+
+interface Track {
+  key: string;
+  label: string;
+  km: number;
+  elev: number;
+  mapImage?: string;
+  elevationImage?: string;
+  elevationRange?: string;
+}
+
+interface Props {
+  eventSlug: EventSlug;
+  title: string;
+  startingPoint?: string;
+  km: number;
+  elev: number;
+  mapImage?: string;
+  mapImageAlt?: string;
+  elevationImage?: string;
+  elevationImageAlt?: string;
+  elevationRange?: string;
+  mapScale?: string;
+  tracks?: Track[];
+  accentColor: string;
+}
+
+const {
+  eventSlug,
+  title,
+  startingPoint,
+  km,
+  elev,
+  mapImage,
+  mapImageAlt = '',
+  elevationImage,
+  elevationImageAlt = '',
+  elevationRange,
+  mapScale,
+  tracks,
+  accentColor,
+} = Astro.props;
+
+const fmt = (n: number) => n.toLocaleString('en-US');
+const showTracks = Array.isArray(tracks) && tracks.length > 1;
+const initial = showTracks ? tracks![0] : null;
+const kmInitial = initial ? initial.km : km;
+const elevInitial = initial ? initial.elev : elev;
+const mapInitial = initial?.mapImage ?? mapImage;
+const elevInitialImg = initial?.elevationImage ?? elevationImage;
+const rangeInitial = initial?.elevationRange ?? elevationRange;
+
+const uid = 'rm-' + Math.random().toString(36).slice(2, 8);
+
+const tracksJson = showTracks
+  ? JSON.stringify(
+      tracks!.reduce<Record<string, Omit<Track, 'key' | 'label'>>>((acc, t) => {
+        acc[t.key] = {
+          km: t.km,
+          elev: t.elev,
+          mapImage: t.mapImage ?? mapImage,
+          elevationImage: t.elevationImage ?? elevationImage,
+          elevationRange: t.elevationRange ?? elevationRange,
+        };
+        return acc;
+      }, {})
+    )
+  : null;
+---
+<section
+  class="routemap"
+  data-event={eventSlug}
+  style={`--accent:${accentColor}`}
+  aria-labelledby={`${uid}-title`}
+  id={uid}
+>
+  <header class="rm-header">
+    <div>
+      <div class="rm-kicker"><span class="dot" aria-hidden="true"></span><span>Route</span></div>
+      <h2 id={`${uid}-title`} class="rm-title">
+        {title}
+        {startingPoint && (
+          <em>
+            <span class="sp-label">Starting point</span>{startingPoint}
+          </em>
+        )}
+      </h2>
+    </div>
+    <div class="rm-pills">
+      <div class="rm-pill">
+        <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 11 C 4 11, 4 5, 7 5 S 10 11, 13 11 S 14 8, 14 8"/>
+          <circle cx="2.5" cy="12.5" r="1.2" fill="currentColor" stroke="none"/>
+          <circle cx="13.5" cy="12.5" r="1.2" fill="currentColor" stroke="none"/>
+        </svg>
+        <span class="txt"><span class="v" data-pill="km">{fmt(kmInitial)}</span><span class="u">km total</span></span>
+      </div>
+      <div class="rm-pill">
+        <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M1.5 13 L 6 6 L 9 10 L 11 7.5 L 14.5 13 Z" fill="currentColor" fill-opacity="0.18"/>
+          <path d="M1.5 13 L 6 6 L 9 10 L 11 7.5 L 14.5 13"/>
+        </svg>
+        <span class="txt"><span class="v" data-pill="elev">{fmt(elevInitial)}</span><span class="u">m climb</span></span>
+      </div>
+    </div>
+  </header>
+
+  {showTracks && (
+    <div class="rm-tracks" role="tablist" aria-label="Track variant">
+      {tracks!.map((t, i) => (
+        <button
+          type="button"
+          role="tab"
+          aria-pressed={i === 0 ? 'true' : 'false'}
+          data-track={t.key}
+        >
+          <span class="tdot" aria-hidden="true"></span>{t.label}
+        </button>
+      ))}
+    </div>
+  )}
+
+  <div class="rm-stage">
+    <figure class="rm-frame rm-map" aria-label="Route map">
+      <span class="rm-tag">
+        <svg class="icon" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3.5" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="5" cy="5" r="1" fill="currentColor"/></svg>
+        Map
+      </span>
+      {mapScale && <span class="rm-tag right">{mapScale}</span>}
+      {mapInitial
+        ? <img data-pill="map" src={mapInitial} alt={mapImageAlt} loading="lazy" decoding="async" />
+        : <div class="rm-empty" aria-hidden="true">Map coming soon</div>}
+    </figure>
+
+    <figure class="rm-frame rm-elev" aria-label="Elevation profile">
+      <span class="rm-tag">
+        <svg class="icon" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 8 L3 5 L5 7 L7 3 L9 6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        Elevation
+      </span>
+      {rangeInitial && <span class="rm-tag right" data-pill="range">{rangeInitial}</span>}
+      {elevInitialImg
+        ? <img data-pill="elev-img" src={elevInitialImg} alt={elevationImageAlt} loading="lazy" decoding="async" />
+        : <div class="rm-empty" aria-hidden="true">Elevation profile coming soon</div>}
+    </figure>
+  </div>
+</section>
+
+{showTracks && (
+  <script is:inline define:vars={{ uid, tracksJson }}>
+    (() => {
+      const root = document.getElementById(uid);
+      if (!root || !tracksJson) return;
+      const tracks = JSON.parse(tracksJson);
+      const fmt = (n) => Number(n).toLocaleString('en-US');
+      const buttons = root.querySelectorAll('.rm-tracks button');
+      buttons.forEach((b) => {
+        b.addEventListener('click', () => {
+          const t = tracks[b.dataset.track];
+          if (!t) return;
+          buttons.forEach((x) => x.setAttribute('aria-pressed', 'false'));
+          b.setAttribute('aria-pressed', 'true');
+          const kmEl = root.querySelector('[data-pill="km"]');
+          const elevEl = root.querySelector('[data-pill="elev"]');
+          const mapImg = root.querySelector('[data-pill="map"]');
+          const elevImg = root.querySelector('[data-pill="elev-img"]');
+          const rangeEl = root.querySelector('[data-pill="range"]');
+          if (kmEl) kmEl.textContent = fmt(t.km);
+          if (elevEl) elevEl.textContent = fmt(t.elev);
+          if (mapImg && t.mapImage) mapImg.src = t.mapImage;
+          if (elevImg && t.elevationImage) elevImg.src = t.elevationImage;
+          if (rangeEl && t.elevationRange) rangeEl.textContent = t.elevationRange;
+        });
+      });
+    })();
+  </script>
+)}
+
+<style>
+  .routemap {
+    --tint-a: 12%;
+    --tint-b: 6%;
+    position: relative;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--sp-7) var(--sp-5) var(--sp-8);
+    background: var(--paper-1);
+    border-radius: 4px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .routemap[data-event="slovenia"] { --tint-a: 20%; --tint-b: 10%; }
+  .routemap[data-event="germany"]  { --tint-a: 28%; --tint-b: 16%; }
+  .routemap[data-event="tuscany"]  { --tint-a: 12%; --tint-b: 6%; }
+
+  .routemap::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(600px 400px at 10% 0%,
+        color-mix(in oklab, var(--accent) var(--tint-a), var(--paper-2)) 0%,
+        transparent 55%),
+      radial-gradient(500px 380px at 100% 100%,
+        color-mix(in oklab, var(--accent) var(--tint-b), var(--paper-3)) 0%,
+        transparent 55%);
+  }
+  .routemap > * { position: relative; z-index: 1; }
+
+  .rm-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+  .rm-kicker {
+    font-family: var(--font-display); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    font-weight: 700; color: var(--accent);
+    margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .rm-kicker .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); opacity: 0.8;
+  }
+  .rm-title {
+    font-family: var(--font-display); font-weight: 800;
+    text-transform: uppercase; letter-spacing: -0.02em;
+    line-height: 0.92; color: var(--red-wine);
+    font-size: clamp(28px, 3vw, 42px);
+  }
+  .rm-title em {
+    font-family: inherit;
+    font-style: normal; font-weight: 500;
+    text-transform: none; color: var(--accent);
+    letter-spacing: 0; font-size: 0.56em;
+    line-height: 1.15; margin-top: 0.6rem; display: block;
+    opacity: 0.95;
+  }
+  .rm-title em .sp-label {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.42em;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--espresso);
+    opacity: 0.55;
+    margin-bottom: 0.35rem;
+  }
+
+  .rm-pills {
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+    justify-self: end;
+  }
+  .rm-pill {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 10px 16px 10px 14px;
+    border-radius: 999px;
+    background: var(--paper-1);
+    border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
+    color: var(--espresso);
+    font-family: var(--font-display);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset;
+  }
+  .rm-pill .ico {
+    width: 16px; height: 16px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .rm-pill .txt { display: inline-flex; align-items: baseline; gap: 7px; }
+  .rm-pill .v {
+    font-weight: 800; font-size: 18px; line-height: 1;
+    color: var(--accent); letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+  .rm-pill .u {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--espresso); opacity: 0.7;
+  }
+
+  .rm-tracks {
+    display: inline-flex;
+    padding: 4px;
+    background: color-mix(in oklab, var(--accent) 10%, var(--paper-2));
+    border: 1px solid color-mix(in oklab, var(--accent) 25%, transparent);
+    border-radius: 999px;
+    gap: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .rm-tracks button {
+    font-family: var(--font-display);
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--espresso); opacity: 0.65;
+    padding: 8px 16px; border-radius: 999px;
+    background: transparent; border: 0;
+    cursor: pointer;
+    transition: color 160ms var(--ease-out), background 160ms var(--ease-out), opacity 160ms;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .rm-tracks button:hover { opacity: 1; }
+  .rm-tracks button[aria-pressed="true"] {
+    background: var(--accent);
+    color: #fff;
+    opacity: 1;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+  }
+  .rm-tracks button .tdot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: currentColor; opacity: 0.8;
+  }
+
+  .rm-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .rm-frame {
+    position: relative;
+    margin: 0;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #1d1a14;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.35) inset,
+      0 0 0 1px color-mix(in oklab, var(--accent) 30%, transparent),
+      0 18px 36px -20px rgba(44,31,21,0.45);
+  }
+  .rm-map { aspect-ratio: 16 / 9; background: var(--paper-2); }
+  .rm-elev { aspect-ratio: 32 / 9; background: var(--paper-2); }
+  .rm-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .rm-empty {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(243,236,224,0.55);
+  }
+
+  .rm-tag {
+    position: absolute;
+    top: 14px; left: 14px;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 10px;
+    background: rgba(243,236,224,0.92);
+    color: var(--espresso);
+    border-radius: 999px;
+    font-family: var(--font-display); font-size: 9px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    z-index: 2;
+  }
+  .rm-tag.right { left: auto; right: 14px; }
+  .rm-tag .icon { width: 10px; height: 10px; opacity: 0.7; }
+
+  @media (max-width: 820px) {
+    .routemap { padding: var(--sp-6) var(--sp-4) var(--sp-7); border-radius: 3px; }
+    .rm-header {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .rm-pills { justify-self: start; }
+    .rm-pill { padding: 9px 14px; }
+    .rm-pill .v { font-size: 16px; }
+    .rm-title { font-size: 26px; }
+    .rm-title em { font-size: 0.58em; }
+    .rm-tracks { width: 100%; overflow-x: auto; }
+    .rm-tracks button { padding: 8px 12px; font-size: 10px; white-space: nowrap; }
+    .rm-map { aspect-ratio: 4 / 3; }
+    .rm-elev { aspect-ratio: 16 / 7; }
+    .rm-tag { font-size: 8px; padding: 5px 8px; }
+  }
+</style>

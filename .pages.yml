@@ -230,6 +230,7 @@ content:
             - { value: philosophy,             label: "Philosophy quote" }
             - { value: documentary,            label: "Documentary embed" }
             - { value: places,                 label: "Places bento" }
+            - { value: routeMap,               label: "Route map & elevation" }
             - { value: mdxBody,                label: "Event body (markdown)" }
             - { value: photoSplitDay,          label: "Photo split — A day on the road" }
             - { value: included,               label: "What's included" }
@@ -338,4 +339,33 @@ content:
             fields:
               - { name: caption, label: Caption, type: string, required: false }
               - { name: image,   label: Image,   type: image,  required: false }
+      - name: routeMap
+        label: "Route map & elevation"
+        description: "Static map + elevation profile supplied by marketing. Section only renders when this object is filled and added to sectionOrder."
+        type: object
+        required: false
+        fields:
+          - { name: title,             label: "Title (e.g. 'Tuscany Loop 2026') — defaults to event name", type: string, required: false }
+          - { name: startingPoint,     label: "Starting point (city + venue)", type: string, required: false }
+          - { name: km,                label: "Total km (defaults to event distanceKm)", type: number, required: false }
+          - { name: elev,              label: "Total climb in m (defaults to event elevationD)", type: number, required: false }
+          - { name: mapImage,          label: "Map image (JPG/PNG, 16:9 recommended)", type: image, required: false }
+          - { name: mapImageAlt,       label: "Map alt text", type: string, required: false }
+          - { name: elevationImage,    label: "Elevation profile image (~32:9)", type: image, required: false }
+          - { name: elevationImageAlt, label: "Elevation alt text", type: string, required: false }
+          - { name: elevationRange,    label: "Elevation range (e.g. '0 – 1,240 m')", type: string, required: false }
+          - { name: mapScale,          label: "Scale / orientation tag (e.g. 'Scale 1:300k')", type: string, required: false }
+          - name: tracks
+            label: "Track variants (leave empty for single-track events)"
+            type: object
+            list: true
+            required: false
+            fields:
+              - { name: key,             label: "Key (slug, e.g. 'gran')", type: string }
+              - { name: label,           label: "Label (e.g. 'Gran fondo · 600 km')", type: string }
+              - { name: km,              label: "Track km", type: number }
+              - { name: elev,            label: "Track climb (m)", type: number }
+              - { name: mapImage,        label: "Track-specific map image", type: image, required: false }
+              - { name: elevationImage,  label: "Track-specific elevation image", type: image, required: false }
+              - { name: elevationRange,  label: "Track-specific elevation range", type: string, required: false }
       - { name: body,          label: "Event body (markdown)", type: rich-text }

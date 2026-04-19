@@ -7,6 +7,7 @@ import DocumentaryEmbed from '../components/DocumentaryEmbed.astro';
 import PhilosophyQuote from '../components/PhilosophyQuote.astro';
 import RegistrationCountdown from '../components/RegistrationCountdown.astro';
 import PlacesBento from '../components/PlacesBento.astro';
+import RouteMap from '../components/RouteMap.astro';
 import PhotoSplit from '../components/PhotoSplit.astro';
 import PhotoBreak from '../components/PhotoBreak.astro';
 import WhatsIncluded from '../components/WhatsIncluded.astro';
@@ -32,6 +33,7 @@ type SectionKey =
   | 'philosophy'
   | 'documentary'
   | 'places'
+  | 'routeMap'
   | 'mdxBody'
   | 'photoSplitDay'
   | 'included'
@@ -51,6 +53,7 @@ const DEFAULT_SECTION_ORDER: SectionKey[] = [
   'philosophy',
   'documentary',
   'places',
+  'routeMap',
   'mdxBody',
   'photoSplitDay',
   'included',
@@ -92,7 +95,29 @@ interface PageEvent {
   faq?: FaqItem[];
   photoSplits?: { day: PhotoSplitSide; quiet: PhotoSplitSide };
   photoBreaks?: { included?: PhotoBreakItem; testimonials?: PhotoBreakItem; faq?: PhotoBreakItem };
+  routeMap?: {
+    title?: string;
+    startingPoint?: string;
+    km?: number;
+    elev?: number;
+    mapImage?: string;
+    mapImageAlt?: string;
+    elevationImage?: string;
+    elevationImageAlt?: string;
+    elevationRange?: string;
+    mapScale?: string;
+    tracks?: Array<{
+      key: string;
+      label: string;
+      km: number;
+      elev: number;
+      mapImage?: string;
+      elevationImage?: string;
+      elevationRange?: string;
+    }>;
+  };
   sectionOrder?: SectionKey[];
+  elevationD: number;
 }
 interface TrustData {
   label: string;
@@ -254,6 +279,24 @@ for (const k of DEFAULT_SECTION_ORDER) {
             title={`A ride through ${event.places.length} landscapes`}
             subtitle="The loop is curated so every day brings a different world."
             places={event.places}
+            accentColor={accent}
+          />
+        )}
+
+        {key === 'routeMap' && event.routeMap && (
+          <RouteMap
+            eventSlug={event.slug}
+            title={event.routeMap.title ?? `${event.name} ${new Date(event.registrationOpens?.date ?? '').getFullYear() || ''}`.trim()}
+            startingPoint={event.routeMap.startingPoint}
+            km={event.routeMap.km ?? event.distanceKm}
+            elev={event.routeMap.elev ?? event.elevationD}
+            mapImage={event.routeMap.mapImage}
+            mapImageAlt={event.routeMap.mapImageAlt}
+            elevationImage={event.routeMap.elevationImage}
+            elevationImageAlt={event.routeMap.elevationImageAlt}
+            elevationRange={event.routeMap.elevationRange}
+            mapScale={event.routeMap.mapScale}
+            tracks={event.routeMap.tracks}
             accentColor={accent}
           />
         )}
