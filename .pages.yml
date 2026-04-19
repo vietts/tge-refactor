@@ -170,6 +170,31 @@ content:
       - { name: status,        label: Status,           type: select, options: { values: [open, limited, sold] } }
       - { name: statusLabel,   label: "Status label",   type: string }
       - { name: subBrandColor, label: "Sub-brand hex color", type: string }
+      - name: sectionOrder
+        label: "Section order (drag to reorder — leave empty for default)"
+        description: "Add each section once; drag to reorder. Sections you don't add fall back to the default position."
+        type: select
+        list: true
+        required: false
+        options:
+          values:
+            - { value: facts,                  label: "Facts bar" }
+            - { value: signupTop,              label: "Signup — top" }
+            - { value: countdown,              label: "Registration countdown" }
+            - { value: philosophy,             label: "Philosophy quote" }
+            - { value: documentary,            label: "Documentary embed" }
+            - { value: places,                 label: "Places bento" }
+            - { value: mdxBody,                label: "Event body (markdown)" }
+            - { value: photoSplitDay,          label: "Photo split — A day on the road" }
+            - { value: included,               label: "What's included" }
+            - { value: photoBreakIncluded,     label: "Photo break — after What's included" }
+            - { value: testimonials,           label: "Testimonials" }
+            - { value: photoBreakTestimonials, label: "Photo break — after Testimonials" }
+            - { value: credo,                  label: "Credo / What you'll find" }
+            - { value: photoSplitQuiet,        label: "Photo split — The quiet between climbs" }
+            - { value: signupBottom,           label: "Signup — bottom" }
+            - { value: photoBreakFaq,          label: "Photo break — before FAQ" }
+            - { value: faq,                    label: "FAQ" }
       - { name: heroImage,     label: "Hero image",     type: image,  required: false }
       - { name: heroImageAlt,  label: "Hero image alt", type: string, required: false }
       - { name: mascotImage,   label: "Mascot image (replaces inline SVG/PNG)", type: image, required: false }
@@ -267,29 +292,4 @@ content:
             fields:
               - { name: caption, label: Caption, type: string, required: false }
               - { name: image,   label: Image,   type: image,  required: false }
-      - name: sectionOrder
-        label: "Section order (drag to reorder — leave empty for default)"
-        description: "Add each section once; drag to reorder. Sections you don't add fall back to the default position."
-        type: select
-        list: true
-        required: false
-        options:
-          values:
-            - { value: facts,                  label: "Facts bar" }
-            - { value: signupTop,              label: "Signup — top" }
-            - { value: countdown,              label: "Registration countdown" }
-            - { value: philosophy,             label: "Philosophy quote" }
-            - { value: documentary,            label: "Documentary embed" }
-            - { value: places,                 label: "Places bento" }
-            - { value: mdxBody,                label: "Event body (markdown)" }
-            - { value: photoSplitDay,          label: "Photo split — A day on the road" }
-            - { value: included,               label: "What's included" }
-            - { value: photoBreakIncluded,     label: "Photo break — after What's included" }
-            - { value: testimonials,           label: "Testimonials" }
-            - { value: photoBreakTestimonials, label: "Photo break — after Testimonials" }
-            - { value: credo,                  label: "Credo / What you'll find" }
-            - { value: photoSplitQuiet,        label: "Photo split — The quiet between climbs" }
-            - { value: signupBottom,           label: "Signup — bottom" }
-            - { value: photoBreakFaq,          label: "Photo break — before FAQ" }
-            - { value: faq,                    label: "FAQ" }
       - { name: body,          label: "Event body (markdown)", type: rich-text }
