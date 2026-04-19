@@ -42,9 +42,27 @@ const heroStyle = [
     <img class="hero-poster" src={posterSrc} alt="" aria-hidden="true" fetchpriority="high" />
   )}
   {videoSrc && (
-    <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
       <source src={videoSrc} type="video/webm" />
     </video>
+  )}
+  {videoSrc && (
+    <script is:inline>
+      (() => {
+        const v = document.currentScript.previousElementSibling;
+        if (!v || !('IntersectionObserver' in window)) return;
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) v.play().catch(() => {});
+              else v.pause();
+            }
+          },
+          { threshold: 0.01 }
+        );
+        io.observe(v);
+      })();
+    </script>
   )}
   <div class="hero-overlay" aria-hidden="true"></div>
 
