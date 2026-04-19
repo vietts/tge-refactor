@@ -10,7 +10,7 @@ const { youtubeId, label, title, subtitle } = Astro.props;
 <section class="doc">
   <div class="container-narrow sr">
     <div class="kicker doc-label">● {label}</div>
-    <h2 class="doc-title serif">{title}</h2>
+    <h2 class="doc-title display">{title}</h2>
     <p class="doc-sub">{subtitle}</p>
 
     <button class="yt-thumb" aria-label={`Play: ${title}`} data-yt-id={youtubeId}>
@@ -28,7 +28,7 @@ const { youtubeId, label, title, subtitle } = Astro.props;
 <style>
   .doc { background: var(--espresso); color: var(--paper-1); padding: var(--sp-8) 0; position: relative; }
   .doc-label { color: var(--caramel); margin-bottom: 0.6rem; }
-  .doc-title { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: -0.015em; font-size: var(--fs-2xl); line-height: 0.95; color: var(--paper-1); margin-bottom: 0.8rem; }
+  .doc-title { font-size: var(--fs-3xl); line-height: 0.95; color: var(--paper-1); margin-bottom: 0.8rem; }
   .doc-sub { font-family: var(--font-body); opacity: 0.78; max-width: 48ch; margin-bottom: 1.5rem; line-height: 1.6; color: rgba(243,236,224,0.85); }
 
   .yt-thumb {
