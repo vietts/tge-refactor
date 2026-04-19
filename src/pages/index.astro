@@ -2,6 +2,7 @@
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import FeaturedEvent from '../components/FeaturedEvent.astro';
 import BrevoForm from '../components/BrevoForm.astro';
 import DocumentaryEmbed from '../components/DocumentaryEmbed.astro';
 import WhatIs from '../components/WhatIs.astro';
@@ -25,11 +26,11 @@ type HubSectionKey =
   | 'signupBottom';
 
 const DEFAULT_HUB_SECTION_ORDER: HubSectionKey[] = [
-  'signupTop',
   'documentary',
   'whatIs',
   'escapes',
   'documentarySecondary',
+  'signupTop',
   'countdown',
   'testimonials',
   'values',
@@ -72,6 +73,8 @@ for (const k of DEFAULT_HUB_SECTION_ORDER) {
     videoSrc={hub.manifesto.videoSrc}
     posterSrc={hub.manifesto.posterSrc}
   />
+
+  <FeaturedEvent events={events} />
 
   {sectionOrder.map((key) => (
     <>

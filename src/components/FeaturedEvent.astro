@@ -1,0 +1,296 @@
+---
+import Icon from './Icon.astro';
+import { EVENT_PATH, type EventSlug } from '../lib/event-urls';
+
+interface EventLike {
+  slug: EventSlug;
+  name: string;
+  quote: string;
+  status: 'open' | 'limited' | 'sold';
+  statusLabel: string;
+  subBrandColor: string;
+  heroImage?: string;
+  heroImageAlt?: string;
+  tagline?: string;
+  registrationOpens?: { date: string };
+}
+
+interface Props {
+  events: EventLike[];
+}
+
+const { events } = Astro.props;
+
+const now = Date.now();
+const upcoming = events
+  .filter((e) => e.registrationOpens?.date && new Date(e.registrationOpens.date).getTime() > now)
+  .sort((a, b) => new Date(a.registrationOpens!.date).getTime() - new Date(b.registrationOpens!.date).getTime());
+
+const event = upcoming[0]
+  ?? events.find((e) => e.status !== 'sold')
+  ?? events[0];
+
+const regIso = event.registrationOpens?.date ?? '';
+const regDate = regIso ? new Date(regIso) : null;
+const regLabel = regDate
+  ? regDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  : 'Coming soon';
+
+const textOnAccent = event.slug === 'germany' ? '#1a1a1a' : '#fff';
+const isSold = event.status === 'sold';
+const ctaLabel = isSold ? '2027 waitlist' : 'Join the waitlist';
+const cdLabel = isSold ? '2027 waitlist' : 'Opens in';
+const uid = 'fe-' + Math.random().toString(36).slice(2, 8);
+---
+<section
+  class:list={['featured', event.slug]}
+  data-event={event.slug}
+  style={`--accent:${event.subBrandColor};--text-on-accent:${textOnAccent}`}
+  aria-labelledby={`${uid}-heading`}
+>
+  <div class="featured-photo" aria-hidden={event.heroImage ? undefined : 'true'}>
+    {event.heroImage
+      ? <img src={event.heroImage} alt={event.heroImageAlt ?? ''} loading="eager" decoding="async" />
+      : <div class="photo-fallback"></div>}
+    <div class="photo-fade"></div>
+  </div>
+
+  <div class="featured-card">
+    <div class="card-kicker">
+      Next up · {event.name}{regDate ? ` ${regDate.getFullYear()}` : ''}
+    </div>
+
+    <h2 id={`${uid}-heading`} class="card-heading display">
+      "{event.quote}"
+    </h2>
+
+    {event.tagline && <p class="card-body">{event.tagline}</p>}
+
+    <div class="card-countdown" id={uid} data-target={regIso}>
+      <div class="cd-label">{cdLabel}</div>
+      <div class="cd-cells">
+        <div class="cd-cell"><span class="n" data-cd="d">--</span><span class="u">Days</span></div>
+        <div class="cd-sep" aria-hidden="true"></div>
+        <div class="cd-cell"><span class="n" data-cd="h">--</span><span class="u">Hrs</span></div>
+        <div class="cd-sep" aria-hidden="true"></div>
+        <div class="cd-cell"><span class="n" data-cd="m">--</span><span class="u">Min</span></div>
+      </div>
+      <div class="cd-reg">
+        <span class="cd-reg-label">Registration opens</span>
+        <span class="cd-reg-date">{regLabel}</span>
+      </div>
+    </div>
+
+    <a href={`${EVENT_PATH[event.slug]}#signup`} class="card-cta cta-pill">
+      {ctaLabel} <Icon name="arrow" size={14} />
+    </a>
+  </div>
+</section>
+
+<script define:vars={{ uid }}>
+  const root = document.getElementById(uid);
+  if (root && root.dataset.target) {
+    const target = new Date(root.dataset.target).getTime();
+    if (!Number.isNaN(target)) {
+      const d = root.querySelector('[data-cd="d"]');
+      const h = root.querySelector('[data-cd="h"]');
+      const m = root.querySelector('[data-cd="m"]');
+      const pad = (n) => String(Math.max(0, n)).padStart(2, '0');
+      const tick = () => {
+        const ms = target - Date.now();
+        if (ms <= 0) {
+          d.textContent = h.textContent = m.textContent = '00';
+          return true;
+        }
+        d.textContent = pad(Math.floor(ms / 86400000));
+        h.textContent = pad(Math.floor(ms / 3600000) % 24);
+        m.textContent = pad(Math.floor(ms / 60000) % 60);
+        return false;
+      };
+      if (!tick()) {
+        const interval = setInterval(() => { if (tick()) clearInterval(interval); }, 60000);
+      }
+    }
+  }
+</script>
+
+<style>
+  .featured {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 420px;
+    background: var(--paper-2);
+    overflow: hidden;
+  }
+
+  .featured-photo {
+    position: relative;
+    min-height: 320px;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+  }
+  .featured-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-fallback {
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(ellipse at 30% 30%, color-mix(in oklab, var(--accent) 70%, #fff) 0%, transparent 60%),
+      linear-gradient(180deg, var(--accent) 0%, var(--espresso) 100%);
+  }
+  .photo-fade {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.45) 100%);
+    pointer-events: none;
+  }
+
+  .featured-card {
+    position: relative;
+    padding: var(--sp-7) var(--sp-5);
+    display: flex; flex-direction: column;
+    justify-content: center;
+    background:
+      radial-gradient(800px 500px at 15% 20%,
+        color-mix(in oklab, var(--accent) 18%, var(--paper-2)) 0%,
+        transparent 65%),
+      var(--paper-1);
+  }
+
+  .card-kicker {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .card-heading {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.8vw + 0.5rem, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: var(--espresso);
+    margin-bottom: 1.25rem;
+    max-width: 28ch;
+  }
+
+  .card-body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--espresso);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    max-width: 36ch;
+  }
+
+  .card-countdown {
+    margin-bottom: 1.5rem;
+  }
+  .cd-label {
+    font-family: var(--font-display);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--coffee);
+    margin-bottom: 0.6rem;
+  }
+  .cd-cells {
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto auto;
+    align-items: center;
+    gap: 0.3rem 0.4rem;
+  }
+  .cd-cell {
+    display: flex; flex-direction: column; align-items: center;
+    min-width: 3rem;
+    padding: 0.6rem 0.55rem 0.45rem;
+    background: var(--espresso);
+    border-radius: 6px;
+    color: var(--paper-1);
+  }
+  .cd-cell .n {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  .cd-cell .u {
+    margin-top: 0.3rem;
+    font-family: var(--font-display);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(243,236,224,0.68);
+  }
+  .cd-sep {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2px;
+    color: var(--accent);
+    font-size: 0;
+  }
+  .cd-sep::before {
+    content: "\00B7\00A\00B7";
+    white-space: pre-line;
+    line-height: 0.55;
+    font-size: 24px;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+  }
+
+  .cd-reg {
+    display: flex; flex-direction: column;
+    margin-top: 0.75rem;
+  }
+  .cd-reg-label {
+    font-family: var(--font-display);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--coffee);
+    opacity: 0.85;
+  }
+  .cd-reg-date {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--espresso);
+  }
+
+  .card-cta {
+    align-self: flex-start;
+    background: var(--accent);
+    color: var(--text-on-accent, #fff);
+  }
+
+  @media (min-width: 820px) {
+    .featured {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      min-height: 560px;
+    }
+    .featured-photo { min-height: 560px; aspect-ratio: auto; }
+    .featured-card { padding: var(--sp-8) var(--sp-7); }
+    .card-heading { font-size: clamp(1.8rem, 2vw + 1rem, 2.6rem); }
+    .cd-cell { min-width: 3.5rem; padding: 0.75rem 0.75rem 0.55rem; }
+    .cd-cell .n { font-size: 2rem; }
+    .cd-sep::before { font-size: 28px; }
+  }
+</style>
