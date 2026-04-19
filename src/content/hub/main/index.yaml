@@ -1,6 +1,6 @@
 manifesto:
   kicker: No race road bikepacking event
-  serif: Three routes across Europe. You ride at your pace — no rankings, no
+  serif: Three routes across Europe. You ride at your pace. No rankings, no
     cutoffs, no clock.
   huge: Road bikepacking, without the race.
   cta: Get the free guide
@@ -8,26 +8,25 @@ manifesto:
   videoSrc: /video/hero-loop.webm
   posterSrc: /home/hero-poster.jpg
 signup:
-  kicker: Free · Route previews · 2027 first access
+  kicker: Free · Route previews · Tips
   title: Get the Route Guides
   body: "Route previews, packing lists, and first access to registration. "
   cta: Send me the guide
-  legal: Powered by Brevo. No spam — unsubscribe anytime.
+  legal: Powered by Brevo. Seny bu a human, no AI slop.
 documentary:
   label: See it with your own eyes
-  title: The 2025 Documentary
-  subtitle: A year on the road. From Slovenia's emerald rivers to Tuscany's
-    cypress hills.
-  youtubeId: dQw4w9WgXcQ
+  title: What is The Grand Escape?
+  subtitle: Take a look inside the 2025 editions and hear the opinion of the riders
+  youtubeId: d5hMdLOLQ2g
 whatIs:
   kicker: What is The Grand Escape
   title: Three escapes. Zero KOMs.
-  body: Three road bikepacking events without rankings, time trials, or wanna-be
+  body: "Three road bikepacking events without rankings, time trials, or wanna-be
     pro stuff. Leave the KOMs behind. Ride with your head up, watch the
-    landscape go by, and share the road with people who get it — backroads,
-    cycle paths, hills and mountain passes across Europe. No social pressure,
-    no race. Come as you are.
-  statNumber: 3,000+
+    landscape go by, and share the road with people who get it: backroads, cycle
+    paths, hills and mountain passes across Europe. No social pressure, no race.
+    Come as you are."
+  statNumber: 3,514
   statLabel: riders who've joined us
   since: Since 2023
 threeEscapes:
@@ -35,16 +34,18 @@ threeEscapes:
   subtitle: Each one has its own color, its own mascot, its own soul.
 documentarySecondary:
   label: More from the road
-  title: Inside a Grand Escape
-  subtitle: "Behind the scenes: route scouting, rider stories, and the quiet
-    moments that never make it to Strava."
-  youtubeId: dQw4w9WgXcQ
+  title: Inside the routes
+  subtitle: |-
+    What happens when you trade the watts for the journey?
+    Take a look at the last editions of The Grand Escape here
+  youtubeId: MWKgRGpykmM
 registrationOpens:
-  date: "2026-06-02T10:00:00+02:00"
-  kicker: Registration opens
-  title: The countdown is on.
-  body: Spots are limited. The waitlist gets priority access — and the guide, packing list and route previews in the meantime.
-  ctaLabel: Join the waitlist
+  date: 2026-05-14T10:00:00+02:00
+  kicker: Whats' next
+  title: Germany/Austria
+  body: Spots are limited. Get in the newsletter and receive the guide, packing
+    list and route previews in the meantime.
+  ctaLabel: Get the route guide
   ctaHref: "#signup"
   openLabel: Registration is open
 testimonials:
@@ -97,10 +98,10 @@ testimonials:
 values:
   - number: "01"
     title: Forget the race mentality.
-    body: "Leave your power meter at home. Your Strava segments can wait. The riders
+    body: Leave your power meter at home. Your Strava segments can wait. The riders
       around you aren't competitors — they're fellow travellers. People who
       understand the best cycling stories can't be measured in watts. Share a
-      coffee. Stop for photos. Laugh at the climbs."
+      coffee. Stop for photos. Laugh at the climbs.
     caption: Slovenia pass
     image: /home/value-race-mentality.webp
   - number: "02"
@@ -113,18 +114,18 @@ values:
     image: /home/value-roads.webp
   - number: "03"
     title: Your schedule. Your way.
-    body: Start at sunrise or sleep in. Stop for long lunches or pack energy
-      bars. No checkpoints, no cutoff times, no officials telling you when to
-      ride or where to rest. Unsupported bikepacking at its purest — the
-      freedom to experience the journey exactly as you want.
+    body: Start at sunrise or sleep in. Stop for long lunches or pack energy bars.
+      No checkpoints, no cutoff times, no officials telling you when to ride or
+      where to rest. Unsupported bikepacking at its purest — the freedom to
+      experience the journey exactly as you want.
     caption: Germany · alpine lake
     image: /home/value-schedule.jpg
   - number: "04"
     title: "Stories worth telling: yours."
-    body: Our media team follows the routes, capturing moments you'll keep. Not
-      just finish-line photos, but the real story — your face when you crest
-      that hill, the coffee stop that turned into an hour of laughter, the
-      sunset that made you forget you were tired.
+    body: Our media team follows the routes, capturing moments you'll keep. Not just
+      finish-line photos, but the real story — your face when you crest that
+      hill, the coffee stop that turned into an hour of laughter, the sunset
+      that made you forget you were tired.
     caption: Media team on the route
     image: /home/value-stories.webp
 origin:
@@ -140,9 +141,9 @@ origin:
       conversations that happen when you share miles with strangers, the
       satisfaction of reaching a viewpoint not because you beat a time but
       because you chose to be there.
-    - We scout every kilometre ourselves. We test every route more than once.
-      No shortcuts, no compromises — just the rides we wanted to take, opened
-      up to people who ride the same way.
+    - We scout every kilometre ourselves. We test every route more than once. No
+      shortcuts, no compromises — just the rides we wanted to take, opened up to
+      people who ride the same way.
     - Tuscany Trail, 2014 → Bike Adventure Series, 2022 → The Grand Escape,
       today.
   image: /home/origin.webp
@@ -150,7 +151,7 @@ signupBottom:
   kicker: Still reading? Don't leave empty-handed.
   title: Take the guide with you.
   body: "We'll send you route previews, packing lists, and the first invite when
-    2027 spots open. Promise: no spam, ever."
+    registration opens. Promise: no spam, ever."
   cta: Send me the guide
   legal: Powered by Brevo. Unsubscribe anytime.
 trust:
