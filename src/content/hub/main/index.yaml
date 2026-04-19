@@ -6,7 +6,7 @@ manifesto:
   cta: Get the free guide
   ctaHref: "#signup"
   videoSrc: /video/hero-loop.webm
-  posterSrc: /video/hero-poster.jpg
+  posterSrc: /home/hero-poster.jpg
 signup:
   kicker: Free · Route previews · 2027 first access
   title: Get the Route Guides
@@ -99,16 +99,19 @@ values:
     body: "Leave your power meter at home. Your Strava segments can wait. The riders
       around you aren't competitors: they're fellow travellers."
     caption: Slovenia pass
+    image: /home/value-race-mentality.webp
   - number: "02"
     title: Roads worth your time.
     body: We spend years finding the routes others miss. Hidden backroads that
       connect incredible places. Cycle paths that feel like private trails.
     caption: Tuscany backroad
+    image: /home/value-roads.webp
   - number: "03"
     title: Your schedule. Your way.
     body: Take three days or take a week. Start at sunrise or sleep in. Stop for
       long lunches or pack energy bars. No checkpoints. No cutoff times.
     caption: Germany · alpine lake
+    image: /home/value-schedule.jpg
   - number: "04"
     title: "Stories worth telling: yours."
     body: Our media team follows the routes, capturing moments you'll treasure
@@ -116,6 +119,7 @@ values:
       you crest that perfect hill, the coffee stop that turned into an hour of
       laughter.
     caption: Media team on the route
+    image: /home/value-stories.webp
 origin:
   kicker: Why we started
   imageCaption: Before every hill became a competition.
@@ -126,6 +130,7 @@ origin:
       spreadsheets.
     - Tuscany Trail, 2014 → Bike Adventure Series, 2022 → The Grand Escape,
       today.
+  image: /home/origin.webp
 signupBottom:
   kicker: Still reading? Don't leave empty-handed.
   title: Take the guide with you.
