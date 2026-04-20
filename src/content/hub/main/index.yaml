@@ -19,6 +19,10 @@ signup:
   body: "Route previews, packing lists, and first access to registration. "
   cta: Send me the guide
   legal: Powered by Brevo. Seny bu a human, no AI slop.
+  placeholder: your@email.com
+  consentLabel: I agree to the <a href="/privacy">privacy policy</a>.
+  successMessage: ✓ You're on the list. Check your inbox for the guide.
+  errorMessage: Something went wrong. Please try again.
 documentary:
   label: See it with your own eyes
   title: What is The Grand Escape?
@@ -160,6 +164,40 @@ signupBottom:
     registration opens. Promise: no spam, ever."
   cta: Send me the guide
   legal: Powered by Brevo. Unsubscribe anytime.
+  placeholder: your@email.com
+  consentLabel: I agree to the <a href="/privacy">privacy policy</a>.
+  successMessage: ✓ You're on the list. Check your inbox for the guide.
+  errorMessage: Something went wrong. Please try again.
+eventSignupTop:
+  kicker: Waitlist · Limited spots
+  title: Be first in line.
+  body: "Leave your email and we'll send you:"
+  cta: Join the waitlist
+  legal: Limited spots · Unsubscribe anytime · No spam, ever
+  benefits:
+    - Full route preview (GPS + elevation profile)
+    - Bikepacking packing list tested by the team
+    - Priority access when registration opens
+    - Weekly ride stories from the road
+  placeholder: your@email.com
+  consentLabel: I agree to the <a href="/privacy">privacy policy</a>.
+  successMessage: ✓ You're on the list. Check your inbox for the guide.
+  errorMessage: Something went wrong. Please try again.
+eventSignupBottom:
+  kicker: Still on the fence?
+  title: Lock in your spot while you decide.
+  body: "Leaving your email costs nothing and gives you:"
+  cta: Join the waitlist
+  legal: Limited spots · Unsubscribe anytime · No spam, ever
+  benefits:
+    - Full route preview (GPS + elevation profile)
+    - Bikepacking packing list tested by the team
+    - Priority access when registration opens
+    - Weekly ride stories from the road
+  placeholder: your@email.com
+  consentLabel: I agree to the <a href="/privacy">privacy policy</a>.
+  successMessage: ✓ You're on the list. Check your inbox for the guide.
+  errorMessage: Something went wrong. Please try again.
 trust:
   label: Part of
   partners:

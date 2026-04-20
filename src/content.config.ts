@@ -13,6 +13,19 @@ const photoBreakItem = z.object({
   image: z.string().optional(),
 });
 
+const signupFormSchema = z.object({
+  kicker: z.string(),
+  title: z.string(),
+  body: z.string().optional(),
+  cta: z.string(),
+  legal: z.string().optional(),
+  benefits: z.array(z.string()).optional(),
+  placeholder: z.string().optional(),
+  consentLabel: z.string().optional(),
+  successMessage: z.string().optional(),
+  errorMessage: z.string().optional(),
+});
+
 const events = defineCollection({
   loader: glob({ pattern: '*/index.mdx', base: './src/content/events' }),
   schema: () =>
@@ -189,13 +202,9 @@ const hub = defineCollection({
           openLabel: z.string().optional(),
         })
         .optional(),
-      signupBottom: z.object({
-        kicker: z.string(),
-        title: z.string(),
-        body: z.string(),
-        cta: z.string(),
-        legal: z.string(),
-      }),
+      signupBottom: signupFormSchema,
+      eventSignupTop: signupFormSchema.optional(),
+      eventSignupBottom: signupFormSchema.optional(),
       whatIs: z.object({
         kicker: z.string(),
         title: z.string(),
@@ -224,13 +233,7 @@ const hub = defineCollection({
         body: z.array(z.string()),
         image: z.string().optional(),
       }),
-      signup: z.object({
-        kicker: z.string(),
-        title: z.string(),
-        body: z.string(),
-        cta: z.string(),
-        legal: z.string(),
-      }),
+      signup: signupFormSchema,
       trust: z.object({
         label: z.string(),
         partners: z.array(

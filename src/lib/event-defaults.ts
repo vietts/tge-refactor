@@ -1,13 +1,6 @@
 // Shared defaults across all event pages.
 // Copy can be overridden per event inside the page file.
 
-export const signupBenefits = [
-  'Full route preview (GPS + elevation profile)',
-  'Bikepacking packing list tested by the team',
-  'Priority access when registration opens',
-  'Weekly ride stories from the road',
-];
-
 export const credoIntro = [
   "We believe cycling should feel like it did when you first discovered the joy of two wheels. Before power meters and social media turned rides into spreadsheets. Before every hill became a competition and every photo became content.",
   "The Grand Escape brings back what matters: the smell of morning air on empty roads, conversations that happen naturally when you share miles with strangers, the satisfaction of reaching a viewpoint not because you beat a time but because you chose to be there.",

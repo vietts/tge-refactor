@@ -80,11 +80,21 @@ content:
         label: "Signup — top (after hero)"
         type: object
         fields:
-          - { name: kicker, label: Kicker,   type: string }
-          - { name: title,  label: Title,    type: string }
-          - { name: body,   label: Body,     type: text }
-          - { name: cta,    label: "CTA label", type: string }
-          - { name: legal,  label: "Legal line", type: text }
+          - { name: kicker,         label: Kicker,            type: string }
+          - { name: title,          label: Title,             type: string }
+          - { name: body,           label: Body,              type: text,   required: false }
+          - { name: cta,            label: "CTA button label", type: string }
+          - { name: legal,          label: "Legal line",      type: text,   required: false }
+          - name: benefits
+            label: "Benefits (bullet list)"
+            description: "Shown above the form. Leave empty to hide."
+            type: string
+            list: true
+            required: false
+          - { name: placeholder,    label: "Email placeholder", type: string, required: false }
+          - { name: consentLabel,   label: "Consent label (HTML supported, e.g. link to /privacy)", type: text, required: false }
+          - { name: successMessage, label: "Success message",   type: text,   required: false }
+          - { name: errorMessage,   label: "Error message",     type: text,   required: false }
 
       - name: documentary
         label: "Documentary — top"
@@ -175,11 +185,64 @@ content:
         label: "Signup — bottom (before footer)"
         type: object
         fields:
-          - { name: kicker, label: Kicker,   type: string }
-          - { name: title,  label: Title,    type: string }
-          - { name: body,   label: Body,     type: text }
-          - { name: cta,    label: "CTA label", type: string }
-          - { name: legal,  label: "Legal line", type: text }
+          - { name: kicker,         label: Kicker,            type: string }
+          - { name: title,          label: Title,             type: string }
+          - { name: body,           label: Body,              type: text,   required: false }
+          - { name: cta,            label: "CTA button label", type: string }
+          - { name: legal,          label: "Legal line",      type: text,   required: false }
+          - name: benefits
+            label: "Benefits (bullet list)"
+            description: "Shown above the form. Leave empty to hide."
+            type: string
+            list: true
+            required: false
+          - { name: placeholder,    label: "Email placeholder", type: string, required: false }
+          - { name: consentLabel,   label: "Consent label (HTML supported, e.g. link to /privacy)", type: text, required: false }
+          - { name: successMessage, label: "Success message",   type: text,   required: false }
+          - { name: errorMessage,   label: "Error message",     type: text,   required: false }
+
+      - name: eventSignupTop
+        label: "Event signup — top (shared by Slovenia/Germany/Tuscany)"
+        description: "Used in each event page after hero. One source of truth for all three events."
+        type: object
+        required: false
+        fields:
+          - { name: kicker,         label: Kicker,            type: string }
+          - { name: title,          label: Title,             type: string }
+          - { name: body,           label: Body,              type: text,   required: false }
+          - { name: cta,            label: "CTA button label", type: string }
+          - { name: legal,          label: "Legal line",      type: text,   required: false }
+          - name: benefits
+            label: "Benefits (bullet list)"
+            description: "Shown above the form."
+            type: string
+            list: true
+            required: false
+          - { name: placeholder,    label: "Email placeholder", type: string, required: false }
+          - { name: consentLabel,   label: "Consent label (HTML supported)", type: text, required: false }
+          - { name: successMessage, label: "Success message",   type: text,   required: false }
+          - { name: errorMessage,   label: "Error message",     type: text,   required: false }
+
+      - name: eventSignupBottom
+        label: "Event signup — bottom (shared by Slovenia/Germany/Tuscany)"
+        description: "Used in each event page before the footer."
+        type: object
+        required: false
+        fields:
+          - { name: kicker,         label: Kicker,            type: string }
+          - { name: title,          label: Title,             type: string }
+          - { name: body,           label: Body,              type: text,   required: false }
+          - { name: cta,            label: "CTA button label", type: string }
+          - { name: legal,          label: "Legal line",      type: text,   required: false }
+          - name: benefits
+            label: "Benefits (bullet list)"
+            type: string
+            list: true
+            required: false
+          - { name: placeholder,    label: "Email placeholder", type: string, required: false }
+          - { name: consentLabel,   label: "Consent label (HTML supported)", type: text, required: false }
+          - { name: successMessage, label: "Success message",   type: text,   required: false }
+          - { name: errorMessage,   label: "Error message",     type: text,   required: false }
 
       - name: trust
         label: "Trust / Part of"

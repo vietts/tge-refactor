@@ -1,7 +1,7 @@
 ---
 import { getEntry, render } from 'astro:content';
 import EventLayout from '../layouts/EventLayout.astro';
-import { signupBenefits, credoIntro, credoPillars } from '../lib/event-defaults';
+import { credoIntro, credoPillars } from '../lib/event-defaults';
 
 const event = await getEntry('events', 'slovenia');
 if (!event) throw new Error('Event slovenia not found');
@@ -13,11 +13,12 @@ const hub = (await getEntry('hub', 'main'))!.data;
 <EventLayout
   event={data}
   trust={hub.trust}
+  eventSignupTop={hub.eventSignupTop}
+  eventSignupBottom={hub.eventSignupBottom}
   docYoutubeId={hub.documentary.youtubeId}
   eventNumberLabel="Event 01"
   titleFont="questrial"
   waitlistCtaLabel="Join the 2027 waitlist"
-  signupBenefits={signupBenefits}
   factsBar={[
     { icon: 'calendar', label: 'When',     value: '20 Jun 2026 (sold)',          sub: 'Next edition: 2027' },
     { icon: 'pin',      label: 'Where',    value: 'Bovec, Slovenia',             sub: 'Soča valley loop' },

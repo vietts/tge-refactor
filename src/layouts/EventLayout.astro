@@ -123,15 +123,28 @@ interface TrustData {
   label: string;
   partners: Array<{ name: string; logo: string; isMain?: boolean }>;
 }
+interface SignupFormData {
+  kicker: string;
+  title: string;
+  body?: string;
+  cta: string;
+  legal?: string;
+  benefits?: string[];
+  placeholder?: string;
+  consentLabel?: string;
+  successMessage?: string;
+  errorMessage?: string;
+}
 
 interface Props {
   event: PageEvent;
   trust: TrustData;
+  eventSignupTop?: SignupFormData;
+  eventSignupBottom?: SignupFormData;
   docYoutubeId: string;
   eventNumberLabel: string;          // e.g. "Event 01"
   titleFont: EventFontKey;           // which extra font for all H2
   waitlistCtaLabel: string;          // "Join the waitlist" / "Join 2027 waitlist"
-  signupBenefits: string[];
   factsBar: Fact[];
   credoIntro: string[];
   credoPillars: Array<{ title: string; body: string }>;
@@ -145,11 +158,12 @@ interface Props {
 const {
   event,
   trust,
+  eventSignupTop,
+  eventSignupBottom,
   docYoutubeId,
   eventNumberLabel,
   titleFont,
   waitlistCtaLabel,
-  signupBenefits,
   factsBar,
   credoIntro,
   credoPillars,
@@ -159,6 +173,21 @@ const {
   docTitle,
   docSubtitle,
 } = Astro.props;
+
+const signupTop: SignupFormData = eventSignupTop ?? {
+  kicker: 'Waitlist · Limited spots',
+  title: 'Be first in line.',
+  body: "Leave your email and we'll send you:",
+  cta: waitlistCtaLabel,
+  legal: 'Limited spots · Unsubscribe anytime · No spam, ever',
+};
+const signupBottomForm: SignupFormData = eventSignupBottom ?? {
+  kicker: 'Still on the fence?',
+  title: 'Lock in your spot while you decide.',
+  body: 'Leaving your email costs nothing and gives you:',
+  cta: waitlistCtaLabel,
+  legal: 'Limited spots · Unsubscribe anytime · No spam, ever',
+};
 
 const accent = event.subBrandColor;
 
@@ -236,12 +265,16 @@ for (const k of DEFAULT_SECTION_ORDER) {
           <BrevoForm
             variant="event"
             eventSegment={event.brevoSegment}
-            kicker="Waitlist · Limited spots"
-            title="Be first in line."
-            body="Leave your email and we'll send you:"
-            benefits={signupBenefits}
-            ctaLabel={waitlistCtaLabel}
-            legal="Limited spots · Unsubscribe anytime · No spam, ever"
+            kicker={signupTop.kicker}
+            title={signupTop.title}
+            body={signupTop.body}
+            benefits={signupTop.benefits}
+            ctaLabel={signupTop.cta}
+            legal={signupTop.legal}
+            placeholder={signupTop.placeholder}
+            consentLabel={signupTop.consentLabel}
+            successMessage={signupTop.successMessage}
+            errorMessage={signupTop.errorMessage}
             accentColor={accent}
             anchorId="signup"
           />
@@ -386,12 +419,16 @@ for (const k of DEFAULT_SECTION_ORDER) {
           <BrevoForm
             variant="event"
             eventSegment={event.brevoSegment}
-            kicker="Still on the fence?"
-            title="Lock in your spot while you decide."
-            body="Leaving your email costs nothing and gives you:"
-            benefits={signupBenefits}
-            ctaLabel={waitlistCtaLabel}
-            legal="Limited spots · Unsubscribe anytime · No spam, ever"
+            kicker={signupBottomForm.kicker}
+            title={signupBottomForm.title}
+            body={signupBottomForm.body}
+            benefits={signupBottomForm.benefits}
+            ctaLabel={signupBottomForm.cta}
+            legal={signupBottomForm.legal}
+            placeholder={signupBottomForm.placeholder}
+            consentLabel={signupBottomForm.consentLabel}
+            successMessage={signupBottomForm.successMessage}
+            errorMessage={signupBottomForm.errorMessage}
             accentColor={accent}
             anchorId="signup-bottom"
           />

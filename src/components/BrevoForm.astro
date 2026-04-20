@@ -10,6 +10,10 @@ interface Props {
   benefits?: string[];
   ctaLabel?: string;
   legal?: string;
+  placeholder?: string;
+  consentLabel?: string;
+  successMessage?: string;
+  errorMessage?: string;
   accentColor?: string;
   anchorId?: string;
 }
@@ -23,6 +27,10 @@ const {
   benefits,
   ctaLabel = 'Send me the guide',
   legal,
+  placeholder = 'your@email.com',
+  consentLabel = 'I agree to the <a href="/privacy">privacy policy</a>.',
+  successMessage = "✓ You're on the list. Check your inbox for the guide.",
+  errorMessage = 'Something went wrong. Please try again.',
   accentColor,
   anchorId = 'signup',
 } = Astro.props;
@@ -51,7 +59,7 @@ const formId = `brevo-${variant}-${Math.random().toString(36).slice(2, 8)}`;
         id={`${formId}-email`}
         type="email"
         name="email"
-        placeholder="your@email.com"
+        placeholder={placeholder}
         autocomplete="email"
         required
       />
@@ -71,7 +79,7 @@ const formId = `brevo-${variant}-${Math.random().toString(36).slice(2, 8)}`;
 
       <label class="consent">
         <input type="checkbox" name="consent" required />
-        <span>I agree to the <a href="/privacy">privacy policy</a>.</span>
+        <span set:html={consentLabel}></span>
       </label>
 
       <button type="submit" class="cta-pill cta-primary signup-submit" style={accentColor ? `background:${accentColor};color:#1a1a1a;` : undefined}>
@@ -81,12 +89,8 @@ const formId = `brevo-${variant}-${Math.random().toString(36).slice(2, 8)}`;
 
       {legal && <p class="signup-legal">{legal}</p>}
 
-      <p class="signup-success" role="status" aria-live="polite" hidden>
-        ✓ You're on the list. Check your inbox for the guide.
-      </p>
-      <p class="signup-error" role="alert" aria-live="assertive" hidden>
-        Something went wrong. Please try again.
-      </p>
+      <p class="signup-success" role="status" aria-live="polite" hidden>{successMessage}</p>
+      <p class="signup-error" role="alert" aria-live="assertive" hidden>{errorMessage}</p>
     </form>
   </div>
 </section>
