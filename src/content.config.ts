@@ -42,7 +42,7 @@ const events = defineCollection({
       philosophyImage: z.string().optional(),
       registrationOpens: z
         .object({
-          date: z.string(),
+          date: z.coerce.string(),
           kicker: z.string().optional(),
           title: z.string(),
           body: z.string().optional(),
