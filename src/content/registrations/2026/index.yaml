@@ -1,6 +1,6 @@
 basRegisterUrl: https://www.bikeadventureseries.com/registration-2026/?fbp=fb.1.1776199167237.1170287811&pix=tge
 basAccountUrl: https://www.bikeadventureseries.com/my-account/?utm_source=thegrandescape&utm_medium=cta&pix=tge
-registrationOpenIso: 2026-01-12T11:00:00+01:00
+registrationOpenIso: 2026-05-14T11:00:00+01:00
 hero:
   kicker: Register · 2 minutes
   title: Lock in your spot for 2026
@@ -13,7 +13,7 @@ hero:
 countdown:
   kicker: Registration opens
   title: "The Grand Escape Germany Austria 2026 registration opens in:"
-  body: "Limited places: first come, first served."
+  body: "Limited places: first-come, first-served."
   ctaLabel: Create your BAS account
   openLabel: Registration is open — click below to sign up
   accentColor: "#A32C29"
