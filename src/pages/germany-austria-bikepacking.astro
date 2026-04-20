@@ -16,15 +16,10 @@ const hub = (await getEntry('hub', 'main'))!.data;
   eventSignupTop={hub.eventSignupTop}
   eventSignupBottom={hub.eventSignupBottom}
   docYoutubeId={hub.documentary.youtubeId}
-  eventNumberLabel="Event 02"
-  titleFont="germania"
-  waitlistCtaLabel="Join the waitlist"
-  factsBar={[
-    { icon: 'calendar', label: 'When',     value: '5 Sep 2026' },
-    { icon: 'pin',      label: 'Where',    value: 'Innsbruck, Austria',          sub: 'Through Tyrol & Bavaria' },
-    { icon: 'loop',     label: 'Format',   value: 'Loop · same start & finish',  sub: 'One base, no shuttle' },
-    { icon: 'road',     label: 'Distance', value: '~500 km · ~7,000 m D+' },
-  ]}
+  eventNumberLabel={data.eventNumberLabel}
+  titleFont={data.titleFont}
+  waitlistCtaLabel={data.waitlistCtaLabel}
+  factsBar={data.factsBar}
   credoIntro={credoIntro}
   credoPillars={credoPillars}
 >

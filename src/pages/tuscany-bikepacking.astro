@@ -16,15 +16,10 @@ const hub = (await getEntry('hub', 'main'))!.data;
   eventSignupTop={hub.eventSignupTop}
   eventSignupBottom={hub.eventSignupBottom}
   docYoutubeId={hub.documentary.youtubeId}
-  eventNumberLabel="Event 03"
-  titleFont="tuscany"
-  waitlistCtaLabel="Join the waitlist"
-  factsBar={[
-    { icon: 'calendar', label: 'When',     value: '10 Oct 2026',                 sub: '5 days of riding' },
-    { icon: 'pin',      label: 'Where',    value: 'Siena, Italy',                sub: 'Chianti · Val d\'Orcia' },
-    { icon: 'loop',     label: 'Format',   value: 'Loop · same start & finish',  sub: 'One base, no shuttle' },
-    { icon: 'road',     label: 'Distance', value: '600 km · 70% tarmac',         sub: '30% strade bianche' },
-  ]}
+  eventNumberLabel={data.eventNumberLabel}
+  titleFont={data.titleFont}
+  waitlistCtaLabel={data.waitlistCtaLabel}
+  factsBar={data.factsBar}
   credoIntro={credoIntro}
   credoPillars={credoPillars}
 >

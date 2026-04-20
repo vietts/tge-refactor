@@ -46,6 +46,17 @@ const events = defineCollection({
       heroImageAlt: z.string().optional(),
       mascotImage: z.string().optional(),
       registrationUrl: z.string().url().optional(),
+      eventNumberLabel: z.string(),
+      titleFont: z.enum(['germania', 'questrial', 'tuscany']),
+      waitlistCtaLabel: z.string(),
+      factsBar: z.array(
+        z.object({
+          icon: z.enum(['calendar', 'pin', 'loop', 'road', 'clock', 'mountain']),
+          label: z.string(),
+          value: z.string(),
+          sub: z.string().optional(),
+        })
+      ),
       brevoListId: z.number().optional(),
       brevoSegment: z.string(),
       tagline: z.string().optional(),

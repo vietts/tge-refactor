@@ -409,6 +409,35 @@ content:
       - { name: heroImage,     label: "Hero image",     type: image,  required: false }
       - { name: heroImageAlt,  label: "Hero image alt", type: string, required: false }
       - { name: mascotImage,   label: "Mascot image (replaces inline SVG/PNG)", type: image, required: false }
+      - { name: eventNumberLabel, label: "Event number label (e.g. 'Event 02')", type: string }
+      - name: titleFont
+        label: "Title font (per-event display font for H2s)"
+        type: select
+        options:
+          values:
+            - { value: germania,  label: "Germania (Germany)" }
+            - { value: questrial, label: "Questrial (Slovenia)" }
+            - { value: tuscany,   label: "Tuscany" }
+      - { name: waitlistCtaLabel, label: "Waitlist CTA label (e.g. 'Join the 2027 waitlist')", type: string }
+      - name: factsBar
+        label: "Facts bar (4 cells under hero)"
+        type: object
+        list: true
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - { value: calendar, label: "Calendar (When)" }
+                - { value: pin,      label: "Pin (Where)" }
+                - { value: loop,     label: "Loop (Format)" }
+                - { value: road,     label: "Road (Distance)" }
+                - { value: clock,    label: "Clock" }
+                - { value: mountain, label: "Mountain" }
+          - { name: label, label: "Label (e.g. When)",       type: string }
+          - { name: value, label: "Value (e.g. 5 Sep 2026)", type: string }
+          - { name: sub,   label: "Sub-line (optional)",     type: string, required: false }
       - { name: brevoSegment,  label: "Brevo segment slug", type: string }
       - { name: tagline,       label: "Tagline (serif under hero)", type: string, required: false }
       - { name: startFinish,   label: "Start/Finish (e.g. Loop from Siena)", type: string, required: false }
