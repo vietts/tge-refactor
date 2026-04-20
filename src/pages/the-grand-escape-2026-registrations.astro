@@ -1,50 +1,13 @@
 ---
+import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RegistrationCountdown from '../components/RegistrationCountdown.astro';
 import FAQAccordion from '../components/FAQAccordion.astro';
 import Icon from '../components/Icon.astro';
 
-const BAS_REGISTER_URL = 'https://www.bikeadventureseries.com/registration-2026/?fbp=fb.1.1776199167237.1170287811&pix=tge';
-const BAS_ACCOUNT_URL  = 'https://www.bikeadventureseries.com/my-account/?utm_source=thegrandescape&utm_medium=cta&pix=tge';
-const REGISTRATION_OPEN_ISO = '2026-01-12T11:00:00+01:00';
-
-const benefits = [
-  { label: 'Route of the event, created after years of scouting' },
-  { label: 'A paper map of the route and event information' },
-  { label: 'A digital guide to get the best out of your experience' },
-  { label: 'Starter and Finisher package' },
-  { label: 'The Grand Escape participation banner' },
-  { label: 'The exclusive high-quality cycling cap, reserved only for registered participants' },
-  { label: 'Discounts with partners who support The Grand Escape, including shipping your bike' },
-  { label: 'Personal live tracking — an online map where friends and family can follow you' },
-  { label: 'Access to the WhatsApp Group for quick updates before and during the event' },
-  { label: 'Professional photography and event video coverage' },
-  { label: 'Downloadable Photo Gallery with all the photos taken of the participants' },
-  { label: 'Insurance coverage for the entire duration of the event' },
-  { label: 'Customer support, led by expert cyclists' },
-  { label: 'Tips and tricks for bikepacking in the digital guide' },
-  { label: 'Event dashboard with all the information' },
-  { label: 'Bike Adventure Series Board points + access to the BAS community' },
-  { label: 'High-quality cotton The Grand Escape T-shirt (special edition for each event)' },
-  { label: 'Finisher badge in the Bike Adventure Series Board' },
-  { label: 'Live YouTube briefing to ask the organizers anything' },
-  { label: 'The Grand Escape bag (special edition for each event)' },
-];
-
-const faq = [
-  { q: 'Are the spots limited? Can I register later?', a: 'Each event has a maximum capacity to preserve the experience quality. You cannot register after the deadline.' },
-  { q: 'How do I register?', a: "Create an account at bikeadventureseries.com so you'll be ready when registration opens. Get in the newsletter for updates and direct links." },
-  { q: 'What about medical certificates?', a: "You'll need to provide a medical certificate two months before your event. We'll send templates and instructions. You don't need it on registration day." },
-  { q: 'Are all routes on roads?', a: 'Yes — all on tarmac, cycle paths, and near-zero traffic secondary roads.' },
-  { q: 'What bike should I bring?', a: 'Road, endurance, or gravel bikes all work perfectly. We recommend 28–35mm tires.' },
-  { q: 'Any time limits or checkpoints?', a: 'None. Complete the journey at whatever pace feels right to you.' },
-  { q: 'Where do I sleep and eat?', a: 'Your choice entirely. Hotels, camping, restaurants, or packed meals — plan however suits your style.' },
-  { q: "What if I'm registered and can't participate?", a: 'As per the rules, which you must read before registering, there is no refund, partial refund, or transfer of registration to the following year or other editions.' },
-  { q: 'Are the finishing and starting points different?', a: 'All routes are loops, so the finish and start are in the same city.' },
-  { q: 'What about parking? How do we reach the starting points and handle the other logistics?', a: "We'll send a detailed guide covering all logistics, on- and off-bike, along with an itinerary for your family, partner, or friends waiting for you at the starting point." },
-  { q: 'Where can I leave the bike box?', a: "The easiest solution is to ask your accommodation in Udine — we'll send a list of selected hotels, B&Bs etc." },
-  { q: 'I have never done bikepacking — what do I need?', a: "Don't worry — The Grand Escape was the first experience for many. We'll send all tips and tricks in the digital guide, and you'll be able to ask participants directly in the upcoming forum on Bike Adventure Series." },
-];
+const entry = await getEntry('registrations', '2026');
+if (!entry) throw new Error('Registrations entry 2026 not found');
+const data = entry.data;
 ---
 <BaseLayout
   title="Register for The Grand Escape 2026"
@@ -53,63 +16,54 @@ const faq = [
 >
   <section class="reg-hero">
     <div class="container-narrow">
-      <div class="kicker reg-kicker">Register · 2 minutes</div>
-      <h1 class="reg-title t-brand">Lock in your spot for 2026</h1>
-      <p class="reg-lead">
-        Registration is fast, easy and secure. Your data is encrypted via the golden standard of
-        payment processing: Stripe. You'll need a Bike Adventure Series account, a credit or debit
-        card — that's it. You can upload the medical certificate later.
-      </p>
-      <p class="reg-contact">Questions? Check the <a href="#faq">FAQ</a> or write us at <a href="mailto:info@thegrandescape.cc">info@thegrandescape.cc</a>.</p>
+      <div class="kicker reg-kicker">{data.hero.kicker}</div>
+      <h1 class="reg-title t-brand">{data.hero.title}</h1>
+      <p class="reg-lead">{data.hero.lead}</p>
+      {data.hero.contactHtml && (
+        <p class="reg-contact" set:html={data.hero.contactHtml} />
+      )}
     </div>
   </section>
 
   <RegistrationCountdown
-    targetIso={REGISTRATION_OPEN_ISO}
-    kicker="Registration opens"
-    title="The Grand Escape 2026 registration opens in:"
-    body="Limited places — 400 participants per event. Waitlist first, public registration second."
-    ctaLabel="Create your BAS account"
-    ctaHref={BAS_ACCOUNT_URL}
-    openLabel="Registration is open — click below to sign up"
-    accentColor="#A32C29"
+    targetIso={data.registrationOpenIso}
+    kicker={data.countdown.kicker}
+    title={data.countdown.title}
+    body={data.countdown.body}
+    ctaLabel={data.countdown.ctaLabel}
+    ctaHref={data.basAccountUrl}
+    openLabel={data.countdown.openLabel}
+    accentColor={data.countdown.accentColor}
   />
 
   <section class="reg-account">
     <div class="container-narrow">
-      <div class="kicker">Got your account?</div>
-      <h2 class="t-brand">Register via Bike Adventure Series</h2>
-      <p>
-        The Grand Escape is a member of Bike Adventure Series, along with Tuscany Trail,
-        NorthCape4000 and others. Registration for 2026 takes place on the BAS platform.
-      </p>
-      <p>
-        If you haven't done so yet, create your account now to speed up your registration
-        process. Each person registering must have their own personal account.
-      </p>
+      <div class="kicker">{data.account.kicker}</div>
+      <h2 class="t-brand">{data.account.title}</h2>
+      {data.account.bodyParagraphs.map((p) => <p>{p}</p>)}
       <div class="reg-actions">
-        <a class="cta-pill cta-primary" href={BAS_ACCOUNT_URL} target="_blank" rel="noopener">
-          Create your account <Icon name="external" size={14} />
+        <a class="cta-pill cta-primary" href={data.basAccountUrl} target="_blank" rel="noopener">
+          {data.account.ctaAccountLabel} <Icon name="external" size={14} />
         </a>
-        <a class="cta-pill cta-outline" href={BAS_REGISTER_URL} target="_blank" rel="noopener">
-          Go to registration <Icon name="arrow" size={14} />
+        <a class="cta-pill cta-outline" href={data.basRegisterUrl} target="_blank" rel="noopener">
+          {data.account.ctaRegisterLabel} <Icon name="arrow" size={14} />
         </a>
       </div>
-      <p class="reg-support">
-        Problems creating your account? Email <a href="mailto:support@bikeadventureseries.com">support@bikeadventureseries.com</a>.
-      </p>
+      {data.account.supportHtml && (
+        <p class="reg-support" set:html={data.account.supportHtml} />
+      )}
     </div>
   </section>
 
   <section class="reg-benefits">
     <div class="container-narrow">
-      <div class="kicker">Included in each registration</div>
-      <h2 class="t-brand">Everything you need, nothing you don't</h2>
+      <div class="kicker">{data.benefits.kicker}</div>
+      <h2 class="t-brand">{data.benefits.title}</h2>
       <ul class="benefits-grid">
-        {benefits.map((b) => (
+        {data.benefits.items.map((label) => (
           <li>
             <span class="bcheck" aria-hidden="true">✓</span>
-            <span>{b.label}</span>
+            <span>{label}</span>
           </li>
         ))}
       </ul>
@@ -118,44 +72,39 @@ const faq = [
 
   <section class="reg-pricing">
     <div class="container-narrow">
-      <div class="kicker">2026 pricing</div>
-      <h2 class="t-brand">Two windows, one event per registration</h2>
+      <div class="kicker">{data.pricing.kicker}</div>
+      <h2 class="t-brand">{data.pricing.title}</h2>
       <div class="price-grid">
-        <article class="price-card">
-          <div class="price-label">Early Bird</div>
-          <div class="price-value">€137</div>
-          <div class="price-dates">Jan 12 → Jan 30, 2026</div>
-          <p class="price-note">Per single event. Limited window.</p>
-        </article>
-        <article class="price-card price-card-regular">
-          <div class="price-label">Regular</div>
-          <div class="price-value">€157</div>
-          <div class="price-dates">From March 30, 2026</div>
-          <p class="price-note">Per single event. Until spots last.</p>
-        </article>
+        {data.pricing.cards.map((c) => (
+          <article class:list={['price-card', { 'price-card-regular': c.highlighted }]}>
+            <div class="price-label">{c.label}</div>
+            <div class="price-value">{c.value}</div>
+            <div class="price-dates">{c.dates}</div>
+            {c.note && <p class="price-note">{c.note}</p>}
+          </article>
+        ))}
       </div>
-      <p class="price-rules">
-        Full terms in the <a href="/rules-and-regulations">official rules</a>. Registration is
-        non-refundable and non-transferable per Art. 11.
-      </p>
+      {data.pricing.rulesHtml && (
+        <p class="price-rules" set:html={data.pricing.rulesHtml} />
+      )}
     </div>
   </section>
 
   <div id="faq">
     <FAQAccordion
-      kicker="F.A.Q."
-      title="Before you register"
-      items={faq}
-      accentColor="#A32C29"
+      kicker={data.faq.kicker}
+      title={data.faq.title}
+      items={data.faq.items}
+      accentColor={data.faq.accentColor}
     />
   </div>
 
   <section class="reg-final">
     <div class="container-narrow">
-      <h2 class="t-brand">Ready?</h2>
-      <p>When registration opens, click below and you'll be redirected to the BAS platform.</p>
-      <a class="cta-pill cta-primary reg-final-cta" href={BAS_REGISTER_URL} target="_blank" rel="noopener">
-        Register on Bike Adventure Series <Icon name="external" size={14} />
+      <h2 class="t-brand">{data.final.title}</h2>
+      {data.final.body && <p>{data.final.body}</p>}
+      <a class="cta-pill cta-primary reg-final-cta" href={data.basRegisterUrl} target="_blank" rel="noopener">
+        {data.final.ctaLabel} <Icon name="external" size={14} />
       </a>
     </div>
   </section>
@@ -185,7 +134,7 @@ const faq = [
     color: var(--espresso);
     opacity: 0.85;
   }
-  .reg-contact a, .reg-account p a, .reg-support a, .price-rules a {
+  .reg-contact :global(a), .reg-account p :global(a), .reg-support :global(a), .price-rules :global(a) {
     color: var(--red-wine);
     border-bottom: 1px solid var(--red-wine);
   }
@@ -303,7 +252,7 @@ const faq = [
     color: var(--paper-1);
     opacity: 0.85;
   }
-  .price-rules a {
+  .price-rules :global(a) {
     color: var(--caramel);
     border-bottom-color: var(--caramel);
   }

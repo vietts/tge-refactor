@@ -258,6 +258,107 @@ content:
               - { name: logo,   label: "Logo path (e.g. /brand/bas-logo.webp)", type: string }
               - { name: isMain, label: "Main partner? (shown larger)", type: boolean, required: false }
 
+  - name: registrations
+    label: Registrations (year pages)
+    description: "One file per registration year. Used by /the-grand-escape-2026-registrations (etc). Duplicate the folder to create a new year."
+    type: collection
+    path: src/content/registrations
+    subfolder: true
+    filename: index.yaml
+    format: yaml
+    view:
+      fields: [basRegisterUrl, registrationOpenIso]
+    fields:
+      - { name: basRegisterUrl,       label: "BAS registration URL",                 type: string }
+      - { name: basAccountUrl,        label: "BAS my-account URL",                   type: string }
+      - { name: registrationOpenIso,  label: "Registration opens at (ISO 8601 with timezone)", type: string }
+
+      - name: hero
+        label: "Hero section"
+        type: object
+        fields:
+          - { name: kicker,      label: Kicker,                    type: string }
+          - { name: title,       label: Title,                     type: string }
+          - { name: lead,        label: "Lead paragraph",          type: text }
+          - { name: contactHtml, label: "Contact line (HTML allowed)", type: text, required: false }
+
+      - name: countdown
+        label: "Countdown (uses BAS account URL as CTA)"
+        type: object
+        fields:
+          - { name: kicker,      label: Kicker,                           type: string, required: false }
+          - { name: title,       label: Title,                            type: string }
+          - { name: body,        label: Body,                             type: text,   required: false }
+          - { name: ctaLabel,    label: "CTA label (e.g. 'Create your BAS account')", type: string, required: false }
+          - { name: openLabel,   label: "Label shown when countdown is over", type: string, required: false }
+          - { name: accentColor, label: "Accent hex color",               type: string, required: false }
+
+      - name: account
+        label: "Account / BAS section"
+        type: object
+        fields:
+          - { name: kicker, label: Kicker, type: string }
+          - { name: title,  label: Title,  type: string }
+          - name: bodyParagraphs
+            label: "Body paragraphs"
+            type: text
+            list: true
+          - { name: ctaAccountLabel,  label: "CTA — create account label", type: string }
+          - { name: ctaRegisterLabel, label: "CTA — go to registration label", type: string }
+          - { name: supportHtml,      label: "Support line (HTML allowed)", type: text, required: false }
+
+      - name: benefits
+        label: "Benefits (what's included)"
+        type: object
+        fields:
+          - { name: kicker, label: Kicker, type: string }
+          - { name: title,  label: Title,  type: string }
+          - name: items
+            label: "Bullet items"
+            type: string
+            list: true
+
+      - name: pricing
+        label: "Pricing cards"
+        type: object
+        fields:
+          - { name: kicker, label: Kicker, type: string }
+          - { name: title,  label: Title,  type: string }
+          - name: cards
+            label: "Price cards"
+            type: object
+            list: true
+            fields:
+              - { name: label,       label: "Card label (e.g. Early Bird)", type: string }
+              - { name: value,       label: "Price value (e.g. €137)",      type: string }
+              - { name: dates,       label: "Dates text",                   type: string }
+              - { name: note,        label: "Note under dates",             type: text,    required: false }
+              - { name: highlighted, label: "Highlighted (caramel border)", type: boolean, required: false }
+          - { name: rulesHtml, label: "Rules line (HTML allowed)", type: text, required: false }
+
+      - name: faq
+        label: "FAQ"
+        type: object
+        fields:
+          - { name: kicker,      label: Kicker,           type: string }
+          - { name: title,       label: Title,            type: string }
+          - { name: accentColor, label: "Accent hex color", type: string, required: false }
+          - name: items
+            label: "Questions"
+            type: object
+            list: true
+            fields:
+              - { name: q, label: Question, type: string }
+              - { name: a, label: Answer,   type: text }
+
+      - name: final
+        label: "Final CTA section"
+        type: object
+        fields:
+          - { name: title,    label: Title,           type: string }
+          - { name: body,     label: Body,            type: text, required: false }
+          - { name: ctaLabel, label: "CTA button label", type: string }
+
   - name: events
     label: Events (sub-LP)
     type: collection

@@ -278,4 +278,66 @@ const hub = defineCollection({
     }),
 });
 
-export const collections = { events, hub };
+const registrations = defineCollection({
+  loader: glob({ pattern: '*/index.yaml', base: './src/content/registrations' }),
+  schema: () =>
+    z.object({
+      basRegisterUrl: z.string().url(),
+      basAccountUrl: z.string().url(),
+      registrationOpenIso: z.coerce.string(),
+      hero: z.object({
+        kicker: z.string(),
+        title: z.string(),
+        lead: z.string(),
+        contactHtml: z.string().optional(),
+      }),
+      countdown: z.object({
+        kicker: z.string().optional(),
+        title: z.string(),
+        body: z.string().optional(),
+        ctaLabel: z.string().optional(),
+        openLabel: z.string().optional(),
+        accentColor: z.string().optional(),
+      }),
+      account: z.object({
+        kicker: z.string(),
+        title: z.string(),
+        bodyParagraphs: z.array(z.string()),
+        ctaAccountLabel: z.string(),
+        ctaRegisterLabel: z.string(),
+        supportHtml: z.string().optional(),
+      }),
+      benefits: z.object({
+        kicker: z.string(),
+        title: z.string(),
+        items: z.array(z.string()),
+      }),
+      pricing: z.object({
+        kicker: z.string(),
+        title: z.string(),
+        cards: z.array(
+          z.object({
+            label: z.string(),
+            value: z.string(),
+            dates: z.string(),
+            note: z.string().optional(),
+            highlighted: z.boolean().optional(),
+          })
+        ),
+        rulesHtml: z.string().optional(),
+      }),
+      faq: z.object({
+        kicker: z.string(),
+        title: z.string(),
+        accentColor: z.string().optional(),
+        items: z.array(z.object({ q: z.string(), a: z.string() })),
+      }),
+      final: z.object({
+        title: z.string(),
+        body: z.string().optional(),
+        ctaLabel: z.string(),
+      }),
+    }),
+});
+
+export const collections = { events, hub, registrations };
