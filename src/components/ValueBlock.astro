@@ -3,7 +3,7 @@ interface Props {
   number: string;
   title: string;
   body: string;
-  caption: string;
+  caption?: string;
   alt?: boolean;
   imageBg?: string;
   image?: string;
@@ -22,7 +22,7 @@ const bg = image ? `url('${image}') center/cover no-repeat` : (imageBg ?? bgMap[
 <article class:list={['valblock', { alt }]}>
   <div class="val-img" style={`background:${bg}`}>
     <span class="val-num display">{number}</span>
-    <span class="val-cap">● {caption}</span>
+    {caption && <span class="val-cap">● {caption}</span>}
   </div>
   <div class="val-text sr">
     <h3 class="val-title display">{title}</h3>

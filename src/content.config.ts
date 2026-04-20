@@ -218,7 +218,7 @@ const hub = defineCollection({
           number: z.string(),
           title: z.string(),
           body: z.string(),
-          caption: z.string(),
+          caption: z.string().optional(),
           image: z.string().optional(),
         })
       ),
