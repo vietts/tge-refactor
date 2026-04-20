@@ -1,34 +1,36 @@
 basRegisterUrl: https://www.bikeadventureseries.com/registration-2026/?fbp=fb.1.1776199167237.1170287811&pix=tge
 basAccountUrl: https://www.bikeadventureseries.com/my-account/?utm_source=thegrandescape&utm_medium=cta&pix=tge
 registrationOpenIso: 2026-01-12T11:00:00+01:00
-
 hero:
   kicker: Register · 2 minutes
   title: Lock in your spot for 2026
-  lead: >-
-    Registration is fast, easy and secure. Your data is encrypted via the golden standard of
-    payment processing: Stripe. You'll need a Bike Adventure Series account, a credit or debit
-    card — that's it. You can upload the medical certificate later.
-  contactHtml: Questions? Check the <a href="#faq">FAQ</a> or write us at <a href="mailto:info@thegrandescape.cc">info@thegrandescape.cc</a>.
-
+  lead: "Registration is fast, easy and secure. Your data is encrypted via the
+    golden standard of payment processing: Stripe. You'll need a Bike Adventure
+    Series account, a credit or debit card — that's it. You can upload the
+    medical certificate later."
+  contactHtml: Questions? Check the <a href="#faq">FAQ</a> or write us at <a
+    href="mailto:info@thegrandescape.cc">info@thegrandescape.cc</a>.
 countdown:
   kicker: Registration opens
-  title: "The Grand Escape 2026 registration opens in:"
-  body: Limited places — 400 participants per event. Waitlist first, public registration second.
+  title: "The Grand Escape Germany Austria 2026 registration opens in:"
+  body: "Limited places: first come, first served."
   ctaLabel: Create your BAS account
   openLabel: Registration is open — click below to sign up
   accentColor: "#A32C29"
-
 account:
   kicker: Got your account?
   title: Register via Bike Adventure Series
   bodyParagraphs:
-    - The Grand Escape is a member of Bike Adventure Series, along with Tuscany Trail, NorthCape4000 and others. Registration for 2026 takes place on the BAS platform.
-    - If you haven't done so yet, create your account now to speed up your registration process. Each person registering must have their own personal account.
+    - The Grand Escape is a member of Bike Adventure Series, along with Tuscany
+      Trail, NorthCape4000 and others. Registration for 2026 takes place on the
+      BAS platform.
+    - If you haven't done so yet, create your account now to speed up your
+      registration process. Each person registering must have their own personal
+      account.
   ctaAccountLabel: Create your account
   ctaRegisterLabel: Go to registration
-  supportHtml: Problems creating your account? Email <a href="mailto:support@bikeadventureseries.com">support@bikeadventureseries.com</a>.
-
+  supportHtml: Problems creating your account? Email <a
+    href="mailto:support@bikeadventureseries.com">support@bikeadventureseries.com</a>.
 benefits:
   kicker: Included in each registration
   title: Everything you need, nothing you don't
@@ -38,9 +40,12 @@ benefits:
     - A digital guide to get the best out of your experience
     - Starter and Finisher package
     - The Grand Escape participation banner
-    - The exclusive high-quality cycling cap, reserved only for registered participants
-    - Discounts with partners who support The Grand Escape, including shipping your bike
-    - Personal live tracking — an online map where friends and family can follow you
+    - The exclusive high-quality cycling cap, reserved only for registered
+      participants
+    - Discounts with partners who support The Grand Escape, including shipping
+      your bike
+    - Personal live tracking — an online map where friends and family can follow
+      you
     - Access to the WhatsApp Group for quick updates before and during the event
     - Professional photography and event video coverage
     - Downloadable Photo Gallery with all the photos taken of the participants
@@ -49,57 +54,67 @@ benefits:
     - Tips and tricks for bikepacking in the digital guide
     - Event dashboard with all the information
     - Bike Adventure Series Board points + access to the BAS community
-    - High-quality cotton The Grand Escape T-shirt (special edition for each event)
+    - High-quality cotton The Grand Escape T-shirt (special edition for each
+      event)
     - Finisher badge in the Bike Adventure Series Board
     - Live YouTube briefing to ask the organizers anything
     - The Grand Escape bag (special edition for each event)
-
 pricing:
-  kicker: 2026 pricing
+  kicker: 2026 Tickets
   title: Two windows, one event per registration
   cards:
-    - label: Early Bird
-      value: €137
-      dates: Jan 12 → Jan 30, 2026
-      note: Per single event. Limited window.
     - label: Regular
       value: €157
-      dates: From March 30, 2026
+      dates: From May 14, 2026
       note: Per single event. Until spots last.
       highlighted: true
-  rulesHtml: Full terms in the <a href="/rules-and-regulations">official rules</a>. Registration is non-refundable and non-transferable per Art. 11.
-
+  rulesHtml: Full terms in the <a href="/rules-and-regulations">official rules</a>.
 faq:
   kicker: F.A.Q.
   title: Before you register
   accentColor: "#A32C29"
   items:
     - q: Are the spots limited? Can I register later?
-      a: Each event has a maximum capacity to preserve the experience quality. You cannot register after the deadline.
+      a: Each event has a maximum capacity to preserve the experience quality. You
+        cannot register after the deadline.
     - q: How do I register?
-      a: Create an account at bikeadventureseries.com so you'll be ready when registration opens. Get in the newsletter for updates and direct links.
+      a: Create an account at bikeadventureseries.com so you'll be ready when
+        registration opens. Get in the newsletter for updates and direct links.
     - q: What about medical certificates?
-      a: You'll need to provide a medical certificate two months before your event. We'll send templates and instructions. You don't need it on registration day.
+      a: You'll need to provide a medical certificate two months before your event.
+        We'll send templates and instructions. You don't need it on registration
+        day.
     - q: Are all routes on roads?
       a: Yes — all on tarmac, cycle paths, and near-zero traffic secondary roads.
     - q: What bike should I bring?
-      a: Road, endurance, or gravel bikes all work perfectly. We recommend 28–35mm tires.
+      a: Road, endurance, or gravel bikes all work perfectly. We recommend 28–35mm
+        tires.
     - q: Any time limits or checkpoints?
       a: None. Complete the journey at whatever pace feels right to you.
     - q: Where do I sleep and eat?
-      a: Your choice entirely. Hotels, camping, restaurants, or packed meals — plan however suits your style.
+      a: Your choice entirely. Hotels, camping, restaurants, or packed meals — plan
+        however suits your style.
     - q: What if I'm registered and can't participate?
-      a: As per the rules, which you must read before registering, there is no refund, partial refund, or transfer of registration to the following year or other editions.
+      a: As per the rules, which you must read before registering, there is no refund,
+        partial refund, or transfer of registration to the following year or
+        other editions.
     - q: Are the finishing and starting points different?
       a: All routes are loops, so the finish and start are in the same city.
-    - q: What about parking? How do we reach the starting points and handle the other logistics?
-      a: We'll send a detailed guide covering all logistics, on- and off-bike, along with an itinerary for your family, partner, or friends waiting for you at the starting point.
+    - q: What about parking? How do we reach the starting points and handle the other
+        logistics?
+      a: We'll send a detailed guide covering all logistics, on- and off-bike, along
+        with an itinerary for your family, partner, or friends waiting for you
+        at the starting point.
     - q: Where can I leave the bike box?
-      a: The easiest solution is to ask your accommodation in Udine — we'll send a list of selected hotels, B&Bs etc.
+      a: The easiest solution is to ask your accommodation in Udine — we'll send a
+        list of selected hotels, B&Bs etc.
     - q: I have never done bikepacking — what do I need?
-      a: Don't worry — The Grand Escape was the first experience for many. We'll send all tips and tricks in the digital guide, and you'll be able to ask participants directly in the upcoming forum on Bike Adventure Series.
-
+      a: Don't worry — The Grand Escape was the first experience for many. We'll send
+        all tips and tricks in the digital guide, and you'll be able to ask
+        participants directly in the upcoming forum on Bike Adventure Series.
+        Write us at info@thegrandescape.cc for tips!
 final:
   title: Ready?
-  body: When registration opens, click below and you'll be redirected to the BAS platform.
+  body: When registration opens, click below and you'll be redirected to the BAS
+    platform.
   ctaLabel: Register on Bike Adventure Series
