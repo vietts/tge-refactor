@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Privacy & Cookie Policy · The Grand Escape"
+  description="Privacy and Cookie Policy for The Grand Escape — data processing, tracking technologies, and user rights."
+  theme="light"
+>
+  <section class="legal">
+    <div class="container-narrow">
+      <div class="kicker legal-kicker">Legal</div>
+      <h1 class="legal-title t-brand">Privacy & Cookie Policy</h1>
+
+      <div class="legal-embed">
+        <a
+          href="https://www.iubenda.com/privacy-policy/24994492/cookie-policy"
+          class="iubenda-white no-brand iubenda-embed iub-body-embed"
+          title="Cookie Policy"
+        >Cookie Policy</a>
+      </div>
+
+      <p class="legal-fallback">
+        If the policy doesn't load,
+        <a href="https://www.iubenda.com/privacy-policy/24994492/cookie-policy" target="_blank" rel="noopener">open it on iubenda</a>.
+      </p>
+    </div>
+  </section>
+
+  <script
+    is:inline
+    type="text/javascript"
+    set:html={`(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);`}
+  />
+</BaseLayout>
+
+<style>
+  .legal {
+    padding: var(--sp-9) 0 var(--sp-8);
+    position: relative;
+  }
+  .legal-kicker {
+    color: var(--fern);
+    margin-bottom: 1rem;
+  }
+  .legal-title {
+    font-size: var(--fs-3xl);
+    line-height: 0.95;
+    margin-bottom: 2rem;
+  }
+  .legal-embed {
+    font-family: var(--font-body);
+    color: var(--espresso);
+    line-height: 1.65;
+  }
+  .legal-embed :global(h1),
+  .legal-embed :global(h2),
+  .legal-embed :global(h3),
+  .legal-embed :global(h4) {
+    color: var(--red-wine);
+    font-family: var(--font-display);
+    margin: 1.5rem 0 0.75rem;
+  }
+  .legal-embed :global(h2) { font-size: var(--fs-xl); }
+  .legal-embed :global(h3) { font-size: var(--fs-lg); }
+  .legal-embed :global(p),
+  .legal-embed :global(li) {
+    font-size: 1rem;
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
+  }
+  .legal-embed :global(a) {
+    color: var(--fern);
+    border-bottom: 1px solid var(--fern);
+  }
+  .legal-embed :global(strong) { color: var(--red-wine); }
+  .legal-embed :global(ul) { padding-left: 1.25rem; margin: 0.5rem 0 1rem; }
+  .legal-fallback {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(107, 68, 35, 0.18);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--espresso);
+    opacity: 0.8;
+  }
+  .legal-fallback a { color: var(--fern); border-bottom: 1px solid var(--fern); }
+
+  @media (min-width: 720px) {
+    .legal { padding: calc(var(--sp-9) + 4rem) 0 var(--sp-9); }
+  }
+</style>
