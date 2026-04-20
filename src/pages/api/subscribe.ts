@@ -104,12 +104,12 @@ async function sendCapiLead(args: {
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(payload),
   });
-  const text = await res.text().catch(() => '');
   if (!res.ok) {
+    const text = await res.text().catch(() => '');
     console.error('capi_error', res.status, text);
-    return { ok: false, status: res.status, body: text };
+    return { ok: false, status: res.status };
   }
-  return { ok: true, status: res.status, body: text };
+  return { ok: true };
 }
 
 const handlePost: APIRoute = async ({ request }) => {
@@ -176,11 +176,10 @@ const handlePost: APIRoute = async ({ request }) => {
   }
 
   // Meta CAPI: only when marketing consent was granted (mirrors browser pixel)
-  let capi: unknown = { skipped: 'no_consent_or_event_id' };
   if (payload.meta?.marketingConsent && payload.meta.eventId) {
     const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for');
     const ua = request.headers.get('user-agent');
-    capi = await sendCapiLead({
+    await sendCapiLead({
       env,
       email,
       events: incoming,
@@ -190,7 +189,7 @@ const handlePost: APIRoute = async ({ request }) => {
     });
   }
 
-  return json({ ok: true, capi });
+  return json({ ok: true });
 };
 
 export const POST: APIRoute = async (ctx) => {
