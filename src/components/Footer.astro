@@ -1,55 +1,9 @@
 ---
 import { EVENT_PATH } from '../lib/event-urls';
 const year = new Date().getFullYear();
-
-const mainPartner = {
-  name: 'Bike Adventure Series',
-  logo: '/brand/bas-logo.webp',
-  href: 'https://bikeadventureseries.com/',
-};
-const supportedBy = [
-  { name: 'Vittoria',     logo: '/brand/vittoria.webp',  href: 'https://int.vittoria.com/' },
-  { name: 'Ride with GPS', logo: '/brand/rwgps.png',     href: 'https://ridewithgps.com/' },
-  { name: 'Miss Grape',   logo: '/brand/missgrape.webp', href: 'https://missgrape.net/' },
-  { name: 'Sportler',     logo: '/brand/sportler.png',   href: 'https://www.sportler.com/' },
-];
-const technicalPartners = [
-  { name: 'RH The Look of Sport', logo: '/brand/rh.webp', href: 'https://rhthelookofsport.com/' },
-];
 ---
 <footer class="foot">
   <div class="container foot-inner">
-    <div class="foot-sponsors">
-      <div class="foot-sponsor-row foot-sponsor-main">
-        <span class="foot-sponsor-label">Part of</span>
-        <a href={mainPartner.href} target="_blank" rel="noopener" class="foot-sponsor-link foot-sponsor-link-main">
-          <img src={mainPartner.logo} alt={mainPartner.name} loading="lazy" />
-        </a>
-      </div>
-
-      <div class="foot-sponsor-row">
-        <span class="foot-sponsor-label">Supported by</span>
-        <div class="foot-sponsor-logos">
-          {supportedBy.map((p) => (
-            <a href={p.href} target="_blank" rel="noopener" class="foot-sponsor-link">
-              <img src={p.logo} alt={p.name} loading="lazy" />
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <div class="foot-sponsor-row">
-        <span class="foot-sponsor-label">Technical partner</span>
-        <div class="foot-sponsor-logos">
-          {technicalPartners.map((p) => (
-            <a href={p.href} target="_blank" rel="noopener" class="foot-sponsor-link">
-              <img src={p.logo} alt={p.name} loading="lazy" />
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-
     <div class="foot-top">
       <a href="/" class="foot-brand">
         <img src="/brand/tge-logo-dark.png" alt="The Grand Escape" width="260" height="88" />
@@ -84,39 +38,6 @@ const technicalPartners = [
 <style>
   .foot { background: var(--espresso); color: var(--paper-1); padding: 3rem 0 2rem; margin-top: 0; position: relative; }
   .foot-inner { display: flex; flex-direction: column; gap: 2.5rem; }
-
-  .foot-sponsors {
-    display: flex; flex-direction: column; gap: 1.75rem;
-    padding-bottom: 2.25rem;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-  .foot-sponsor-row {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 0.85rem; text-align: center;
-  }
-  .foot-sponsor-label {
-    font-family: var(--font-display);
-    font-size: 0.7rem; font-weight: 700;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--caramel); opacity: 0.85;
-  }
-  .foot-sponsor-logos {
-    display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-    gap: 1.25rem 2rem;
-  }
-  .foot-sponsor-link { display: inline-flex; align-items: center; justify-content: center; }
-  .foot-sponsor-link img {
-    height: 28px; width: auto; max-width: 120px;
-    filter: brightness(0) invert(1);
-    opacity: 0.65;
-    transition: opacity 160ms;
-  }
-  .foot-sponsor-link:hover img { opacity: 1; }
-  .foot-sponsor-link-main img {
-    height: 52px; max-width: 220px;
-    opacity: 0.92;
-  }
-
   .foot-top { display: grid; gap: 2rem; grid-template-columns: 1fr; }
   .foot-brand img { height: 44px; width: auto; filter: brightness(0) invert(1); opacity: 0.95; }
   .foot-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
