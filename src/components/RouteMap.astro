@@ -330,12 +330,15 @@ const tracksJson = showTracks
       0 0 0 1px color-mix(in oklab, var(--accent) 30%, transparent),
       0 18px 36px -20px rgba(44,31,21,0.45);
   }
-  .rm-map { aspect-ratio: 16 / 9; background: var(--paper-2); }
-  .rm-elev { aspect-ratio: 32 / 9; background: var(--paper-2); }
-  .rm-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .rm-map { background: var(--paper-2); }
+  .rm-elev { background: var(--paper-2); }
+  .rm-frame img { width: 100%; height: auto; display: block; }
+
+  .rm-map:has(.rm-empty) { aspect-ratio: 16 / 9; }
+  .rm-elev:has(.rm-empty) { aspect-ratio: 32 / 9; }
 
   .rm-empty {
-    width: 100%; height: 100%;
+    position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
     font-family: var(--font-display);
     font-size: 11px;
@@ -373,8 +376,8 @@ const tracksJson = showTracks
     .rm-title em { font-size: 0.58em; }
     .rm-tracks { width: 100%; overflow-x: auto; }
     .rm-tracks button { padding: 8px 12px; font-size: 10px; white-space: nowrap; }
-    .rm-map { aspect-ratio: 4 / 3; }
-    .rm-elev { aspect-ratio: 16 / 7; }
+    .rm-map:has(.rm-empty) { aspect-ratio: 4 / 3; }
+    .rm-elev:has(.rm-empty) { aspect-ratio: 16 / 7; }
     .rm-tag { font-size: 8px; padding: 5px 8px; }
   }
 </style>
