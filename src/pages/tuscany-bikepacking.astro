@@ -27,35 +27,13 @@ const hub = (await getEntry('hub', 'main'))!.data;
   credoIntro={credoIntro}
   credoPillars={credoPillars}
 >
-  <svg
+  <img
     slot="mascot"
-    class="event-mascot"
-    style="color: var(--red-wine);"
-    viewBox="0 0 140 140"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-  >
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- Boar head silhouette (Cinghiale toscano) — simplified editorial line-art -->
-      <path d="M 28 80 C 22 72, 22 58, 30 52 C 34 42, 46 36, 60 38 L 72 34 L 80 40 L 96 38 L 108 46 L 114 58 L 112 74 L 104 86 L 92 92 L 74 96 L 52 94 L 36 92 Z" />
-      <!-- Ear -->
-      <path d="M 50 44 L 58 32 L 64 44 Z" fill="currentColor" />
-      <!-- Eye -->
-      <circle cx="78" cy="58" r="2.2" fill="currentColor" stroke="none" />
-      <!-- Nostril -->
-      <circle cx="108" cy="62" r="2" fill="currentColor" stroke="none" />
-      <!-- Snout line -->
-      <path d="M 98 68 L 112 68" stroke-width="2" />
-      <!-- Tusks -->
-      <path d="M 100 74 Q 104 82, 112 82" />
-      <path d="M 108 74 Q 112 78, 118 76" />
-      <!-- Bristles on back -->
-      <path d="M 40 46 L 42 36" />
-      <path d="M 52 40 L 54 30" />
-      <path d="M 64 36 L 66 26" />
-      <path d="M 76 36 L 80 28" />
-    </g>
-  </svg>
+    src="/brand/tuscany-mascot.svg"
+    alt="Boar — Tuscany mascot"
+    class="event-mascot event-mascot-img"
+    loading="lazy"
+  />
 
   <section slot="mdx-copy" class="event-copy-wrap">
     <div class="container-narrow sr">
