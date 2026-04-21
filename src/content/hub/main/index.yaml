@@ -4,7 +4,7 @@ manifesto:
     cutoffs, no clock.
   huge: Road bikepacking, without the race.
   cta: What's the next event?
-  ctaHref: "#featured-event"
+  ctaHref: https://www.thegrandescape.cc/germany-austria-bikepacking
   videoSrc: /video/hero-loop.webm
   posterSrc: /home/hero-poster.jpg
 featured:
