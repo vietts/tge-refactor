@@ -13,8 +13,8 @@ const hub = (await getEntry('hub', 'main'))!.data;
 <EventLayout
   event={data}
   trust={hub.trust}
-  eventSignupTop={hub.eventSignupTop}
-  eventSignupBottom={hub.eventSignupBottom}
+  eventSignupTop={data.eventSignupTop ?? hub.eventSignupTop}
+  eventSignupBottom={data.eventSignupBottom ?? hub.eventSignupBottom}
   docYoutubeId={data.youtubeId ?? hub.documentary.youtubeId}
   eventNumberLabel={data.eventNumberLabel}
   titleFont={data.titleFont}

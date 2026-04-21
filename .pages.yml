@@ -457,6 +457,46 @@ content:
           - { name: ctaLabel,  label: "CTA label",    type: string, required: false }
           - { name: ctaHref,   label: "CTA link/anchor", type: string, required: false }
           - { name: openLabel, label: "Label when registration is open", type: string, required: false }
+      - name: eventSignupTop
+        label: "Signup form — top (overrides hub default)"
+        description: "Overrides the hub default. Leave empty to use the hub signup copy."
+        type: object
+        required: false
+        fields:
+          - { name: kicker,         label: Kicker,             type: string }
+          - { name: title,          label: Title,              type: string }
+          - { name: body,           label: Body,               type: text,   required: false }
+          - { name: cta,            label: "CTA button label", type: string }
+          - { name: legal,          label: "Legal line",       type: text,   required: false }
+          - name: benefits
+            label: "Benefits (bullet list)"
+            type: string
+            list: true
+            required: false
+          - { name: placeholder,    label: "Email placeholder",  type: string, required: false }
+          - { name: consentLabel,   label: "Consent label (HTML ok)", type: text, required: false }
+          - { name: successMessage, label: "Success message",    type: text,   required: false }
+          - { name: errorMessage,   label: "Error message",      type: text,   required: false }
+      - name: eventSignupBottom
+        label: "Signup form — bottom (overrides hub default)"
+        description: "Overrides the hub default. Leave empty to use the hub signup copy."
+        type: object
+        required: false
+        fields:
+          - { name: kicker,         label: Kicker,             type: string }
+          - { name: title,          label: Title,              type: string }
+          - { name: body,           label: Body,               type: text,   required: false }
+          - { name: cta,            label: "CTA button label", type: string }
+          - { name: legal,          label: "Legal line",       type: text,   required: false }
+          - name: benefits
+            label: "Benefits (bullet list)"
+            type: string
+            list: true
+            required: false
+          - { name: placeholder,    label: "Email placeholder",  type: string, required: false }
+          - { name: consentLabel,   label: "Consent label (HTML ok)", type: text, required: false }
+          - { name: successMessage, label: "Success message",    type: text,   required: false }
+          - { name: errorMessage,   label: "Error message",      type: text,   required: false }
       - name: places
         label: "Places you'll cross (bento cells)"
         type: object
