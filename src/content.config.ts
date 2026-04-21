@@ -139,6 +139,8 @@ const events = defineCollection({
             .optional(),
         })
         .optional(),
+      eventSignupTop: signupFormSchema.optional(),
+      eventSignupBottom: signupFormSchema.optional(),
       sectionOrder: z
         .array(
           z.enum([
