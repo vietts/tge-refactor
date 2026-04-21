@@ -1,9 +1,3 @@
-featured:
-  eventSlug: auto
-  kicker: NEXT
-  heading: Germany/Austria 2026
-  body: Registration will open on May 14 2026 with limited spots.
-  ctaLabel: Look at the route
 manifesto:
   kicker: No race road bikepacking event
   serif: Three routes across Europe. You ride at your pace. No rankings, no
@@ -13,26 +7,17 @@ manifesto:
   ctaHref: "#signup"
   videoSrc: /video/hero-loop.webm
   posterSrc: /home/hero-poster.jpg
-signup:
-  kicker: Free · Route previews · Tips
-  title: Get the Route Guide
-  body: "Route previews, packing lists, and first access to registration. "
-  cta: Send me the guide
-  legal: Powered by Brevo. Seny bu a human, no AI slop.
-  benefits:
-    - Route Map
-    - Be first to register
-    - Tips&Tricks
-    - Route guide
-  placeholder: your@email.com
-  consentLabel: I agree to the <a href="/privacy">privacy policy</a>.
-  successMessage: ✓ You're on the list. Check your inbox for the guide.
-  errorMessage: Something went wrong. Please try again.
+featured:
+  eventSlug: auto
+  kicker: NEXT
+  heading: Germany/Austria 2026
+  body: Registration will open on May 14 2026 with limited spots.
+  ctaLabel: Look at the route
 documentary:
   label: See it with your own eyes
-  title: What is The Grand Escape?
-  subtitle: Take a look inside the 2025 editions and hear the opinion of the riders
-  youtubeId: d5hMdLOLQ2g
+  title: Watch the past edition
+  subtitle: Take a look inside the 2025 edition and hear the opinion of the riders
+  youtubeId: 4WITFqRd7RE
 whatIs:
   kicker: What is The Grand Escape
   title: Three escapes. Zero KOMs.
@@ -54,6 +39,21 @@ documentarySecondary:
     What happens when you trade the watts for the journey?
     Take a look at the last editions of The Grand Escape here
   youtubeId: MWKgRGpykmM
+signup:
+  kicker: Free · Route previews · Tips
+  title: Get the Route Guide
+  body: "Route previews, packing lists, and first access to registration. "
+  cta: Send me the guide
+  legal: Powered by Brevo. Sent by a human, no AI slop.
+  benefits:
+    - Route Map
+    - Be first to register
+    - Tips&Tricks
+    - Route guide
+  placeholder: your@email.com
+  consentLabel: I agree to the <a href="/privacy">privacy policy</a>.
+  successMessage: ✓ You're on the list. Check your inbox for the guide.
+  errorMessage: Something went wrong. Please try again.
 registrationOpens:
   date: 2026-05-14T10:00:00+02:00
   kicker: Whats' next
@@ -170,6 +170,27 @@ signupBottom:
   consentLabel: I agree to the <a href="/privacy">privacy policy</a>.
   successMessage: ✓ You're on the list. Check your inbox for the guide.
   errorMessage: Something went wrong. Please try again.
+trust:
+  label: Part of
+  partners:
+    - name: Bike Adventure Series
+      logo: /brand/bas-logo.webp
+      isMain: true
+    - name: Vittoria
+      logo: /brand/vittoria.webp
+      isMain: false
+    - name: RideWithGPS
+      logo: /brand/rwgps.png
+      isMain: false
+    - name: Miss Grape
+      logo: /brand/missgrape.webp
+      isMain: false
+    - name: Sportler
+      logo: /brand/sportler.png
+      isMain: false
+    - name: Ragazzi Hogan
+      logo: /brand/ragazzihogan.webp
+      isMain: false
 eventSignupTop:
   kicker: Waitlist · Limited spots
   title: Be first in line.
@@ -201,24 +222,3 @@ eventSignupBottom:
   consentLabel: I agree to the <a href="/privacy">privacy policy</a>.
   successMessage: ✓ You're on the list. Check your inbox for the guide.
   errorMessage: Something went wrong. Please try again.
-trust:
-  label: Part of
-  partners:
-    - name: Bike Adventure Series
-      logo: /brand/bas-logo.webp
-      isMain: true
-    - name: Vittoria
-      logo: /brand/vittoria.webp
-      isMain: false
-    - name: RideWithGPS
-      logo: /brand/rwgps.png
-      isMain: false
-    - name: Miss Grape
-      logo: /brand/missgrape.webp
-      isMain: false
-    - name: Sportler
-      logo: /brand/sportler.png
-      isMain: false
-    - name: Ragazzi Hogan
-      logo: /brand/ragazzihogan.webp
-      isMain: false
