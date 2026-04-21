@@ -4,7 +4,7 @@ manifesto:
     cutoffs, no clock.
   huge: Road bikepacking, without the race.
   cta: Watch the next event
-  ctaHref: "#featured-card"
+  ctaHref: "#featured-event"
   videoSrc: /video/hero-loop.webm
   posterSrc: /home/hero-poster.jpg
 featured:
