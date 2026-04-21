@@ -45,6 +45,7 @@ const events = defineCollection({
       heroImage: z.string().optional(),
       heroImageAlt: z.string().optional(),
       mascotImage: z.string().optional(),
+      youtubeId: z.string().optional(),
       registrationUrl: z.string().url().optional(),
       eventNumberLabel: z.string(),
       titleFont: z.enum(['germania', 'questrial', 'tuscany']),

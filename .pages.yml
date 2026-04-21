@@ -409,6 +409,7 @@ content:
       - { name: heroImage,     label: "Hero image",     type: image,  required: false }
       - { name: heroImageAlt,  label: "Hero image alt", type: string, required: false }
       - { name: mascotImage,   label: "Mascot image (replaces inline SVG/PNG)", type: image, required: false }
+      - { name: youtubeId,     label: "YouTube ID (e.g. dQw4w9WgXcQ)", type: string, required: false }
       - { name: eventNumberLabel, label: "Event number label (e.g. 'Event 02')", type: string }
       - name: titleFont
         label: "Title font (per-event display font for H2s)"
