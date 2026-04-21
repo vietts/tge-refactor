@@ -18,6 +18,20 @@ content:
     type: file
     path: src/content/hub/main/index.yaml
     fields:
+
+      # ── HERO ─────────────────────────────────────────────────────────────────
+      - name: manifesto
+        label: "Hero manifesto"
+        type: object
+        fields:
+          - { name: kicker,     label: Kicker,                 type: string }
+          - { name: serif,      label: "Serif line (above huge)", type: string }
+          - { name: huge,       label: "Huge display title",   type: string }
+          - { name: cta,        label: "Hero CTA label",       type: string }
+          - { name: ctaHref,    label: "Hero CTA href",        type: string }
+          - { name: videoSrc,   label: "Hero video (.webm)",   type: string }
+          - { name: posterSrc,  label: "Hero video poster",    type: string }
+
       - name: featured
         label: "Featured event card (above documentary)"
         description: "Card with photo + countdown shown right after the hero. All fields are optional — leave blank to inherit from the selected event."
@@ -45,57 +59,7 @@ content:
           - { name: ctaLabel,       label: "CTA label (e.g. 'Join the waitlist')",              type: string, required: false }
           - { name: ctaHref,        label: "CTA link (default: event page #signup)",            type: string, required: false }
 
-      - name: manifesto
-        label: "Hero manifesto"
-        type: object
-        fields:
-          - { name: kicker,     label: Kicker,                 type: string }
-          - { name: serif,      label: "Serif line (above huge)", type: string }
-          - { name: huge,       label: "Huge display title",   type: string }
-          - { name: cta,        label: "Hero CTA label",       type: string }
-          - { name: ctaHref,    label: "Hero CTA href",        type: string }
-          - { name: videoSrc,   label: "Hero video (.webm)",   type: string }
-          - { name: posterSrc,  label: "Hero video poster",    type: string }
-
-      - name: sectionOrder
-        label: "Section order (drag to reorder — leave empty for default)"
-        description: "Add each section once; drag to reorder. Sections you don't add fall back to the default position. Hero stays on top, Trust strip stays at the bottom."
-        type: select
-        list: true
-        required: false
-        options:
-          values:
-            - { value: signupTop,            label: "Signup — top (after hero)" }
-            - { value: documentary,          label: "Documentary — top" }
-            - { value: whatIs,               label: "What is TGE" }
-            - { value: escapes,              label: "Three escapes grid" }
-            - { value: documentarySecondary, label: "Documentary — bottom" }
-            - { value: countdown,            label: "Registration countdown" }
-            - { value: testimonials,         label: "Testimonials" }
-            - { value: values,               label: "Values (4 blocks)" }
-            - { value: origin,               label: "Origin story" }
-            - { value: signupBottom,         label: "Signup — bottom" }
-
-      - name: signup
-        label: "Signup — top (after hero)"
-        type: object
-        fields:
-          - { name: kicker,         label: Kicker,            type: string }
-          - { name: title,          label: Title,             type: string }
-          - { name: body,           label: Body,              type: text,   required: false }
-          - { name: cta,            label: "CTA button label", type: string }
-          - { name: legal,          label: "Legal line",      type: text,   required: false }
-          - name: benefits
-            label: "Benefits (bullet list)"
-            description: "Shown above the form. Leave empty to hide."
-            type: string
-            list: true
-            required: false
-          - { name: placeholder,    label: "Email placeholder", type: string, required: false }
-          - { name: consentLabel,   label: "Consent label (HTML supported, e.g. link to /privacy)", type: text, required: false }
-          - { name: successMessage, label: "Success message",   type: text,   required: false }
-          - { name: errorMessage,   label: "Error message",     type: text,   required: false }
-
+      # ── SECTIONS (frontend order) ─────────────────────────────────────────────
       - name: documentary
         label: "Documentary — top"
         type: object
@@ -131,6 +95,26 @@ content:
           - { name: title,     label: Title,     type: string }
           - { name: subtitle,  label: Subtitle,  type: text }
           - { name: youtubeId, label: "YouTube ID", type: string }
+
+      - name: signup
+        label: "Signup — top (after hero)"
+        type: object
+        fields:
+          - { name: kicker,         label: Kicker,            type: string }
+          - { name: title,          label: Title,             type: string }
+          - { name: body,           label: Body,              type: text,   required: false }
+          - { name: cta,            label: "CTA button label", type: string }
+          - { name: legal,          label: "Legal line",      type: text,   required: false }
+          - name: benefits
+            label: "Benefits (bullet list)"
+            description: "Shown above the form. Leave empty to hide."
+            type: string
+            list: true
+            required: false
+          - { name: placeholder,    label: "Email placeholder", type: string, required: false }
+          - { name: consentLabel,   label: "Consent label (HTML supported, e.g. link to /privacy)", type: text, required: false }
+          - { name: successMessage, label: "Success message",   type: text,   required: false }
+          - { name: errorMessage,   label: "Error message",     type: text,   required: false }
 
       - name: registrationOpens
         label: "Registration opens countdown (before Testimonials)"
@@ -201,6 +185,21 @@ content:
           - { name: successMessage, label: "Success message",   type: text,   required: false }
           - { name: errorMessage,   label: "Error message",     type: text,   required: false }
 
+      - name: trust
+        label: "Trust / Part of"
+        type: object
+        fields:
+          - { name: label, label: Kicker, type: string }
+          - name: partners
+            label: Partners
+            type: object
+            list: true
+            fields:
+              - { name: name,   label: Name, type: string }
+              - { name: logo,   label: "Logo path (e.g. /brand/bas-logo.webp)", type: string }
+              - { name: isMain, label: "Main partner? (shown larger)", type: boolean, required: false }
+
+      # ── TECNICI ───────────────────────────────────────────────────────────────
       - name: eventSignupTop
         label: "Event signup — top (shared by Slovenia/Germany/Tuscany)"
         description: "Used in each event page after hero. One source of truth for all three events."
@@ -244,19 +243,24 @@ content:
           - { name: successMessage, label: "Success message",   type: text,   required: false }
           - { name: errorMessage,   label: "Error message",     type: text,   required: false }
 
-      - name: trust
-        label: "Trust / Part of"
-        type: object
-        fields:
-          - { name: label, label: Kicker, type: string }
-          - name: partners
-            label: Partners
-            type: object
-            list: true
-            fields:
-              - { name: name,   label: Name, type: string }
-              - { name: logo,   label: "Logo path (e.g. /brand/bas-logo.webp)", type: string }
-              - { name: isMain, label: "Main partner? (shown larger)", type: boolean, required: false }
+      - name: sectionOrder
+        label: "Section order (drag to reorder — leave empty for default)"
+        description: "Add each section once; drag to reorder. Sections you don't add fall back to the default position. Hero stays on top, Trust strip stays at the bottom."
+        type: select
+        list: true
+        required: false
+        options:
+          values:
+            - { value: signupTop,            label: "Signup — top (after hero)" }
+            - { value: documentary,          label: "Documentary — top" }
+            - { value: whatIs,               label: "What is TGE" }
+            - { value: escapes,              label: "Three escapes grid" }
+            - { value: documentarySecondary, label: "Documentary — bottom" }
+            - { value: countdown,            label: "Registration countdown" }
+            - { value: testimonials,         label: "Testimonials" }
+            - { value: values,               label: "Values (4 blocks)" }
+            - { value: origin,               label: "Origin story" }
+            - { value: signupBottom,         label: "Signup — bottom" }
 
   - name: registrations
     label: Registrations (year pages)
@@ -368,48 +372,22 @@ content:
     view:
       fields: [name, dateLabel, status, distanceKm]
     fields:
-      - { name: slug,          label: "Slug (url)",     type: string, options: { values: [slovenia, germany, tuscany] } }
-      - { name: order,         label: "Display order",  type: number }
+
+      # ── HERO ─────────────────────────────────────────────────────────────────
       - { name: name,          label: "Event name",     type: string }
       - { name: country,       label: "Country / region", type: string }
       - { name: date,          label: "Event date",     type: date }
-      - { name: dateLabel,     label: "Date label (human)", type: string }
+      - { name: dateLabel,     label: "Date label (human-readable)", type: string }
       - { name: distanceKm,    label: "Distance (km)",  type: number }
       - { name: elevationD,    label: "Elevation D+ (m)", type: number }
       - { name: quote,         label: "Short tagline (shown on home event card)", type: string }
       - { name: status,        label: Status,           type: select, options: { values: [open, limited, sold] } }
-      - { name: statusLabel,   label: "Status label",   type: string }
-      - { name: subBrandColor, label: "Sub-brand hex color", type: string }
-      - name: sectionOrder
-        label: "Section order (drag to reorder — leave empty for default)"
-        description: "Add each section once; drag to reorder. Sections you don't add fall back to the default position."
-        type: select
-        list: true
-        required: false
-        options:
-          values:
-            - { value: facts,                  label: "Facts bar" }
-            - { value: signupTop,              label: "Signup — top" }
-            - { value: countdown,              label: "Registration countdown" }
-            - { value: philosophy,             label: "Philosophy quote" }
-            - { value: documentary,            label: "Documentary embed" }
-            - { value: places,                 label: "Places bento" }
-            - { value: routeMap,               label: "Route map & elevation" }
-            - { value: mdxBody,                label: "Event body (markdown)" }
-            - { value: photoSplitDay,          label: "Photo split — A day on the road" }
-            - { value: included,               label: "What's included" }
-            - { value: photoBreakIncluded,     label: "Photo break — after What's included" }
-            - { value: testimonials,           label: "Testimonials" }
-            - { value: photoBreakTestimonials, label: "Photo break — after Testimonials" }
-            - { value: credo,                  label: "Credo / What you'll find" }
-            - { value: photoSplitQuiet,        label: "Photo split — The quiet between climbs" }
-            - { value: signupBottom,           label: "Signup — bottom" }
-            - { value: photoBreakFaq,          label: "Photo break — before FAQ" }
-            - { value: faq,                    label: "FAQ" }
+      - { name: statusLabel,   label: "Status label (e.g. 'Limited spots')", type: string }
+      - { name: subBrandColor, label: "Sub-brand hex color (accent)", type: string }
       - { name: heroImage,     label: "Hero image",     type: image,  required: false }
       - { name: heroImageAlt,  label: "Hero image alt", type: string, required: false }
-      - { name: mascotImage,   label: "Mascot image (replaces inline SVG/PNG)", type: image, required: false }
-      - { name: youtubeId,     label: "YouTube ID (e.g. dQw4w9WgXcQ)", type: string, required: false }
+      - { name: mascotImage,   label: "Mascot image",   type: image,  required: false }
+      - { name: tagline,       label: "Tagline (serif line under hero)", type: string, required: false }
       - { name: eventNumberLabel, label: "Event number label (e.g. 'Event 02')", type: string }
       - name: titleFont
         label: "Title font (per-event display font for H2s)"
@@ -420,6 +398,8 @@ content:
             - { value: questrial, label: "Questrial (Slovenia)" }
             - { value: tuscany,   label: "Tuscany" }
       - { name: waitlistCtaLabel, label: "Waitlist CTA label (e.g. 'Join the 2027 waitlist')", type: string }
+
+      # ── SECTIONS (frontend order) ─────────────────────────────────────────────
       - name: factsBar
         label: "Facts bar (4 cells under hero)"
         type: object
@@ -439,24 +419,7 @@ content:
           - { name: label, label: "Label (e.g. When)",       type: string }
           - { name: value, label: "Value (e.g. 5 Sep 2026)", type: string }
           - { name: sub,   label: "Sub-line (optional)",     type: string, required: false }
-      - { name: brevoSegment,  label: "Brevo segment slug", type: string }
-      - { name: tagline,       label: "Tagline (serif under hero)", type: string, required: false }
-      - { name: startFinish,   label: "Start/Finish (e.g. Loop from Siena)", type: string, required: false }
-      - { name: surface,       label: "Surface (e.g. 70% tarmac)", type: string, required: false }
-      - { name: philosophyQuote, label: "Philosophy quote (section after facts)", type: text, required: false }
-      - { name: philosophyImage, label: "Philosophy section background image", type: image, required: false }
-      - name: registrationOpens
-        label: "Registration opens countdown (after first signup)"
-        type: object
-        required: false
-        fields:
-          - { name: date,      label: "Target date/time (ISO 8601 with timezone)", type: string }
-          - { name: kicker,    label: Kicker,   type: string, required: false }
-          - { name: title,     label: Title,    type: string }
-          - { name: body,      label: Body,     type: text, required: false }
-          - { name: ctaLabel,  label: "CTA label",    type: string, required: false }
-          - { name: ctaHref,   label: "CTA link/anchor", type: string, required: false }
-          - { name: openLabel, label: "Label when registration is open", type: string, required: false }
+
       - name: eventSignupTop
         label: "Signup form — top (overrides hub default)"
         description: "Overrides the hub default. Leave empty to use the hub signup copy."
@@ -477,26 +440,25 @@ content:
           - { name: consentLabel,   label: "Consent label (HTML ok)", type: text, required: false }
           - { name: successMessage, label: "Success message",    type: text,   required: false }
           - { name: errorMessage,   label: "Error message",      type: text,   required: false }
-      - name: eventSignupBottom
-        label: "Signup form — bottom (overrides hub default)"
-        description: "Overrides the hub default. Leave empty to use the hub signup copy."
+
+      - name: registrationOpens
+        label: "Registration opens countdown"
         type: object
         required: false
         fields:
-          - { name: kicker,         label: Kicker,             type: string }
-          - { name: title,          label: Title,              type: string }
-          - { name: body,           label: Body,               type: text,   required: false }
-          - { name: cta,            label: "CTA button label", type: string }
-          - { name: legal,          label: "Legal line",       type: text,   required: false }
-          - name: benefits
-            label: "Benefits (bullet list)"
-            type: string
-            list: true
-            required: false
-          - { name: placeholder,    label: "Email placeholder",  type: string, required: false }
-          - { name: consentLabel,   label: "Consent label (HTML ok)", type: text, required: false }
-          - { name: successMessage, label: "Success message",    type: text,   required: false }
-          - { name: errorMessage,   label: "Error message",      type: text,   required: false }
+          - { name: date,      label: "Target date/time (ISO 8601 with timezone)", type: string }
+          - { name: kicker,    label: Kicker,   type: string, required: false }
+          - { name: title,     label: Title,    type: string }
+          - { name: body,      label: Body,     type: text, required: false }
+          - { name: ctaLabel,  label: "CTA label",    type: string, required: false }
+          - { name: ctaHref,   label: "CTA link/anchor", type: string, required: false }
+          - { name: openLabel, label: "Label when registration is open", type: string, required: false }
+
+      - { name: philosophyQuote, label: "Philosophy quote",              type: text,  required: false }
+      - { name: philosophyImage, label: "Philosophy section background", type: image, required: false }
+
+      - { name: youtubeId, label: "YouTube ID (e.g. dQw4w9WgXcQ)", type: string, required: false }
+
       - name: places
         label: "Places you'll cross (bento cells)"
         type: object
@@ -507,72 +469,7 @@ content:
           - { name: description, label: Description,   type: text }
           - { name: size,        label: "Cell size",   type: select, options: { values: [sm, md, lg] }, required: false }
           - { name: image,       label: "Cell image",  type: image, required: false }
-      - name: included
-        label: "What's included (bullet list)"
-        type: string
-        list: true
-        required: false
-      - name: testimonials
-        label: "Testimonials (riders on the road)"
-        type: object
-        list: true
-        required: false
-        fields:
-          - { name: quote,  label: Quote,           type: text }
-          - { name: author, label: "Author name",   type: string }
-          - { name: event,  label: "Event (e.g. Italy)", type: string, required: false }
-      - name: faq
-        label: "FAQ (before you sign up)"
-        type: object
-        list: true
-        required: false
-        fields:
-          - { name: q, label: Question, type: string }
-          - { name: a, label: Answer,   type: text }
-      - name: photoSplits
-        label: "Photo splits (A day / The quiet)"
-        type: object
-        required: false
-        fields:
-          - name: day
-            label: "A day on the road"
-            type: object
-            fields:
-              - { name: title,   label: Title,   type: string }
-              - { name: body,    label: Body,    type: text }
-              - { name: caption, label: Caption, type: string }
-              - { name: image,   label: Image,   type: image, required: false }
-          - name: quiet
-            label: "The quiet between climbs"
-            type: object
-            fields:
-              - { name: title,   label: Title,   type: string }
-              - { name: body,    label: Body,    type: text }
-              - { name: caption, label: Caption, type: string }
-              - { name: image,   label: Image,   type: image, required: false }
-      - name: photoBreaks
-        label: "Photo breaks (3 full-bleed photos)"
-        type: object
-        required: false
-        fields:
-          - name: included
-            label: "After What's included"
-            type: object
-            fields:
-              - { name: caption, label: Caption, type: string, required: false }
-              - { name: image,   label: Image,   type: image,  required: false }
-          - name: testimonials
-            label: "After Testimonials"
-            type: object
-            fields:
-              - { name: caption, label: Caption, type: string, required: false }
-              - { name: image,   label: Image,   type: image,  required: false }
-          - name: faq
-            label: "Before FAQ"
-            type: object
-            fields:
-              - { name: caption, label: Caption, type: string, required: false }
-              - { name: image,   label: Image,   type: image,  required: false }
+
       - name: routeMap
         label: "Route map & elevation"
         description: "Static map + elevation profile supplied by marketing. Section only renders when this object is filled and added to sectionOrder."
@@ -602,4 +499,131 @@ content:
               - { name: mapImage,        label: "Track-specific map image", type: image, required: false }
               - { name: elevationImage,  label: "Track-specific elevation image", type: image, required: false }
               - { name: elevationRange,  label: "Track-specific elevation range", type: string, required: false }
+
+      - name: photoSplits
+        label: "Photo splits"
+        description: "'A day on the road' appare dopo la route map · 'The quiet between climbs' appare dopo i testimonials"
+        type: object
+        required: false
+        fields:
+          - name: day
+            label: "A day on the road (after route map)"
+            type: object
+            fields:
+              - { name: title,   label: Title,   type: string }
+              - { name: body,    label: Body,    type: text }
+              - { name: caption, label: Caption, type: string }
+              - { name: image,   label: Image,   type: image, required: false }
+          - name: quiet
+            label: "The quiet between climbs (after testimonials)"
+            type: object
+            fields:
+              - { name: title,   label: Title,   type: string }
+              - { name: body,    label: Body,    type: text }
+              - { name: caption, label: Caption, type: string }
+              - { name: image,   label: Image,   type: image, required: false }
+
+      - name: included
+        label: "What's included (bullet list)"
+        type: string
+        list: true
+        required: false
+
+      - name: photoBreaks
+        label: "Photo breaks (3 full-bleed photos)"
+        description: "Tre slot separati: dopo What's included · dopo Testimonials · prima FAQ"
+        type: object
+        required: false
+        fields:
+          - name: included
+            label: "After What's included"
+            type: object
+            fields:
+              - { name: caption, label: Caption, type: string, required: false }
+              - { name: image,   label: Image,   type: image,  required: false }
+          - name: testimonials
+            label: "After Testimonials"
+            type: object
+            fields:
+              - { name: caption, label: Caption, type: string, required: false }
+              - { name: image,   label: Image,   type: image,  required: false }
+          - name: faq
+            label: "Before FAQ"
+            type: object
+            fields:
+              - { name: caption, label: Caption, type: string, required: false }
+              - { name: image,   label: Image,   type: image,  required: false }
+
+      - name: testimonials
+        label: "Testimonials (riders on the road)"
+        type: object
+        list: true
+        required: false
+        fields:
+          - { name: quote,  label: Quote,           type: text }
+          - { name: author, label: "Author name",   type: string }
+          - { name: event,  label: "Event (e.g. Italy)", type: string, required: false }
+
+      - name: eventSignupBottom
+        label: "Signup form — bottom (overrides hub default)"
+        description: "Overrides the hub default. Leave empty to use the hub signup copy."
+        type: object
+        required: false
+        fields:
+          - { name: kicker,         label: Kicker,             type: string }
+          - { name: title,          label: Title,              type: string }
+          - { name: body,           label: Body,               type: text,   required: false }
+          - { name: cta,            label: "CTA button label", type: string }
+          - { name: legal,          label: "Legal line",       type: text,   required: false }
+          - name: benefits
+            label: "Benefits (bullet list)"
+            type: string
+            list: true
+            required: false
+          - { name: placeholder,    label: "Email placeholder",  type: string, required: false }
+          - { name: consentLabel,   label: "Consent label (HTML ok)", type: text, required: false }
+          - { name: successMessage, label: "Success message",    type: text,   required: false }
+          - { name: errorMessage,   label: "Error message",      type: text,   required: false }
+
+      - name: faq
+        label: "FAQ"
+        type: object
+        list: true
+        required: false
+        fields:
+          - { name: q, label: Question, type: string }
+          - { name: a, label: Answer,   type: text }
+
+      # ── TECNICI ───────────────────────────────────────────────────────────────
+      - { name: startFinish,   label: "Start/Finish (e.g. Loop from Siena)", type: string, required: false }
+      - { name: surface,       label: "Surface (e.g. 70% tarmac)", type: string, required: false }
+      - { name: brevoSegment,  label: "Brevo segment slug", type: string }
+      - { name: slug,          label: "Slug (url)",     type: string, options: { values: [slovenia, germany, tuscany] } }
+      - { name: order,         label: "Display order (1/2/3)",  type: number }
+      - name: sectionOrder
+        label: "Section order (drag to reorder — leave empty for default)"
+        description: "Add each section once; drag to reorder. Sections you don't add fall back to the default position."
+        type: select
+        list: true
+        required: false
+        options:
+          values:
+            - { value: facts,                  label: "Facts bar" }
+            - { value: signupTop,              label: "Signup — top" }
+            - { value: countdown,              label: "Registration countdown" }
+            - { value: philosophy,             label: "Philosophy quote" }
+            - { value: documentary,            label: "Documentary embed" }
+            - { value: places,                 label: "Places bento" }
+            - { value: routeMap,               label: "Route map & elevation" }
+            - { value: mdxBody,                label: "Event body (markdown)" }
+            - { value: photoSplitDay,          label: "Photo split — A day on the road" }
+            - { value: included,               label: "What's included" }
+            - { value: photoBreakIncluded,     label: "Photo break — after What's included" }
+            - { value: testimonials,           label: "Testimonials" }
+            - { value: photoBreakTestimonials, label: "Photo break — after Testimonials" }
+            - { value: credo,                  label: "Credo / What you'll find" }
+            - { value: photoSplitQuiet,        label: "Photo split — The quiet between climbs" }
+            - { value: signupBottom,           label: "Signup — bottom" }
+            - { value: photoBreakFaq,          label: "Photo break — before FAQ" }
+            - { value: faq,                    label: "FAQ" }
       - { name: body,          label: "Event body (markdown)", type: rich-text }
