@@ -42,6 +42,7 @@ const events = defineCollection({
       status: z.enum(['open', 'limited', 'sold']),
       statusLabel: z.string(),
       subBrandColor: z.string(),
+      cardImage: z.string().optional(),
       heroImage: z.string().optional(),
       heroImageAlt: z.string().optional(),
       mascotImage: z.string().optional(),

@@ -384,6 +384,7 @@ content:
       - { name: status,        label: Status,           type: select, options: { values: [open, limited, sold] } }
       - { name: statusLabel,   label: "Status label (e.g. 'Limited spots')", type: string }
       - { name: subBrandColor, label: "Sub-brand hex color (accent)", type: string }
+      - { name: cardImage,     label: "Card background image (homepage grid)", type: image, required: false }
       - { name: heroImage,     label: "Hero image",     type: image,  required: false }
       - { name: heroImageAlt,  label: "Hero image alt", type: string, required: false }
       - { name: mascotImage,   label: "Mascot image",   type: image,  required: false }

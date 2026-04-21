@@ -13,13 +13,14 @@ interface Props {
   status: 'open' | 'limited' | 'sold';
   statusLabel: string;
   subBrandColor: string;
+  cardImage?: string;
 }
 
-const { slug, order, name, dateLabel, distanceKm, elevationD, quote, status, statusLabel, subBrandColor } = Astro.props;
-const textOnAccent = slug === 'germany' ? '#1a1a1a' : '#fff';
+const { slug, order, name, dateLabel, distanceKm, elevationD, quote, status, statusLabel, subBrandColor, cardImage } = Astro.props;
+const textOnAccent = slug === 'germany' && !cardImage ? '#1a1a1a' : '#fff';
 ---
-<a href={EVENT_PATH[slug]} class:list={['evcard', slug]} style={`--accent:${subBrandColor};--text:${textOnAccent}`}>
-  <div class="evcard-bg" aria-hidden="true"></div>
+<a href={EVENT_PATH[slug]} class:list={['evcard', slug, cardImage ? 'has-photo' : '']} style={`--accent:${subBrandColor};--text:${textOnAccent}`}>
+  <div class="evcard-bg" aria-hidden="true" style={cardImage ? `background-image:url('${cardImage}')` : undefined}></div>
   <div class="evcard-fade" aria-hidden="true"></div>
 
   <span class:list={['evbadge', status]}>{statusLabel}</span>
@@ -53,10 +54,14 @@ const textOnAccent = slug === 'germany' ? '#1a1a1a' : '#fff';
   .evcard-bg {
     position: absolute; inset: 0; z-index: -2;
     background: var(--accent);
+    background-size: cover;
+    background-position: center;
   }
   .evcard.slovenia .evcard-bg { background: radial-gradient(ellipse at 30% 30%, #8fa862 0%, transparent 60%), linear-gradient(180deg, #617D42 0%, #2a3818 100%); }
   .evcard.germany .evcard-bg  { background: radial-gradient(ellipse at 70% 30%, #fcd8b0 0%, transparent 60%), linear-gradient(180deg, #FABF80 0%, #8a5830 100%); }
   .evcard.tuscany .evcard-bg  { background: radial-gradient(ellipse at 40% 30%, #c44642 0%, transparent 60%), linear-gradient(180deg, #A32C29 0%, #4e1412 100%); }
+  .evcard.has-photo .evcard-bg { background-size: cover; background-position: center; background-color: #111; }
+  .evcard.has-photo .evcard-fade { background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.7) 100%); }
 
   .evcard-fade {
     position: absolute; inset: 0; z-index: -1;
