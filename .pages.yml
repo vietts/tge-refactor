@@ -82,6 +82,7 @@ content:
 
       - name: threeEscapes
         label: "Three escapes — section head"
+        description: "Titolo e sottotitolo della sezione. I dati delle singole card (foto, nome, data, quote, km...) si modificano in Events → Slovenia / Germany / Tuscany."
         type: object
         fields:
           - { name: title,    label: Title,    type: string }
