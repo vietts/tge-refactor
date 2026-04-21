@@ -40,30 +40,49 @@ const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     background: #25D366;
     color: #fff;
     box-shadow: 0 8px 24px rgba(0,0,0,0.22);
-    transition: transform 160ms ease, box-shadow 160ms ease, bottom 200ms ease;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 160ms ease, box-shadow 160ms ease, bottom 200ms ease, opacity 400ms ease;
   }
+  .wa-badge.wa-visible { opacity: 1; pointer-events: auto; }
   .wa-badge:hover { transform: scale(1.06); box-shadow: 0 10px 28px rgba(0,0,0,0.28); }
   .wa-badge:active { transform: scale(0.95); }
   .wa-badge svg { width: 28px; height: 28px; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-  /* Lift above the mobile sticky CTA when both are present on the same page */
+  /* Lift above the mobile sticky CTA */
   :global(body):has(.sticky-cta) .wa-badge { bottom: 5rem; }
-  /* Lift above the cookie banner on mobile — banner spans the bottom-right on narrow viewports */
-  :global(body):has(.cb) .wa-badge { bottom: 11rem; }
-  :global(body):has(.cb):has(.sticky-cta) .wa-badge { bottom: 14rem; }
 
   @media (min-width: 820px) {
     .wa-badge { width: 60px; height: 60px; right: 1.5rem; bottom: 1.5rem; }
     .wa-badge svg { width: 30px; height: 30px; }
-    /* On desktop the cookie banner is centered (max-width 720px) and doesn't reach
-       the bottom-right corner, so no lift is needed. */
-    :global(body):has(.sticky-cta) .wa-badge,
-    :global(body):has(.cb) .wa-badge,
-    :global(body):has(.cb):has(.sticky-cta) .wa-badge { bottom: 1.5rem; }
+    :global(body):has(.sticky-cta) .wa-badge { bottom: 1.5rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .wa-badge { transition: none; }
+    .wa-badge { transition: opacity 400ms ease; }
   }
 </style>
+
+<script>
+  const badge = document.querySelector('.wa-badge');
+  if (badge) {
+    const cookieBanner = document.getElementById('tge-cookie-banner');
+
+    const show = () => badge.classList.add('wa-visible');
+
+    const tryShow = () => {
+      if (!cookieBanner || cookieBanner.hidden) {
+        show();
+      } else {
+        // Cookie banner still visible — wait for it to be dismissed
+        const observer = new MutationObserver(() => {
+          if (cookieBanner.hidden) { observer.disconnect(); show(); }
+        });
+        observer.observe(cookieBanner, { attributes: true, attributeFilter: ['hidden'] });
+      }
+    };
+
+    setTimeout(tryShow, 60_000);
+  }
+</script>
