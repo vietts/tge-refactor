@@ -259,6 +259,34 @@ const hub = defineCollection({
           })
         ),
       }),
+      whatsappQuiz: z
+        .object({
+          phone: z.string().optional(),
+          ctaLabel: z.string().optional(),
+          introTitle: z.string().optional(),
+          introBody: z.string().optional(),
+          startLabel: z.string().optional(),
+          submitLabel: z.string().optional(),
+          readyTitle: z.string().optional(),
+          readyBody: z.string().optional(),
+          messageIntro: z.string().optional(),
+          takeoverDelaySeconds: z.number().optional(),
+          questions: z
+            .array(
+              z.object({
+                id: z.string(),
+                label: z.string(),
+                options: z.array(
+                  z.object({
+                    value: z.string(),
+                    label: z.string(),
+                  })
+                ),
+              })
+            )
+            .optional(),
+        })
+        .optional(),
       featured: z
         .object({
           eventSlug: z.enum(['auto', 'slovenia', 'germany', 'tuscany']).optional(),

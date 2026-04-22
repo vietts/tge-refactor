@@ -263,6 +263,39 @@ content:
             - { value: origin,               label: "Origin story" }
             - { value: signupBottom,         label: "Signup — bottom" }
 
+      - name: whatsappQuiz
+        label: "WhatsApp takeover CTA (60s fallback)"
+        description: "After a minute without an email submit, the sticky CTA is replaced by a WhatsApp prompt. If 'questions' is empty, clicking opens WhatsApp directly. If filled, clicking opens a qualification quiz whose answers are prepended to the WhatsApp message."
+        type: object
+        required: false
+        fields:
+          - { name: phone,         label: "Phone (international, no +)", type: string, required: false }
+          - { name: ctaLabel,      label: "Sticky CTA label (e.g. 'Ask us on WhatsApp')", type: string, required: false }
+          - { name: takeoverDelaySeconds, label: "Delay before takeover (seconds, default 60)", type: number, required: false }
+          - { name: introTitle,    label: "Modal intro — title",  type: string, required: false }
+          - { name: introBody,     label: "Modal intro — body",   type: text,   required: false }
+          - { name: startLabel,    label: "Intro button label (e.g. 'Start')", type: string, required: false }
+          - { name: readyTitle,    label: "Final step — title",   type: string, required: false }
+          - { name: readyBody,     label: "Final step — body",    type: text,   required: false }
+          - { name: submitLabel,   label: "Submit button label (e.g. 'Send on WhatsApp')", type: string, required: false }
+          - { name: messageIntro,  label: "Prefix prepended to the WhatsApp message (e.g. 'Hi! A few things about me:')", type: text, required: false }
+          - name: questions
+            label: "Quiz questions (leave empty to skip the quiz)"
+            description: "Each question becomes one modal step with multiple-choice answers. The chosen answer labels are concatenated into the WhatsApp message."
+            type: object
+            list: true
+            required: false
+            fields:
+              - { name: id,    label: "ID (short slug, used internally — e.g. 'event')", type: string }
+              - { name: label, label: "Question text",                                   type: string }
+              - name: options
+                label: "Answers"
+                type: object
+                list: true
+                fields:
+                  - { name: value, label: "Value (machine-readable)", type: string }
+                  - { name: label, label: "Label (shown to user)",    type: string }
+
   - name: registrations
     label: Registrations (year pages)
     description: "One file per registration year. Used by /the-grand-escape-2026-registrations (etc). Duplicate the folder to create a new year."

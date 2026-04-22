@@ -1,69 +1,382 @@
 ---
-interface Props {
-  phone?: string;       // international, no +, no spaces
-  label?: string;       // aria-label
-  message?: string;     // prefilled message (optional)
+interface QuizOption {
+  value: string;
+  label: string;
 }
+interface QuizQuestion {
+  id: string;
+  label: string;
+  options: QuizOption[];
+}
+interface Quiz {
+  phone?: string;
+  ctaLabel?: string;
+  introTitle?: string;
+  introBody?: string;
+  startLabel?: string;
+  submitLabel?: string;
+  readyTitle?: string;
+  readyBody?: string;
+  messageIntro?: string;
+  takeoverDelaySeconds?: number;
+  questions?: QuizQuestion[];
+}
+
+interface Props {
+  phone?: string;
+  label?: string;
+  message?: string;
+  quiz?: Quiz;
+}
+
 const {
-  phone = '393517198039',
+  phone: phoneProp = '393517198039',
   label = 'Chat on WhatsApp',
   message = "Hi! I'd like to know more about The Grand Escape.",
+  quiz,
 } = Astro.props;
 
-const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+const phone = quiz?.phone || phoneProp;
+const ctaLabel = quiz?.ctaLabel || 'Ask us on WhatsApp';
+const takeoverDelayMs = Math.max(0, (quiz?.takeoverDelaySeconds ?? 60) * 1000);
+const questions = quiz?.questions ?? [];
+const hasQuiz = questions.length > 0;
+const fallbackHref = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+const introTitle = quiz?.introTitle || "Let's get you the right answer";
+const introBody =
+  quiz?.introBody ||
+  'A few quick questions so we can reply with something actually useful.';
+const startLabel = quiz?.startLabel || 'Start';
+const readyTitle = quiz?.readyTitle || 'Ready to send';
+const readyBody =
+  quiz?.readyBody ||
+  "We'll open WhatsApp with your message prefilled — you can edit it before sending.";
+const submitLabel = quiz?.submitLabel || 'Send on WhatsApp';
+const messageIntro = quiz?.messageIntro || '';
 ---
-<a
-  href={href}
-  class="wa-badge"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label={label}
-  onclick="if(window.tgeTrack)window.tgeTrack('Contact',{content_name:'WhatsApp'});"
+<div
+  class="wa-wrap"
+  hidden
+  data-wa-root
+  data-takeover-delay={takeoverDelayMs}
+  data-has-quiz={hasQuiz ? 'true' : 'false'}
+  data-phone={phone}
+  data-message-intro={messageIntro}
+  data-fallback-href={fallbackHref}
 >
-  <svg viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-    <path
-      fill="currentColor"
-      d="M19.11 17.59c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.35-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.83-2.01-.22-.53-.45-.45-.61-.46l-.52-.01c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.63 1.11 2.81.14.18 1.92 2.94 4.66 4.12.65.28 1.16.45 1.56.58.65.21 1.25.18 1.72.11.52-.08 1.6-.65 1.83-1.28.22-.63.22-1.17.16-1.28-.07-.11-.25-.18-.52-.32ZM16.03 4.8c-6.17 0-11.17 5-11.17 11.16 0 1.97.52 3.89 1.5 5.58L4.8 27.2l5.78-1.52a11.12 11.12 0 0 0 5.44 1.39h.01c6.17 0 11.17-5 11.17-11.17 0-2.98-1.16-5.79-3.27-7.9a11.1 11.1 0 0 0-7.9-3.2Zm0 20.47h-.01a9.3 9.3 0 0 1-4.73-1.3l-.34-.2-3.52.93.94-3.43-.22-.35a9.3 9.3 0 0 1-1.43-4.94c0-5.12 4.17-9.29 9.3-9.29 2.49 0 4.82.97 6.58 2.72a9.28 9.28 0 0 1 2.73 6.58 9.3 9.3 0 0 1-9.3 9.29Z"
-    />
-  </svg>
-  <span class="sr-only">{label}</span>
-</a>
+  <button type="button" class="wa-sticky" data-wa-open aria-label={label}>
+    <svg viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill="currentColor"
+        d="M19.11 17.59c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.35-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.83-2.01-.22-.53-.45-.45-.61-.46l-.52-.01c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.63 1.11 2.81.14.18 1.92 2.94 4.66 4.12.65.28 1.16.45 1.56.58.65.21 1.25.18 1.72.11.52-.08 1.6-.65 1.83-1.28.22-.63.22-1.17.16-1.28-.07-.11-.25-.18-.52-.32ZM16.03 4.8c-6.17 0-11.17 5-11.17 11.16 0 1.97.52 3.89 1.5 5.58L4.8 27.2l5.78-1.52a11.12 11.12 0 0 0 5.44 1.39h.01c6.17 0 11.17-5 11.17-11.17 0-2.98-1.16-5.79-3.27-7.9a11.1 11.1 0 0 0-7.9-3.2Zm0 20.47h-.01a9.3 9.3 0 0 1-4.73-1.3l-.34-.2-3.52.93.94-3.43-.22-.35a9.3 9.3 0 0 1-1.43-4.94c0-5.12 4.17-9.29 9.3-9.29 2.49 0 4.82.97 6.58 2.72a9.28 9.28 0 0 1 2.73 6.58 9.3 9.3 0 0 1-9.3 9.29Z"
+      />
+    </svg>
+    <span>{ctaLabel}</span>
+  </button>
+
+  <button type="button" class="wa-badge" data-wa-open aria-label={label}>
+    <svg viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill="currentColor"
+        d="M19.11 17.59c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.35-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.83-2.01-.22-.53-.45-.45-.61-.46l-.52-.01c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.63 1.11 2.81.14.18 1.92 2.94 4.66 4.12.65.28 1.16.45 1.56.58.65.21 1.25.18 1.72.11.52-.08 1.6-.65 1.83-1.28.22-.63.22-1.17.16-1.28-.07-.11-.25-.18-.52-.32ZM16.03 4.8c-6.17 0-11.17 5-11.17 11.16 0 1.97.52 3.89 1.5 5.58L4.8 27.2l5.78-1.52a11.12 11.12 0 0 0 5.44 1.39h.01c6.17 0 11.17-5 11.17-11.17 0-2.98-1.16-5.79-3.27-7.9a11.1 11.1 0 0 0-7.9-3.2Zm0 20.47h-.01a9.3 9.3 0 0 1-4.73-1.3l-.34-.2-3.52.93.94-3.43-.22-.35a9.3 9.3 0 0 1-1.43-4.94c0-5.12 4.17-9.29 9.3-9.29 2.49 0 4.82.97 6.58 2.72a9.28 9.28 0 0 1 2.73 6.58 9.3 9.3 0 0 1-9.3 9.29Z"
+      />
+    </svg>
+    <span class="sr-only">{label}</span>
+  </button>
+</div>
+
+{hasQuiz && (
+  <dialog class="wa-modal" aria-labelledby="wa-quiz-title">
+    <div class="wa-modal-inner">
+      <button type="button" class="wa-modal-close" data-wa-close aria-label="Close">&times;</button>
+      <div class="wa-progress" aria-hidden="true"><div class="wa-progress-bar"></div></div>
+
+      <section class="wa-step" data-step="0">
+        <h3 id="wa-quiz-title" class="wa-modal-title">{introTitle}</h3>
+        <p class="wa-modal-body">{introBody}</p>
+        <button type="button" class="wa-btn wa-btn-primary" data-wa-next>{startLabel}</button>
+      </section>
+
+      {questions.map((q, i) => (
+        <section class="wa-step" data-step={String(i + 1)} data-qid={q.id} data-qlabel={q.label} hidden>
+          <h3 class="wa-modal-title">{q.label}</h3>
+          <div class="wa-options">
+            {q.options.map((o) => (
+              <button
+                type="button"
+                class="wa-option"
+                data-wa-option
+                data-value={o.value}
+                data-label={o.label}
+              >{o.label}</button>
+            ))}
+          </div>
+          <button type="button" class="wa-btn wa-btn-ghost" data-wa-back>Back</button>
+        </section>
+      ))}
+
+      <section class="wa-step" data-step={String(questions.length + 1)} hidden>
+        <h3 class="wa-modal-title">{readyTitle}</h3>
+        <p class="wa-modal-body">{readyBody}</p>
+        <button type="button" class="wa-btn wa-btn-primary" data-wa-submit>{submitLabel}</button>
+        <button type="button" class="wa-btn wa-btn-ghost" data-wa-back>Back</button>
+      </section>
+    </div>
+  </dialog>
+)}
 
 <style>
+  .wa-wrap[hidden] { display: none; }
+
+  .wa-sticky {
+    position: fixed;
+    left: 1rem; right: 1rem; bottom: 1rem;
+    z-index: 810;
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem 1.25rem;
+    background: #25D366; color: #fff;
+    border: none; border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 0.85rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    transition: transform 160ms ease;
+  }
+  .wa-sticky:active { transform: scale(0.97); }
+  .wa-sticky svg { width: 22px; height: 22px; flex-shrink: 0; }
+
   .wa-badge {
     position: fixed;
     right: 1.25rem; bottom: 1.25rem;
     z-index: 960;
-    display: inline-flex; align-items: center; justify-content: center;
+    display: none;
+    align-items: center; justify-content: center;
     width: 56px; height: 56px;
-    border-radius: 50%;
-    background: #25D366;
-    color: #fff;
+    background: #25D366; color: #fff;
+    border: none; border-radius: 50%;
+    cursor: pointer;
     box-shadow: 0 8px 24px rgba(0,0,0,0.22);
-    transition: transform 160ms ease, box-shadow 160ms ease, bottom 200ms ease;
+    transition: transform 160ms ease, box-shadow 160ms ease;
   }
   .wa-badge:hover { transform: scale(1.06); box-shadow: 0 10px 28px rgba(0,0,0,0.28); }
   .wa-badge:active { transform: scale(0.95); }
   .wa-badge svg { width: 28px; height: 28px; }
+
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-  /* Lift above the mobile sticky CTA when both are present on the same page */
-  :global(body):has(.sticky-cta) .wa-badge { bottom: 5rem; }
-  /* Lift above the cookie banner on mobile — banner spans the bottom-right on narrow viewports */
-  :global(body):has(.cb) .wa-badge { bottom: 11rem; }
-  :global(body):has(.cb):has(.sticky-cta) .wa-badge { bottom: 14rem; }
+  :global(body):has(.cb) .wa-sticky { bottom: 7rem; }
 
-  @media (min-width: 820px) {
+  @media (min-width: 720px) {
+    .wa-sticky { display: none; }
+    .wa-badge { display: inline-flex; }
     .wa-badge { width: 60px; height: 60px; right: 1.5rem; bottom: 1.5rem; }
     .wa-badge svg { width: 30px; height: 30px; }
-    /* On desktop the cookie banner is centered (max-width 720px) and doesn't reach
-       the bottom-right corner, so no lift is needed. */
-    :global(body):has(.sticky-cta) .wa-badge,
-    :global(body):has(.cb) .wa-badge,
-    :global(body):has(.cb):has(.sticky-cta) .wa-badge { bottom: 1.5rem; }
   }
 
+  .wa-modal {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 520px;
+    width: calc(100% - 2rem);
+    border-radius: 16px;
+  }
+  .wa-modal::backdrop {
+    background: rgba(26,16,8,0.6);
+    backdrop-filter: blur(4px);
+  }
+  .wa-modal-inner {
+    background: var(--paper-1, #F3ECE0);
+    color: var(--espresso, #2C1F15);
+    border-radius: 16px;
+    padding: 2rem 1.5rem 1.5rem;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  }
+  .wa-modal-close {
+    position: absolute; top: 0.5rem; right: 0.5rem;
+    width: 36px; height: 36px;
+    border: none; background: transparent;
+    font-size: 1.6rem; line-height: 1; cursor: pointer;
+    color: var(--espresso, #2C1F15);
+  }
+  .wa-progress {
+    height: 3px;
+    background: rgba(44,31,21,0.15);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .wa-progress-bar {
+    height: 100%; width: 0%;
+    background: #25D366;
+    transition: width 220ms ease-out;
+  }
+  .wa-modal-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin: 0 0 0.75rem;
+    line-height: 1.3;
+  }
+  .wa-modal-body {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    opacity: 0.85;
+    margin: 0 0 1.5rem;
+  }
+  .wa-options {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .wa-option {
+    padding: 0.9rem 1rem;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(107,68,35,0.25);
+    border-radius: 10px;
+    font: inherit; font-size: 0.95rem;
+    color: var(--espresso, #2C1F15);
+    text-align: left; cursor: pointer;
+    transition: border-color 140ms, background 140ms;
+  }
+  .wa-option:hover { border-color: #25D366; background: #fff; }
+  .wa-option.selected { border-color: #25D366; background: rgba(37,211,102,0.14); }
+
+  .wa-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0.9rem 1.4rem;
+    font-family: var(--font-display);
+    font-size: 0.82rem; font-weight: 800;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 999px; border: none; cursor: pointer;
+  }
+  .wa-btn-primary { background: #25D366; color: #fff; width: 100%; margin-bottom: 0.5rem; }
+  .wa-btn-ghost { background: transparent; color: var(--espresso, #2C1F15); opacity: 0.6; width: 100%; }
+
   @media (prefers-reduced-motion: reduce) {
-    .wa-badge { transition: none; }
+    .wa-sticky, .wa-badge, .wa-progress-bar { transition: none; }
   }
 </style>
+
+<script>
+  (function () {
+    const SESSION_KEY = 'tge_lead_submitted';
+    const root = document.querySelector<HTMLElement>('[data-wa-root]');
+    if (!root) return;
+
+    if (sessionStorage.getItem(SESSION_KEY) === '1') return;
+
+    const takeoverDelay = Number(root.dataset.takeoverDelay || '60000');
+    const hasQuiz = root.dataset.hasQuiz === 'true';
+    const phone = root.dataset.phone || '';
+    const messageIntro = root.dataset.messageIntro || '';
+    const fallbackHref = root.dataset.fallbackHref || '';
+    const modal = document.querySelector<HTMLDialogElement>('.wa-modal');
+
+    let takeoverTimer: number | null = window.setTimeout(takeover, takeoverDelay);
+
+    function takeover() {
+      if (sessionStorage.getItem(SESSION_KEY) === '1') return;
+      document.body.classList.add('wa-takeover');
+      root!.hidden = false;
+    }
+
+    function cancelTakeover() {
+      if (takeoverTimer !== null) { window.clearTimeout(takeoverTimer); takeoverTimer = null; }
+      document.body.classList.remove('wa-takeover');
+      root!.hidden = true;
+      if (modal && modal.open) modal.close();
+    }
+
+    document.addEventListener('tge:form-submitted', () => {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      cancelTakeover();
+    });
+
+    root.addEventListener('click', (e) => {
+      const target = (e.target as HTMLElement).closest('[data-wa-open]');
+      if (!target) return;
+      e.preventDefault();
+      openFlow();
+    });
+
+    function openFlow() {
+      const anyWin = window as any;
+      if (typeof anyWin.tgeTrack === 'function') {
+        anyWin.tgeTrack('Contact', { content_name: 'WhatsApp' });
+      }
+      if (!hasQuiz || !modal) {
+        window.open(fallbackHref, '_blank', 'noopener,noreferrer');
+        return;
+      }
+      resetQuiz();
+      modal.showModal();
+      if (typeof anyWin.tgeTrack === 'function') {
+        anyWin.tgeTrack('ViewContent', { content_name: 'WhatsApp Quiz' });
+      }
+    }
+
+    if (!modal) return;
+
+    const steps = Array.from(modal.querySelectorAll<HTMLElement>('.wa-step'));
+    const bar = modal.querySelector<HTMLElement>('.wa-progress-bar');
+    const answers = new Map<string, { value: string; label: string; question: string }>();
+    let idx = 0;
+
+    function showStep(i: number) {
+      idx = Math.max(0, Math.min(i, steps.length - 1));
+      steps.forEach((s, k) => { s.hidden = k !== idx; });
+      const pct = steps.length > 1 ? Math.round((idx / (steps.length - 1)) * 100) : 0;
+      if (bar) bar.style.width = pct + '%';
+    }
+
+    function resetQuiz() {
+      answers.clear();
+      modal!.querySelectorAll('.wa-option.selected').forEach((el) => el.classList.remove('selected'));
+      showStep(0);
+    }
+
+    modal.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      if (t.closest('[data-wa-close]')) { modal.close(); return; }
+      if (t.closest('[data-wa-next]')) { showStep(idx + 1); return; }
+      if (t.closest('[data-wa-back]')) { showStep(idx - 1); return; }
+
+      const opt = t.closest<HTMLElement>('[data-wa-option]');
+      if (opt) {
+        const step = opt.closest<HTMLElement>('.wa-step');
+        if (!step) return;
+        step.querySelectorAll('[data-wa-option]').forEach((o) => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        const qid = step.dataset.qid || '';
+        const qlabel = step.dataset.qlabel || '';
+        answers.set(qid, {
+          value: opt.dataset.value || '',
+          label: opt.dataset.label || opt.textContent?.trim() || '',
+          question: qlabel,
+        });
+        window.setTimeout(() => showStep(idx + 1), 220);
+        return;
+      }
+
+      if (t.closest('[data-wa-submit]')) {
+        const parts: string[] = [];
+        if (messageIntro) parts.push(messageIntro);
+        for (const [, a] of answers) {
+          parts.push(`• ${a.question} → ${a.label}`);
+        }
+        const href = `https://wa.me/${phone}?text=${encodeURIComponent(parts.join('\n'))}`;
+        const anyWin = window as any;
+        if (typeof anyWin.tgeTrack === 'function') {
+          const summary: Record<string, string> = { content_name: 'WhatsApp Quiz Completed' };
+          for (const [k, a] of answers) summary[k] = a.value;
+          anyWin.tgeTrack('Lead', summary);
+        }
+        modal.close();
+        window.open(href, '_blank', 'noopener,noreferrer');
+      }
+    });
+  })();
+</script>

@@ -37,4 +37,7 @@ const { label, href, accentColor } = Astro.props;
 
   @media (min-width: 720px) { .sticky-cta { display: none; } }
   @media (prefers-reduced-motion: reduce) { .sticky-cta { transition: none; } }
+
+  /* WhatsApp takeover replaces the email CTA after the configured delay */
+  :global(body.wa-takeover) .sticky-cta { display: none; }
 </style>
