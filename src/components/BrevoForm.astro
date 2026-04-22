@@ -237,6 +237,8 @@ const formId = `brevo-${variant}-${Math.random().toString(36).slice(2, 8)}`;
         form.reset();
         success.hidden = false;
 
+        document.dispatchEvent(new CustomEvent('tge:form-submitted', { detail: { variant, eventSegment } }));
+
         // Meta Pixel client-side Lead event (only fires if marketing consent was granted)
         if (marketingConsent && typeof window.tgeTrack === 'function') {
           const category = events && events.length ? events.join(',') : (eventSegment || 'hub');
