@@ -44,6 +44,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://thegrandesc
       rel="stylesheet"
     />
     <MetaPixel />
+    <script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
+    <script>
+      window.Brevo = window.Brevo || [];
+      Brevo.push(["init", { client_key: "gcdyvraytahipnnhxds4xs8p" }]);
+    </script>
   </head>
   <body data-theme={theme} data-event={dataEvent}>
     <Nav theme={theme} />
