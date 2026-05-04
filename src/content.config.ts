@@ -13,6 +13,16 @@ const photoBreakItem = z.object({
   image: z.string().optional(),
 });
 
+const howToRegisterSchema = z
+  .object({
+    kicker: z.string().optional(),
+    title: z.string(),
+    body: z.union([z.string(), z.array(z.string())]),
+    ctaLabel: z.string(),
+    ctaHref: z.string().optional(),
+  })
+  .optional();
+
 const signupFormSchema = z.object({
   kicker: z.string(),
   title: z.string(),
@@ -142,12 +152,14 @@ const events = defineCollection({
         .optional(),
       eventSignupTop: signupFormSchema.optional(),
       eventSignupBottom: signupFormSchema.optional(),
+      howToRegister: howToRegisterSchema,
       sectionOrder: z
         .array(
           z.enum([
             'facts',
             'signupTop',
             'countdown',
+            'howToRegister',
             'philosophy',
             'documentary',
             'places',
@@ -274,6 +286,7 @@ const hub = defineCollection({
           ctaHref: z.string().optional(),
         })
         .optional(),
+      howToRegister: howToRegisterSchema,
       sectionOrder: z
         .array(
           z.enum([
@@ -283,6 +296,7 @@ const hub = defineCollection({
             'escapes',
             'documentarySecondary',
             'countdown',
+            'howToRegister',
             'testimonials',
             'values',
             'origin',

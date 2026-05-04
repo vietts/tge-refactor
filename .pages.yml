@@ -130,6 +130,18 @@ content:
           - { name: ctaHref,   label: "CTA link/anchor", type: string, required: false }
           - { name: openLabel, label: "Label when registration is open", type: string, required: false }
 
+      - name: howToRegister
+        label: "How to register (after countdown)"
+        description: "Short section explaining how registration works + CTA to the registration page. Leave empty for the default copy."
+        type: object
+        required: false
+        fields:
+          - { name: kicker,   label: Kicker,                                                       type: string, required: false }
+          - { name: title,    label: Title,                                                        type: string }
+          - { name: body,     label: "Body paragraphs",                                            type: text, list: true }
+          - { name: ctaLabel, label: "CTA label",                                                  type: string }
+          - { name: ctaHref,  label: "CTA link (default /the-grand-escape-2026-registrations)",   type: string, required: false }
+
       - name: testimonials
         label: "Testimonials"
         type: object
@@ -258,6 +270,7 @@ content:
             - { value: escapes,              label: "Three escapes grid" }
             - { value: documentarySecondary, label: "Documentary — bottom" }
             - { value: countdown,            label: "Registration countdown" }
+            - { value: howToRegister,        label: "How to register" }
             - { value: testimonials,         label: "Testimonials" }
             - { value: values,               label: "Values (4 blocks)" }
             - { value: origin,               label: "Origin story" }
@@ -456,6 +469,18 @@ content:
           - { name: ctaHref,   label: "CTA link/anchor", type: string, required: false }
           - { name: openLabel, label: "Label when registration is open", type: string, required: false }
 
+      - name: howToRegister
+        label: "How to register (after countdown)"
+        description: "Short section explaining how registration works + CTA to the registration page. Leave empty for the default copy."
+        type: object
+        required: false
+        fields:
+          - { name: kicker,   label: Kicker,                                                       type: string, required: false }
+          - { name: title,    label: Title,                                                        type: string }
+          - { name: body,     label: "Body paragraphs",                                            type: text, list: true }
+          - { name: ctaLabel, label: "CTA label",                                                  type: string }
+          - { name: ctaHref,  label: "CTA link (default /the-grand-escape-2026-registrations)",   type: string, required: false }
+
       - { name: philosophyQuote, label: "Philosophy quote",              type: text,  required: false }
       - { name: philosophyImage, label: "Philosophy section background", type: image, required: false }
 
@@ -613,6 +638,7 @@ content:
             - { value: facts,                  label: "Facts bar" }
             - { value: signupTop,              label: "Signup — top" }
             - { value: countdown,              label: "Registration countdown" }
+            - { value: howToRegister,          label: "How to register" }
             - { value: philosophy,             label: "Philosophy quote" }
             - { value: documentary,            label: "Documentary embed" }
             - { value: places,                 label: "Places bento" }

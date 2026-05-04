@@ -6,6 +6,7 @@ import BrevoForm from '../components/BrevoForm.astro';
 import DocumentaryEmbed from '../components/DocumentaryEmbed.astro';
 import PhilosophyQuote from '../components/PhilosophyQuote.astro';
 import RegistrationCountdown from '../components/RegistrationCountdown.astro';
+import HowToRegister from '../components/HowToRegister.astro';
 import PlacesBento from '../components/PlacesBento.astro';
 import RouteMap from '../components/RouteMap.astro';
 import PhotoSplit from '../components/PhotoSplit.astro';
@@ -30,6 +31,7 @@ type SectionKey =
   | 'facts'
   | 'signupTop'
   | 'countdown'
+  | 'howToRegister'
   | 'philosophy'
   | 'documentary'
   | 'places'
@@ -50,6 +52,7 @@ const DEFAULT_SECTION_ORDER: SectionKey[] = [
   'facts',
   'signupTop',
   'countdown',
+  'howToRegister',
   'philosophy',
   'documentary',
   'places',
@@ -87,6 +90,13 @@ interface PageEvent {
     ctaLabel?: string;
     ctaHref?: string;
     openLabel?: string;
+  };
+  howToRegister?: {
+    kicker?: string;
+    title: string;
+    body: string | string[];
+    ctaLabel: string;
+    ctaHref?: string;
   };
   heroImage?: string;
   places?: Place[];
@@ -293,6 +303,17 @@ for (const k of DEFAULT_SECTION_ORDER) {
           />
         )}
 
+        {key === 'howToRegister' && (
+          <HowToRegister
+            kicker={event.howToRegister?.kicker ?? 'Registration'}
+            title={event.howToRegister?.title ?? 'How to register'}
+            body={event.howToRegister?.body ?? "Registration runs through Bike Adventure Series, the platform behind our series. You'll need a BAS account, your card, and a couple of minutes. The full walkthrough — pricing, what's included, and the exact steps — lives on the registration page."}
+            ctaLabel={event.howToRegister?.ctaLabel ?? 'See how registration works'}
+            ctaHref={event.howToRegister?.ctaHref ?? '/the-grand-escape-2026-registrations'}
+            accentColor={accent}
+          />
+        )}
+
         {key === 'philosophy' && event.philosophyQuote && (
           <PhilosophyQuote quote={event.philosophyQuote} image={event.philosophyImage} accentColor={accent} />
         )}
@@ -472,6 +493,7 @@ for (const k of DEFAULT_SECTION_ORDER) {
   .font-event-germania .doc-title,
   .font-event-germania .psplit-title,
   .font-event-germania .rc-title,
+  .font-event-germania .htr-title,
   .font-event-germania .event-copy h2 {
     font-family: var(--font-extra-germany), var(--font-display) !important;
     font-weight: 400 !important;
@@ -490,6 +512,7 @@ for (const k of DEFAULT_SECTION_ORDER) {
   .font-event-questrial .doc-title,
   .font-event-questrial .psplit-title,
   .font-event-questrial .rc-title,
+  .font-event-questrial .htr-title,
   .font-event-questrial .event-copy h2 {
     font-family: var(--font-extra-slovenia), var(--font-display) !important;
     font-weight: 400 !important;
@@ -508,6 +531,7 @@ for (const k of DEFAULT_SECTION_ORDER) {
   .font-event-tuscany .doc-title,
   .font-event-tuscany .psplit-title,
   .font-event-tuscany .rc-title,
+  .font-event-tuscany .htr-title,
   .font-event-tuscany .event-copy h2 {
     font-family: var(--font-extra-tuscany), var(--font-display) !important;
     font-weight: 400 !important;

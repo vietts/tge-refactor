@@ -11,6 +11,7 @@ import ValueBlock from '../components/ValueBlock.astro';
 import EventCard from '../components/EventCard.astro';
 import OriginStory from '../components/OriginStory.astro';
 import RegistrationCountdown from '../components/RegistrationCountdown.astro';
+import HowToRegister from '../components/HowToRegister.astro';
 import TrustStrip from '../components/TrustStrip.astro';
 
 type HubSectionKey =
@@ -20,6 +21,7 @@ type HubSectionKey =
   | 'escapes'
   | 'documentarySecondary'
   | 'countdown'
+  | 'howToRegister'
   | 'testimonials'
   | 'values'
   | 'origin'
@@ -32,6 +34,7 @@ const DEFAULT_HUB_SECTION_ORDER: HubSectionKey[] = [
   'documentarySecondary',
   'signupTop',
   'countdown',
+  'howToRegister',
   'testimonials',
   'values',
   'origin',
@@ -162,6 +165,16 @@ for (const k of DEFAULT_HUB_SECTION_ORDER) {
           ctaLabel={hub.registrationOpens.ctaLabel}
           ctaHref={hub.registrationOpens.ctaHref}
           openLabel={hub.registrationOpens.openLabel}
+        />
+      )}
+
+      {key === 'howToRegister' && (
+        <HowToRegister
+          kicker={hub.howToRegister?.kicker ?? 'Registration'}
+          title={hub.howToRegister?.title ?? 'How to register'}
+          body={hub.howToRegister?.body ?? "Registration runs through Bike Adventure Series, the platform behind our series. You'll need a BAS account, your card, and a couple of minutes. The full walkthrough — pricing, what's included, and the exact steps — lives on the registration page."}
+          ctaLabel={hub.howToRegister?.ctaLabel ?? 'See how registration works'}
+          ctaHref={hub.howToRegister?.ctaHref ?? '/the-grand-escape-2026-registrations'}
         />
       )}
 

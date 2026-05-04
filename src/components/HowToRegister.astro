@@ -1,0 +1,67 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  kicker?: string;
+  title: string;
+  body: string | string[];
+  ctaLabel: string;
+  ctaHref: string;
+  accentColor?: string;
+}
+
+const {
+  kicker = 'Registration',
+  title,
+  body,
+  ctaLabel,
+  ctaHref,
+  accentColor,
+} = Astro.props;
+
+const paragraphs = Array.isArray(body) ? body : [body];
+---
+<section class="htr" style={accentColor ? `--accent:${accentColor}` : undefined}>
+  <div class="container-narrow htr-inner sr">
+    {kicker && <div class="kicker htr-kicker">{kicker}</div>}
+    <h2 class="htr-title display">{title}</h2>
+    {paragraphs.map((p) => <p class="htr-body">{p}</p>)}
+    <a class="cta-pill cta-primary htr-cta" href={ctaHref}>
+      {ctaLabel} <Icon name="arrow" size={14} />
+    </a>
+  </div>
+</section>
+
+<style>
+  .htr {
+    padding: var(--sp-8) 0;
+    position: relative;
+  }
+  .htr-inner {
+    text-align: center;
+  }
+  .htr-kicker {
+    color: var(--accent, var(--fern));
+    margin-bottom: 0.75rem;
+  }
+  .htr-title {
+    font-size: var(--fs-3xl);
+    line-height: 0.95;
+    color: var(--red-wine);
+    margin-bottom: 1rem;
+  }
+  .htr-body {
+    max-width: 58ch;
+    margin: 0 auto 1rem;
+    color: var(--espresso);
+    line-height: 1.65;
+    text-align: left;
+    font-family: var(--font-body);
+  }
+  .htr-body:last-of-type {
+    margin-bottom: 2rem;
+  }
+  .htr-cta {
+    margin-top: 0.5rem;
+  }
+</style>
