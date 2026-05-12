@@ -8,7 +8,7 @@ interface Props {
 const { youtubeId, label, title, subtitle } = Astro.props;
 ---
 <section class="doc">
-  <div class="container-narrow sr">
+  <div class="doc-wrap sr">
     <div class="kicker doc-label">● {label}</div>
     <h2 class="doc-title display">{title}</h2>
     <p class="doc-sub">{subtitle}</p>
@@ -28,18 +28,23 @@ const { youtubeId, label, title, subtitle } = Astro.props;
 </section>
 
 <style>
-  .doc { background: var(--espresso); color: var(--paper-1); padding: var(--sp-8) 0; position: relative; }
+  .doc { background: var(--espresso); color: var(--paper-1); padding: var(--sp-9) 0 var(--sp-8); position: relative; }
+  .doc-wrap { max-width: 1600px; margin: 0 auto; padding: 0 var(--sp-5); position: relative; }
+  @media (max-width: 640px) {
+    .doc-wrap { padding: 0 var(--sp-4); }
+  }
   .doc-label { color: var(--caramel); margin-bottom: 0.6rem; }
-  .doc-title { font-size: var(--fs-3xl); line-height: 0.95; color: var(--paper-1); margin-bottom: 0.8rem; }
-  .doc-sub { font-family: var(--font-body); opacity: 0.78; max-width: 48ch; margin-bottom: 1.5rem; line-height: 1.6; color: rgba(243,236,224,0.85); }
+  .doc-title { font-size: var(--fs-4xl); line-height: 0.95; color: var(--paper-1); margin-bottom: 0.8rem; }
+  .doc-sub { font-family: var(--font-body); opacity: 0.78; max-width: 56ch; margin-bottom: var(--sp-6); line-height: 1.6; color: rgba(243,236,224,0.85); }
 
   .yt-frame {
     position: relative;
     width: 100%;
     aspect-ratio: 16/9;
-    border-radius: 10px;
+    border-radius: 14px;
     overflow: hidden;
     background: #000;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
   }
   .yt-frame :global(iframe) {
     position: absolute; inset: 0;
@@ -54,14 +59,14 @@ const { youtubeId, label, title, subtitle } = Astro.props;
   .yt-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.75; transition: opacity 200ms; }
   .yt-thumb:hover img { opacity: 0.9; }
   .yt-play {
-    position: absolute; inset: 0; margin: auto; width: 72px; height: 72px;
+    position: absolute; inset: 0; margin: auto; width: 96px; height: 96px;
     border-radius: 50%; background: rgba(255,255,255,0.95);
     display: flex; align-items: center; justify-content: center;
   }
   .yt-play::after {
-    content: ''; border-left: 22px solid var(--red-wine);
-    border-top: 14px solid transparent; border-bottom: 14px solid transparent;
-    margin-left: 6px;
+    content: ''; border-left: 28px solid var(--red-wine);
+    border-top: 18px solid transparent; border-bottom: 18px solid transparent;
+    margin-left: 8px;
   }
 </style>
 
