@@ -227,6 +227,8 @@ const hub = defineCollection({
           ctaLabel: z.string().optional(),
           ctaHref: z.string().optional(),
           openLabel: z.string().optional(),
+          openCtaLabel: z.string().optional(),
+          openCtaHref: z.string().optional(),
         })
         .optional(),
       signupBottom: signupFormSchema,
@@ -326,6 +328,7 @@ const registrations = defineCollection({
         body: z.string().optional(),
         ctaLabel: z.string().optional(),
         openLabel: z.string().optional(),
+        openCtaLabel: z.string().optional(),
         accentColor: z.string().optional(),
       }),
       account: z.object({

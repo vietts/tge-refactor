@@ -56,7 +56,7 @@ signup:
   successMessage: ✓ You're on the list. Check your inbox for the guide.
   errorMessage: Something went wrong. Please try again.
 registrationOpens:
-  date: 2026-05-14T10:00:00+02:00
+  date: 2026-05-14T10:50:00+02:00
   kicker: Whats' next
   title: Germany/Austria
   body: Spots are limited. Get in the newsletter and receive the guide, packing
@@ -64,6 +64,8 @@ registrationOpens:
   ctaLabel: Get the route guide
   ctaHref: "#signup"
   openLabel: Registration is open
+  openCtaLabel: Register now — Germany/Austria 2026
+  openCtaHref: https://www.bikeadventureseries.com/product/the-grand-escape-germany-austria-2026/
 testimonials:
   kicker: Rider voices
   title: From the people who rode.

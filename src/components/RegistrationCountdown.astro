@@ -9,6 +9,8 @@ interface Props {
   ctaLabel?: string;
   ctaHref?: string;
   openLabel?: string;
+  openCtaLabel?: string;
+  openHref?: string;
   accentColor?: string;
 }
 const {
@@ -19,6 +21,8 @@ const {
   ctaLabel = 'Join the waitlist',
   ctaHref = '#signup',
   openLabel = 'Registration is open',
+  openCtaLabel,
+  openHref,
   accentColor,
 } = Astro.props;
 
@@ -43,12 +47,12 @@ const uid = 'rc-' + Math.random().toString(36).slice(2, 8);
     <p class="rc-open" id={`${uid}-open`} hidden>{openLabel}</p>
 
     <a class="cta-pill cta-on-dark rc-cta" href={ctaHref}>
-      {ctaLabel} <Icon name="arrow" size={14} />
+      <span class="rc-cta-text">{ctaLabel}</span> <Icon name="arrow" size={14} />
     </a>
   </div>
 </section>
 
-<script define:vars={{ uid }}>
+<script define:vars={{ uid, openHref, openCtaLabel }}>
   const root = document.getElementById(uid);
   if (root) {
     const target = new Date(root.dataset.target).getTime();
@@ -65,6 +69,14 @@ const uid = 'rc-' + Math.random().toString(36).slice(2, 8);
       if (diff <= 0) {
         root.hidden = true;
         if (openMsg) openMsg.hidden = false;
+        const cta = root.closest('section').querySelector('.rc-cta');
+        if (cta) {
+          if (openHref) cta.href = openHref;
+          if (openCtaLabel) {
+            const textSpan = cta.querySelector('.rc-cta-text');
+            if (textSpan) textSpan.textContent = openCtaLabel;
+          }
+        }
         return true;
       }
       const d = Math.floor(diff / 86400000);
