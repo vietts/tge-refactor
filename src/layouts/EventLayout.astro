@@ -260,7 +260,7 @@ for (const k of DEFAULT_SECTION_ORDER) {
       dateLabel={event.dateLabel}
       statusLabel={event.statusLabel}
       ctaLabel={waitlistCtaLabel}
-      ctaHref="#signup"
+      ctaHref={event.heroCtaHref ?? '#signup'}
       subBrandColor={accent}
       image={event.heroImage}
     >
@@ -478,7 +478,7 @@ for (const k of DEFAULT_SECTION_ORDER) {
     ))}
 
     <TrustStrip label={trust.label} partners={trust.partners} />
-    <StickyCTA label={waitlistCtaLabel} href="#signup" accentColor={accent} />
+    <StickyCTA label={waitlistCtaLabel} href={event.heroCtaHref ?? '#signup'} accentColor={accent} />
   </div>
 </BaseLayout>
 

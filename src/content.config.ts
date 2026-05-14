@@ -61,6 +61,7 @@ const events = defineCollection({
       eventNumberLabel: z.string(),
       titleFont: z.enum(['germania', 'questrial', 'tuscany']),
       waitlistCtaLabel: z.string(),
+      heroCtaHref: z.string().optional(),
       factsBar: z.array(
         z.object({
           icon: z.enum(['calendar', 'pin', 'loop', 'road', 'clock', 'mountain']),

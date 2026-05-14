@@ -415,7 +415,8 @@ content:
             - { value: germania,  label: "Germania (Germany)" }
             - { value: questrial, label: "Questrial (Slovenia)" }
             - { value: tuscany,   label: "Tuscany" }
-      - { name: waitlistCtaLabel, label: "Waitlist CTA label (e.g. 'Join the 2027 waitlist')", type: string }
+      - { name: waitlistCtaLabel, label: "Hero CTA label (e.g. 'Register now' or 'Join the 2027 waitlist')", type: string }
+      - { name: heroCtaHref,      label: "Hero CTA link (default: #signup — override for direct registration URL)", type: string, required: false }
 
       # ── SECTIONS (frontend order) ─────────────────────────────────────────────
       - name: factsBar
