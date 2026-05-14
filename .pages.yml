@@ -122,13 +122,15 @@ content:
         type: object
         required: false
         fields:
-          - { name: date,      label: "Target date/time (ISO 8601 with timezone)", type: string }
-          - { name: kicker,    label: Kicker,   type: string, required: false }
-          - { name: title,     label: Title,    type: string }
-          - { name: body,      label: Body,     type: text, required: false }
-          - { name: ctaLabel,  label: "CTA label",    type: string, required: false }
-          - { name: ctaHref,   label: "CTA link/anchor", type: string, required: false }
-          - { name: openLabel, label: "Label when registration is open", type: string, required: false }
+          - { name: date,         label: "Target date/time (ISO 8601 with timezone)", type: string }
+          - { name: kicker,       label: Kicker,   type: string, required: false }
+          - { name: title,        label: Title,    type: string }
+          - { name: body,         label: Body,     type: text, required: false }
+          - { name: ctaLabel,     label: "Button label (before open)",          type: string, required: false }
+          - { name: ctaHref,      label: "Button link (before open)",           type: string, required: false }
+          - { name: openLabel,    label: "Label when registration is open",     type: string, required: false }
+          - { name: openCtaLabel, label: "Button label when open",             type: string, required: false }
+          - { name: openCtaHref,  label: "Button link when open (product URL)", type: string, required: false }
 
       - name: howToRegister
         label: "How to register (after countdown)"
@@ -304,12 +306,13 @@ content:
         label: "Countdown (uses BAS account URL as CTA)"
         type: object
         fields:
-          - { name: kicker,      label: Kicker,                           type: string, required: false }
-          - { name: title,       label: Title,                            type: string }
-          - { name: body,        label: Body,                             type: text,   required: false }
-          - { name: ctaLabel,    label: "CTA label (e.g. 'Create your BAS account')", type: string, required: false }
-          - { name: openLabel,   label: "Label shown when countdown is over", type: string, required: false }
-          - { name: accentColor, label: "Accent hex color",               type: string, required: false }
+          - { name: kicker,       label: Kicker,                                                    type: string, required: false }
+          - { name: title,        label: Title,                                                     type: string }
+          - { name: body,         label: Body,                                                      type: text,   required: false }
+          - { name: ctaLabel,     label: "Button label (before open, e.g. 'Create your BAS account')", type: string, required: false }
+          - { name: openLabel,    label: "Label shown when countdown is over",                      type: string, required: false }
+          - { name: openCtaLabel, label: "Button label when open (e.g. 'Register now')",           type: string, required: false }
+          - { name: accentColor,  label: "Accent hex color",                                        type: string, required: false }
 
       - name: account
         label: "Account / BAS section"
@@ -461,13 +464,15 @@ content:
         type: object
         required: false
         fields:
-          - { name: date,      label: "Target date/time (ISO 8601 with timezone)", type: string }
-          - { name: kicker,    label: Kicker,   type: string, required: false }
-          - { name: title,     label: Title,    type: string }
-          - { name: body,      label: Body,     type: text, required: false }
-          - { name: ctaLabel,  label: "CTA label",    type: string, required: false }
-          - { name: ctaHref,   label: "CTA link/anchor", type: string, required: false }
-          - { name: openLabel, label: "Label when registration is open", type: string, required: false }
+          - { name: date,         label: "Target date/time (ISO 8601 with timezone)", type: string }
+          - { name: kicker,       label: Kicker,   type: string, required: false }
+          - { name: title,        label: Title,    type: string }
+          - { name: body,         label: Body,     type: text, required: false }
+          - { name: ctaLabel,     label: "Button label (before open)",          type: string, required: false }
+          - { name: ctaHref,      label: "Button link (before open)",           type: string, required: false }
+          - { name: openLabel,    label: "Label when registration is open",     type: string, required: false }
+          - { name: openCtaLabel, label: "Button label when open",             type: string, required: false }
+          - { name: openCtaHref,  label: "Button link when open (product URL)", type: string, required: false }
 
       - name: howToRegister
         label: "How to register (after countdown)"

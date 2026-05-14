@@ -57,15 +57,26 @@ signup:
   errorMessage: Something went wrong. Please try again.
 registrationOpens:
   date: 2026-05-14T10:50:00+02:00
-  kicker: Whats' next
-  title: Germany/Austria
-  body: Spots are limited. Get in the newsletter and receive the guide, packing
-    list and route previews in the meantime.
+  kicker: Registration opens today
+  title: Register for Germany/Austria 2026
+  body: "Limited spots: first-come, first-served."
   ctaLabel: Get the route guide
   ctaHref: "#signup"
-  openLabel: Registration is open
+  openLabel: Registration is open — click below
   openCtaLabel: Register now — Germany/Austria 2026
   openCtaHref: https://www.bikeadventureseries.com/product/the-grand-escape-germany-austria-2026/
+sectionOrder:
+  - countdown
+  - documentary
+  - whatIs
+  - escapes
+  - documentarySecondary
+  - signupTop
+  - howToRegister
+  - testimonials
+  - values
+  - origin
+  - signupBottom
 testimonials:
   kicker: Rider voices
   title: From the people who rode.

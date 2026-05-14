@@ -14,17 +14,6 @@ const data = entry.data;
   description="How to register for The Grand Escape 2026. Early Bird from €137. Limited spots, 3 events across Italy/Slovenia, Germany/Austria and Tuscany. Register via Bike Adventure Series."
   theme="light"
 >
-  <section class="reg-hero">
-    <div class="container-narrow">
-      <div class="kicker reg-kicker">{data.hero.kicker}</div>
-      <h1 class="reg-title t-brand">{data.hero.title}</h1>
-      <p class="reg-lead">{data.hero.lead}</p>
-      {data.hero.contactHtml && (
-        <p class="reg-contact" set:html={data.hero.contactHtml} />
-      )}
-    </div>
-  </section>
-
   <RegistrationCountdown
     targetIso={data.registrationOpenIso}
     kicker={data.countdown.kicker}
@@ -36,7 +25,19 @@ const data = entry.data;
     openCtaLabel={data.countdown.openCtaLabel}
     openHref={data.basRegisterUrl}
     accentColor={data.countdown.accentColor}
+    first={true}
   />
+
+  <section class="reg-hero">
+    <div class="container-narrow">
+      <div class="kicker reg-kicker">{data.hero.kicker}</div>
+      <h1 class="reg-title t-brand">{data.hero.title}</h1>
+      <p class="reg-lead">{data.hero.lead}</p>
+      {data.hero.contactHtml && (
+        <p class="reg-contact" set:html={data.hero.contactHtml} />
+      )}
+    </div>
+  </section>
 
   <section class="reg-account">
     <div class="container-narrow">

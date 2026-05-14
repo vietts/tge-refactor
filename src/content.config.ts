@@ -85,6 +85,8 @@ const events = defineCollection({
           ctaLabel: z.string().optional(),
           ctaHref: z.string().optional(),
           openLabel: z.string().optional(),
+          openCtaLabel: z.string().optional(),
+          openCtaHref: z.string().optional(),
         })
         .optional(),
       places: z
