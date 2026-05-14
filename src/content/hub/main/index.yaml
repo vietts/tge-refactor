@@ -7,13 +7,6 @@ manifesto:
   ctaHref: https://www.thegrandescape.cc/germany-austria-bikepacking
   videoSrc: /video/hero-loop.webm
   posterSrc: /home/hero-poster.jpg
-featured:
-  eventSlug: auto
-  kicker: NEXT
-  heading: Germany/Austria 2026
-  body: Registration will open on May 14 2026 with limited spots.
-  ctaLabel: Registration opens today
-  ctaHref: https://www.thegrandescape.cc/germany-austria-bikepacking
 documentary:
   label: See it with your own eyes
   title: Watch the past edition
@@ -60,10 +53,10 @@ registrationOpens:
   kicker: Registration opens today
   title: Register for Germany/Austria 2026
   body: "Limited spots: first-come, first-served."
-  ctaLabel: Get the route guide
-  ctaHref: "#signup"
-  openLabel: Registration is open — click below
-  openCtaLabel: Register now — Germany/Austria 2026
+  ctaLabel: Create your account
+  ctaHref: https://www.bikeadventureseries.com/my-account
+  openLabel: Registration is open
+  openCtaLabel: Register now
   openCtaHref: https://www.bikeadventureseries.com/product/the-grand-escape-germany-austria-2026/
 testimonials:
   kicker: Rider voices
