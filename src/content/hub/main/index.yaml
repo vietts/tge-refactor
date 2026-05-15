@@ -49,13 +49,13 @@ signup:
   successMessage: ✓ You're on the list. Check your inbox for the guide.
   errorMessage: Something went wrong. Please try again.
 registrationOpens:
-  date: 2026-05-14T10:50:00+02:00
-  kicker: Registration opens today
+  date: 2026-06-04T21:59:00Z
+  kicker: Registration will close in
   title: Register for Germany/Austria 2026
   body: "Limited spots: first-come, first-served."
   ctaLabel: Create your account
   ctaHref: https://www.bikeadventureseries.com/my-account
-  openLabel: Registration is open
+  openLabel: Registration will cose in
   openCtaLabel: Register now
   openCtaHref: https://www.bikeadventureseries.com/product/the-grand-escape-germany-austria-2026/
 testimonials:
