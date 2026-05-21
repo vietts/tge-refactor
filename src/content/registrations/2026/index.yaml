@@ -1,6 +1,6 @@
 basRegisterUrl: https://www.bikeadventureseries.com/product/the-grand-escape-germany-austria-2026/
 basAccountUrl: https://www.bikeadventureseries.com/my-account/
-registrationOpenIso: 2026-05-14T10:50:00+02:00
+registrationOpenIso: 2026-06-10T10:50:00+02:00
 hero:
   kicker: Register · 2 minutes
   title: Lock in your spot for 2026
@@ -11,8 +11,8 @@ hero:
   contactHtml: Questions? Check the <a href="#faq">FAQ</a> or write us at <a
     href="mailto:info@thegrandescape.cc">info@thegrandescape.cc</a>.
 countdown:
-  kicker: Registration opens
-  title: "The Grand Escape Germany Austria 2026 registration opens in:"
+  kicker: Registration will close soon
+  title: "The Grand Escape Germany Austria 2026 registration closes in:"
   body: "Limited places: first-come, first-served."
   ctaLabel: Create your BAS account
   openLabel: Registration is open — click below to sign up
@@ -67,7 +67,7 @@ pricing:
     - label: Regular
       value: €157
       dates: From May 14, 2026
-      note: Per single event. Until spots last.
+      note: Until spots last.
       highlighted: true
   rulesHtml: Full terms in the <a href="/rules-and-regulations">official rules</a>.
 faq:
@@ -82,9 +82,13 @@ faq:
       a: Create an account at bikeadventureseries.com so you'll be ready when
         registration opens. Get in the newsletter for updates and direct links.
     - q: What about medical certificates?
-      a: You'll need to provide a medical certificate two months before your event.
-        We'll send templates and instructions. You don't need it on registration
-        day.
+      a: >-
+        You'll need to provide a medical certificate two months before your
+        event. We'll send templates and instructions. You don't need it on
+        registration day. 
+
+        For Italian residents: a "Certificato Medico Agonistico per il ciclismo"
+        is needed. 
     - q: Are all routes on roads?
       a: Yes — all on tarmac, cycle paths, and near-zero traffic secondary roads.
     - q: What bike should I bring?
