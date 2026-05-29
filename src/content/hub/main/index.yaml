@@ -189,10 +189,10 @@ eventSignupTop:
   cta: Join the waitlist
   legal: Limited spots · Unsubscribe anytime · No spam, ever
   benefits:
-    - Full route preview (GPS + elevation profile)
+    - Route preview
     - Bikepacking packing list tested by the team
     - Priority access when registration opens
-    - Weekly ride stories from the road
+    - Digital guide to prepare for the event
   placeholder: your@email.com
   consentLabel: I agree to the <a href="/privacy">privacy policy</a>.
   successMessage: ✓ You're on the list. Check your inbox for the guide.
