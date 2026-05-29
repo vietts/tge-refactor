@@ -95,7 +95,7 @@ content:
         type: object
         required: false
         fields:
-          - { name: date,         label: "Target date/time (ISO 8601 with timezone)", type: string }
+          - { name: date,         label: "Target date/time (ISO 8601 with timezone) — leave empty to hide the countdown", type: string, required: false }
           - { name: kicker,       label: Kicker,   type: string, required: false }
           - { name: title,        label: Title,    type: string }
           - { name: body,         label: Body,     type: text, required: false }
@@ -264,7 +264,7 @@ content:
     fields:
       - { name: basRegisterUrl,       label: "BAS registration URL",                 type: string }
       - { name: basAccountUrl,        label: "BAS my-account URL",                   type: string }
-      - { name: registrationOpenIso,  label: "Registration opens at (ISO 8601 with timezone)", type: string }
+      - { name: registrationOpenIso,  label: "Registration opens at (ISO 8601 with timezone) — leave empty to hide the countdown", type: string, required: false }
 
       - name: hero
         label: "Hero section"
@@ -438,7 +438,7 @@ content:
         type: object
         required: false
         fields:
-          - { name: date,         label: "Target date/time (ISO 8601 with timezone)", type: string }
+          - { name: date,         label: "Target date/time (ISO 8601 with timezone) — leave empty to hide the countdown", type: string, required: false }
           - { name: kicker,       label: Kicker,   type: string, required: false }
           - { name: title,        label: Title,    type: string }
           - { name: body,         label: Body,     type: text, required: false }

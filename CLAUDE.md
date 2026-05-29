@@ -1,8 +1,8 @@
 # The Grand Escape — Web
 
 Marketing site for **The Grand Escape** (TGE), a no-race road-bikepacking
-event series. Hub at `/` + three sub-LPs (`/slovenia`, `/germany`, `/tuscany`)
-with a shared layout. Hosted on Cloudflare Workers via the `@astrojs/cloudflare`
+event series. Hub at `/` + three sub-LPs (`/italy-slovenia-bikepacking`,
+`/germany-austria-bikepacking`, `/tuscany-bikepacking`) with a shared layout. Hosted on Cloudflare Workers via the `@astrojs/cloudflare`
 SSR adapter. Editable via Pages CMS (app.pagescms.org).
 
 ---
@@ -34,11 +34,12 @@ src/
 │   └── EventLayout.astro      # shared sub-LP structure (hero → facts → … → FAQ)
 ├── components/                # see "Component patterns" below
 ├── pages/
-│   ├── index.astro            # hub
-│   ├── slovenia.astro         # thin wrapper → EventLayout
-│   ├── germany.astro
-│   ├── tuscany.astro
-│   └── api/subscribe.ts       # Astro endpoint (Brevo + Meta CAPI)
+│   ├── index.astro                       # hub
+│   ├── italy-slovenia-bikepacking.astro  # thin wrapper → EventLayout (getEntry 'events','slovenia')
+│   ├── germany-austria-bikepacking.astro # → 'events','germany'
+│   ├── tuscany-bikepacking.astro         # → 'events','tuscany'
+│   ├── the-grand-escape-2026-registrations.astro  # registration year page
+│   └── api/subscribe.ts                  # Astro endpoint (Brevo + Meta CAPI)
 ├── lib/event-defaults.ts      # shared credoPillars + signupBenefits
 └── styles/tokens.css          # design tokens (colors, fonts, fluid type)
 
@@ -147,6 +148,14 @@ ask the user before switching.
 import { env } from 'cloudflare:workers';
 ```
 Used in `src/pages/api/subscribe.ts`.
+
+### Countdown hides when date is empty
+Every CMS-driven countdown (`registrationOpens.date` on hub + events,
+`registrationOpenIso` on registrations, `FeaturedEvent` target) renders only
+when the date is present and valid — gated via `hasValidDate()` in
+`src/lib/date.ts`. Those date fields are `optional` in both the Zod schema
+(`content.config.ts`) and `.pages.yml`, so clearing the date in Pages CMS
+hides the whole countdown section instead of showing a broken `--` timer.
 
 ### CMS YAML reformatting
 Pages CMS reformats the hub YAML (unquotes strings, sorts keys alphabetically).

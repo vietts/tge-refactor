@@ -17,6 +17,7 @@ import Credo from '../components/Credo.astro';
 import FAQAccordion from '../components/FAQAccordion.astro';
 import TrustStrip from '../components/TrustStrip.astro';
 import StickyCTA from '../components/StickyCTA.astro';
+import { hasValidDate } from '../lib/date';
 
 type EventFontKey = 'germania' | 'questrial' | 'tuscany';
 type IconKey = 'calendar' | 'pin' | 'loop' | 'road' | 'clock' | 'mountain';
@@ -290,7 +291,7 @@ for (const k of DEFAULT_SECTION_ORDER) {
           />
         )}
 
-        {key === 'countdown' && event.registrationOpens && (
+        {key === 'countdown' && hasValidDate(event.registrationOpens?.date) && (
           <RegistrationCountdown
             targetIso={event.registrationOpens.date}
             kicker={event.registrationOpens.kicker}

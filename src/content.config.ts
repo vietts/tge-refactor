@@ -79,7 +79,7 @@ const events = defineCollection({
       philosophyImage: z.string().optional(),
       registrationOpens: z
         .object({
-          date: z.coerce.string(),
+          date: z.coerce.string().optional(),
           kicker: z.string().optional(),
           title: z.string(),
           body: z.string().optional(),
@@ -223,7 +223,7 @@ const hub = defineCollection({
       }),
       registrationOpens: z
         .object({
-          date: z.coerce.string(),
+          date: z.coerce.string().optional(),
           kicker: z.string().optional(),
           title: z.string(),
           body: z.string().optional(),
@@ -318,7 +318,7 @@ const registrations = defineCollection({
     z.object({
       basRegisterUrl: z.string().url(),
       basAccountUrl: z.string().url(),
-      registrationOpenIso: z.coerce.string(),
+      registrationOpenIso: z.coerce.string().optional(),
       hero: z.object({
         kicker: z.string(),
         title: z.string(),

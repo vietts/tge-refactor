@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import RegistrationCountdown from '../components/RegistrationCountdown.astro';
 import FAQAccordion from '../components/FAQAccordion.astro';
 import Icon from '../components/Icon.astro';
+import { hasValidDate } from '../lib/date';
 
 const entry = await getEntry('registrations', '2026');
 if (!entry) throw new Error('Registrations entry 2026 not found');
@@ -14,19 +15,21 @@ const data = entry.data;
   description="How to register for The Grand Escape 2026. Early Bird from €137. Limited spots, 3 events across Italy/Slovenia, Germany/Austria and Tuscany. Register via Bike Adventure Series."
   theme="light"
 >
-  <RegistrationCountdown
-    targetIso={data.registrationOpenIso}
-    kicker={data.countdown.kicker}
-    title={data.countdown.title}
-    body={data.countdown.body}
-    ctaLabel={data.countdown.ctaLabel}
-    ctaHref={data.basAccountUrl}
-    openLabel={data.countdown.openLabel}
-    openCtaLabel={data.countdown.openCtaLabel}
-    openHref={data.basRegisterUrl}
-    accentColor={data.countdown.accentColor}
-    first={true}
-  />
+  {hasValidDate(data.registrationOpenIso) && (
+    <RegistrationCountdown
+      targetIso={data.registrationOpenIso}
+      kicker={data.countdown.kicker}
+      title={data.countdown.title}
+      body={data.countdown.body}
+      ctaLabel={data.countdown.ctaLabel}
+      ctaHref={data.basAccountUrl}
+      openLabel={data.countdown.openLabel}
+      openCtaLabel={data.countdown.openCtaLabel}
+      openHref={data.basRegisterUrl}
+      accentColor={data.countdown.accentColor}
+      first={true}
+    />
+  )}
 
   <section class="reg-hero">
     <div class="container-narrow">

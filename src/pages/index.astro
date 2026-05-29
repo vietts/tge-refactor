@@ -13,6 +13,7 @@ import OriginStory from '../components/OriginStory.astro';
 import RegistrationCountdown from '../components/RegistrationCountdown.astro';
 import HowToRegister from '../components/HowToRegister.astro';
 import TrustStrip from '../components/TrustStrip.astro';
+import { hasValidDate } from '../lib/date';
 
 type HubSectionKey =
   | 'signupTop'
@@ -150,7 +151,7 @@ for (const k of DEFAULT_HUB_SECTION_ORDER) {
         />
       )}
 
-      {key === 'countdown' && hub.registrationOpens && (
+      {key === 'countdown' && hasValidDate(hub.registrationOpens?.date) && (
         <RegistrationCountdown
           targetIso={hub.registrationOpens.date}
           kicker={hub.registrationOpens.kicker}

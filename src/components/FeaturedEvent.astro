@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import { EVENT_PATH, type EventSlug } from '../lib/event-urls';
+import { hasValidDate } from '../lib/date';
 
 interface EventLike {
   slug: EventSlug;
@@ -92,22 +93,24 @@ const uid = 'fe-' + Math.random().toString(36).slice(2, 8);
 
     {body && <p class="card-body">{body}</p>}
 
-    <div class="card-countdown" id={uid} data-target={regIso}>
-      <div class="cd-label">{cdLabel}</div>
-      <div class="cd-cells">
-        <div class="cd-cell"><span class="n" data-cd="d">--</span><span class="u">Days</span></div>
-        <div class="cd-sep" aria-hidden="true"></div>
-        <div class="cd-cell"><span class="n" data-cd="h">--</span><span class="u">Hrs</span></div>
-        <div class="cd-sep" aria-hidden="true"></div>
-        <div class="cd-cell"><span class="n" data-cd="m">--</span><span class="u">Min</span></div>
-        <div class="cd-sep" aria-hidden="true"></div>
-        <div class="cd-cell"><span class="n" data-cd="s">--</span><span class="u">Sec</span></div>
+    {hasValidDate(regIso) && (
+      <div class="card-countdown" id={uid} data-target={regIso}>
+        <div class="cd-label">{cdLabel}</div>
+        <div class="cd-cells">
+          <div class="cd-cell"><span class="n" data-cd="d">--</span><span class="u">Days</span></div>
+          <div class="cd-sep" aria-hidden="true"></div>
+          <div class="cd-cell"><span class="n" data-cd="h">--</span><span class="u">Hrs</span></div>
+          <div class="cd-sep" aria-hidden="true"></div>
+          <div class="cd-cell"><span class="n" data-cd="m">--</span><span class="u">Min</span></div>
+          <div class="cd-sep" aria-hidden="true"></div>
+          <div class="cd-cell"><span class="n" data-cd="s">--</span><span class="u">Sec</span></div>
+        </div>
+        <div class="cd-reg">
+          <span class="cd-reg-label">{dateLabel}</span>
+          <span class="cd-reg-date">{regLabel}</span>
+        </div>
       </div>
-      <div class="cd-reg">
-        <span class="cd-reg-label">{dateLabel}</span>
-        <span class="cd-reg-date">{regLabel}</span>
-      </div>
-    </div>
+    )}
 
     <a href={ctaHref} class="card-cta cta-pill">
       {ctaLabel} <Icon name="arrow" size={14} />
