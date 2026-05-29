@@ -4,7 +4,7 @@ manifesto:
     cutoffs, no clock.
   huge: Road bikepacking, without the race.
   cta: What's the next event?
-  ctaHref: https://www.thegrandescape.cc/germany-austria-bikepacking
+  ctaHref: https://www.thegrandescape.cc/tuscany-bikepacking
   videoSrc: /video/hero-loop.webm
   posterSrc: /home/hero-poster.jpg
 documentary:
@@ -49,15 +49,11 @@ signup:
   successMessage: ✓ You're on the list. Check your inbox for the guide.
   errorMessage: Something went wrong. Please try again.
 registrationOpens:
-  date: 2026-05-28T13:00:00Z
-  kicker: Registration will close in
-  title: Register for Germany/Austria 2026
+  kicker: Registration for Germany Austria
+  title: Germany/Austria 2026 is sold out
   body: "Limited spots: first-come, first-served."
-  ctaLabel: Go to Germany/Austria
-  ctaHref: https://www.thegrandescape.cc/germany-austria-bikepacking
-  openLabel: Registration will cose in
-  openCtaLabel: Register now
-  openCtaHref: https://www.bikeadventureseries.com/product/the-grand-escape-germany-austria-2026/
+  ctaLabel: "Next: Tuscany"
+  ctaHref: https://www.thegrandescape.cc/tuscany-bikepacking
 testimonials:
   kicker: Rider voices
   title: From the people who rode.
