@@ -100,6 +100,8 @@ const events = defineCollection({
           })
         )
         .optional(),
+      includedKicker: z.string().optional(),
+      includedTitle: z.string().optional(),
       included: z.array(z.string()).optional(),
       testimonials: z
         .array(

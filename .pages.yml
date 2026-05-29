@@ -529,6 +529,8 @@ content:
               - { name: caption, label: Caption, type: string }
               - { name: image,   label: Image,   type: image, required: false }
 
+      - { name: includedKicker, label: "What's included — kicker (default: \"What's included\")", type: string, required: false }
+      - { name: includedTitle,  label: "What's included — title (default: \"Everything you need, nothing you don't\")", type: string, required: false }
       - name: included
         label: "What's included (bullet list)"
         type: string

@@ -377,8 +377,8 @@ for (const k of DEFAULT_SECTION_ORDER) {
 
         {key === 'included' && event.included && event.included.length > 0 && (
           <WhatsIncluded
-            kicker="What's included"
-            title="Everything you need, nothing you don't"
+            kicker={event.includedKicker ?? "What's included"}
+            title={event.includedTitle ?? "Everything you need, nothing you don't"}
             items={event.included}
             accentColor={accent}
           />
