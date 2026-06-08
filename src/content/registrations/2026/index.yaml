@@ -13,7 +13,9 @@ hero:
 countdown:
   kicker: Tuscany Registration
   title: The Grand Escape Tuscany 2026 opens in
-  body: "Limited places: first-come, first-served."
+  body: |-
+    July 8th, 2026 11:00 AM
+    Limited places: first-come, first-served.
   ctaLabel: Create your BAS account
   openLabel: Registration is open — click below to sign up
   openCtaLabel: "Register now "
