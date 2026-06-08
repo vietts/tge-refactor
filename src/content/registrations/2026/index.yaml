@@ -1,6 +1,6 @@
-basRegisterUrl: https://www.bikeadventureseries.com/product/the-grand-escape-germany-austria-2026/
+basRegisterUrl: https://www.bikeadventureseries.com/my-account/
 basAccountUrl: https://www.bikeadventureseries.com/my-account/
-registrationOpenIso: 2026-05-28T13:00:00+02:00
+registrationOpenIso: 2026-07-08T13:00:00+02:00
 hero:
   kicker: Register · 2 minutes
   title: Last spots remaining
@@ -11,12 +11,12 @@ hero:
   contactHtml: Questions? Check the <a href="#faq">FAQ</a> or write us at <a
     href="mailto:info@thegrandescape.cc">info@thegrandescape.cc</a>.
 countdown:
-  kicker: Registration will close soon
-  title: "The Grand Escape Germany Austria 2026 registration closes in:"
+  kicker: Tuscany Registration
+  title: The Grand Escape Tuscany 2026 opens in
   body: "Limited places: first-come, first-served."
   ctaLabel: Create your BAS account
   openLabel: Registration is open — click below to sign up
-  openCtaLabel: Register now — Germany/Austria 2026
+  openCtaLabel: "Register now "
   accentColor: "#A32C29"
 account:
   kicker: Got your account?
@@ -66,7 +66,7 @@ pricing:
   cards:
     - label: Regular
       value: €157
-      dates: From May 14, 2026
+      dates: From July 8 2026
       note: Until spots last.
       highlighted: true
   rulesHtml: Full terms in the <a href="/rules-and-regulations">official rules</a>.
