@@ -1,0 +1,82 @@
+---
+interface Props {
+  embedUrl: string;
+  kicker?: string;
+  title?: string;
+  subtitle?: string;
+  height?: number;
+  accentColor?: string;
+}
+const {
+  embedUrl,
+  kicker = 'Live now',
+  title = 'Follow the riders, live',
+  subtitle,
+  height = 600,
+  accentColor = 'var(--red-wine)',
+} = Astro.props;
+---
+<section class="live" id="live-tracking" style={`--accent:${accentColor}; --frame-h:${height}px`}>
+  <div class="live-wrap sr">
+    <div class="kicker live-label">
+      <span class="live-dot" aria-hidden="true"></span>{kicker}
+    </div>
+    <h2 class="live-title display">{title}</h2>
+    {subtitle && <p class="live-sub">{subtitle}</p>}
+
+    <div class="live-frame">
+      <iframe
+        src={embedUrl}
+        title="Live Tracking"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<style>
+  .live { background: var(--espresso); color: var(--paper-1); padding: var(--sp-9) 0 var(--sp-8); position: relative; }
+  .live-wrap { max-width: 1600px; margin: 0 auto; padding: 0 var(--sp-5); position: relative; }
+  @media (max-width: 640px) {
+    .live-wrap { padding: 0 var(--sp-4); }
+  }
+  .live-label {
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .live-dot {
+    width: 0.6rem; height: 0.6rem; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent);
+    animation: live-pulse 1.8s ease-out infinite;
+  }
+  @keyframes live-pulse {
+    0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 70%, transparent); }
+    70%  { box-shadow: 0 0 0 0.7rem color-mix(in srgb, var(--accent) 0%, transparent); }
+    100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot { animation: none; }
+  }
+  .live-title { font-size: var(--fs-4xl); line-height: 0.95; color: var(--paper-1); margin-bottom: 0.8rem; }
+  .live-sub { font-family: var(--font-body); opacity: 0.78; max-width: 56ch; margin-bottom: var(--sp-6); line-height: 1.6; color: rgba(243,236,224,0.85); }
+
+  .live-frame {
+    position: relative;
+    width: 100%;
+    /* Tall enough to be usable, but never taller than the viewport on mobile. */
+    height: clamp(460px, 78vh, var(--frame-h));
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0d0b09;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
+  }
+  .live-frame iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; border: 0;
+    display: block;
+  }
+</style>

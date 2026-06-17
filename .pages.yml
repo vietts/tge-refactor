@@ -593,6 +593,18 @@ content:
           - { name: successMessage, label: "Success message",    type: text,   required: false }
           - { name: errorMessage,   label: "Error message",      type: text,   required: false }
 
+      - name: liveTracking
+        label: "Live tracking (embed)"
+        description: "Live tracking map shown high on the page. Leave empty to hide it."
+        type: object
+        required: false
+        fields:
+          - { name: embedUrl, label: "Embed URL (iframe src)", type: string }
+          - { name: kicker,   label: "Kicker (e.g. Live now)", type: string, required: false }
+          - { name: title,    label: "Title",                  type: string, required: false }
+          - { name: subtitle, label: "Subtitle",               type: text,   required: false }
+          - { name: height,   label: "Max height on desktop (px)", type: number, required: false }
+
       - name: faq
         label: "FAQ"
         type: object
@@ -617,6 +629,7 @@ content:
         options:
           values:
             - { value: facts,                  label: "Facts bar" }
+            - { value: liveTracking,           label: "Live tracking embed" }
             - { value: signupTop,              label: "Signup — top" }
             - { value: countdown,              label: "Registration countdown" }
             - { value: howToRegister,          label: "How to register" }

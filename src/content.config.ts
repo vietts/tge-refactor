@@ -23,6 +23,16 @@ const howToRegisterSchema = z
   })
   .optional();
 
+const liveTrackingSchema = z
+  .object({
+    embedUrl: z.string().url(),
+    kicker: z.string().optional(),
+    title: z.string().optional(),
+    subtitle: z.string().optional(),
+    height: z.number().optional(),
+  })
+  .optional();
+
 const signupFormSchema = z.object({
   kicker: z.string(),
   title: z.string(),
@@ -157,11 +167,13 @@ const events = defineCollection({
         .optional(),
       eventSignupTop: signupFormSchema.optional(),
       eventSignupBottom: signupFormSchema.optional(),
+      liveTracking: liveTrackingSchema,
       howToRegister: howToRegisterSchema,
       sectionOrder: z
         .array(
           z.enum([
             'facts',
+            'liveTracking',
             'signupTop',
             'countdown',
             'howToRegister',

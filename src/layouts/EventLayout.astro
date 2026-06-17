@@ -17,6 +17,7 @@ import Credo from '../components/Credo.astro';
 import FAQAccordion from '../components/FAQAccordion.astro';
 import TrustStrip from '../components/TrustStrip.astro';
 import StickyCTA from '../components/StickyCTA.astro';
+import LiveTracking from '../components/LiveTracking.astro';
 import { hasValidDate } from '../lib/date';
 
 type EventFontKey = 'germania' | 'questrial' | 'tuscany';
@@ -30,6 +31,7 @@ interface PhotoSplitSide { title: string; body: string; caption: string; image?:
 interface PhotoBreakItem { caption?: string; image?: string }
 type SectionKey =
   | 'facts'
+  | 'liveTracking'
   | 'signupTop'
   | 'countdown'
   | 'howToRegister'
@@ -51,6 +53,7 @@ type SectionKey =
 
 const DEFAULT_SECTION_ORDER: SectionKey[] = [
   'facts',
+  'liveTracking',
   'signupTop',
   'countdown',
   'howToRegister',
@@ -126,6 +129,13 @@ interface PageEvent {
       elevationImage?: string;
       elevationRange?: string;
     }>;
+  };
+  liveTracking?: {
+    embedUrl: string;
+    kicker?: string;
+    title?: string;
+    subtitle?: string;
+    height?: number;
   };
   sectionOrder?: SectionKey[];
   elevationD: number;
@@ -271,6 +281,17 @@ for (const k of DEFAULT_SECTION_ORDER) {
     {sectionOrder.map((key) => (
       <>
         {key === 'facts' && <FactsBar accentColor={accent} facts={factsBar} />}
+
+        {key === 'liveTracking' && event.liveTracking && (
+          <LiveTracking
+            embedUrl={event.liveTracking.embedUrl}
+            kicker={event.liveTracking.kicker}
+            title={event.liveTracking.title}
+            subtitle={event.liveTracking.subtitle}
+            height={event.liveTracking.height}
+            accentColor={accent}
+          />
+        )}
 
         {key === 'signupTop' && (
           <BrevoForm
