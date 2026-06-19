@@ -1,0 +1,85 @@
+---
+interface Props {
+  kicker?: string;
+  title?: string;
+  body?: string;
+  email?: string;
+  ctaLabel?: string;
+  accentColor?: string;
+}
+const {
+  kicker = 'On the route',
+  title = 'Are you a local business along the way?',
+  body = 'Cafés, guesthouses, bike shops, farms, restaurants on the route — if you’d like to welcome our riders and partner with us, we’d love to hear from you.',
+  email = 'collab@bikeadventureseries.com',
+  ctaLabel = 'Get in touch',
+  accentColor = 'var(--red-wine)',
+} = Astro.props;
+---
+<section class="partners" id="local-partners" style={`--accent:${accentColor}`}>
+  <div class="container-narrow sr">
+    <div class="partners-card">
+      <div class="kicker partners-kicker">{kicker}</div>
+      <h2 class="partners-title display">{title}</h2>
+      <p class="partners-body">{body}</p>
+      <div class="partners-actions">
+        <a class="partners-cta" href={`mailto:${email}`}>
+          {ctaLabel}<span class="partners-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="partners-email" href={`mailto:${email}`}>{email}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partners { padding: var(--sp-8) 0; position: relative; }
+  .partners-card {
+    background: var(--paper-2);
+    border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+    border-left: 4px solid var(--accent);
+    border-radius: 14px;
+    padding: var(--sp-6) var(--sp-6) var(--sp-5);
+  }
+  .partners-kicker { color: var(--accent); margin-bottom: 0.8rem; }
+  .partners-title {
+    font-size: var(--fs-2xl);
+    line-height: 1.0;
+    color: var(--espresso);
+    margin-bottom: 1rem;
+  }
+  .partners-body {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--espresso);
+    max-width: 60ch;
+    margin-bottom: var(--sp-5);
+  }
+  .partners-actions {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 1rem 1.25rem;
+  }
+  .partners-cta {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent);
+    color: var(--paper-1);
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    transition: transform 160ms ease, opacity 160ms ease;
+  }
+  .partners-cta:hover { transform: translateY(-2px); opacity: 0.95; }
+  .partners-arrow { transition: transform 160ms ease; }
+  .partners-cta:hover .partners-arrow { transform: translateX(3px); }
+  .partners-email {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--accent);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+  }
+</style>

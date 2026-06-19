@@ -213,6 +213,14 @@ eventSignupBottom:
   consentLabel: I agree to the <a href="/privacy">privacy policy</a>.
   successMessage: ✓ You're on the list. Check your inbox for the guide.
   errorMessage: Something went wrong. Please try again.
+localPartners:
+  kicker: On the route
+  title: Are you a local business along the way?
+  body: >-
+    Cafés, guesthouses, bike shops, farms, restaurants on the route — if you'd
+    like to welcome our riders and partner with us, we'd love to hear from you.
+  email: collab@bikeadventureseries.com
+  ctaLabel: Get in touch
 sectionOrder:
   - countdown
   - documentary

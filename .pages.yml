@@ -231,6 +231,18 @@ content:
           - { name: successMessage, label: "Success message",   type: text,   required: false }
           - { name: errorMessage,   label: "Error message",     type: text,   required: false }
 
+      - name: localPartners
+        label: "Local partners CTA (shared default for all events)"
+        description: "Collaboration invite for local businesses on the route. Shown on each event page above the FAQ. Edit here to change it everywhere; a single event can override it on its own page."
+        type: object
+        required: false
+        fields:
+          - { name: kicker,   label: "Kicker (e.g. On the route)", type: string, required: false }
+          - { name: title,    label: "Title",                      type: string, required: false }
+          - { name: body,     label: "Body",                       type: text,   required: false }
+          - { name: email,    label: "Contact email",              type: string, required: false }
+          - { name: ctaLabel, label: "Button label",               type: string, required: false }
+
       - name: sectionOrder
         label: "Section order (drag to reorder — leave empty for default)"
         description: "Add each section once; drag to reorder. Sections you don't add fall back to the default position. Hero stays on top, Trust strip stays at the bottom."
@@ -605,6 +617,18 @@ content:
           - { name: subtitle, label: "Subtitle",               type: text,   required: false }
           - { name: height,   label: "Max height on desktop (px)", type: number, required: false }
 
+      - name: localPartners
+        label: "Local partners (collaboration CTA)"
+        description: "Invite for local businesses on the route to partner with us. Leave empty to use the shared default from the hub; clear all fields only on the hub to hide it everywhere."
+        type: object
+        required: false
+        fields:
+          - { name: kicker,   label: "Kicker (e.g. On the route)", type: string, required: false }
+          - { name: title,    label: "Title",                      type: string, required: false }
+          - { name: body,     label: "Body",                       type: text,   required: false }
+          - { name: email,    label: "Contact email",              type: string, required: false }
+          - { name: ctaLabel, label: "Button label",               type: string, required: false }
+
       - name: faq
         label: "FAQ"
         type: object
@@ -646,6 +670,7 @@ content:
             - { value: credo,                  label: "Credo / What you'll find" }
             - { value: photoSplitQuiet,        label: "Photo split — The quiet between climbs" }
             - { value: signupBottom,           label: "Signup — bottom" }
+            - { value: localPartners,          label: "Local partners CTA" }
             - { value: photoBreakFaq,          label: "Photo break — before FAQ" }
             - { value: faq,                    label: "FAQ" }
       - { name: body,          label: "Event body (markdown)", type: rich-text }

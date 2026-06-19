@@ -15,6 +15,7 @@ const hub = (await getEntry('hub', 'main'))!.data;
   trust={hub.trust}
   eventSignupTop={data.eventSignupTop ?? hub.eventSignupTop}
   eventSignupBottom={data.eventSignupBottom ?? hub.eventSignupBottom}
+  localPartners={data.localPartners ?? hub.localPartners}
   docYoutubeId={data.youtubeId ?? hub.documentary.youtubeId}
   docLabel={hub.documentary.label}
   docTitle={hub.documentary.title}

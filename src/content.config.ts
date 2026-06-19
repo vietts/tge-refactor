@@ -33,6 +33,16 @@ const liveTrackingSchema = z
   })
   .optional();
 
+const localPartnersSchema = z
+  .object({
+    kicker: z.string().optional(),
+    title: z.string().optional(),
+    body: z.string().optional(),
+    email: z.string().optional(),
+    ctaLabel: z.string().optional(),
+  })
+  .optional();
+
 const signupFormSchema = z.object({
   kicker: z.string(),
   title: z.string(),
@@ -168,6 +178,7 @@ const events = defineCollection({
       eventSignupTop: signupFormSchema.optional(),
       eventSignupBottom: signupFormSchema.optional(),
       liveTracking: liveTrackingSchema,
+      localPartners: localPartnersSchema,
       howToRegister: howToRegisterSchema,
       sectionOrder: z
         .array(
@@ -190,6 +201,7 @@ const events = defineCollection({
             'credo',
             'photoSplitQuiet',
             'signupBottom',
+            'localPartners',
             'photoBreakFaq',
             'faq',
           ])
@@ -251,6 +263,7 @@ const hub = defineCollection({
       signupBottom: signupFormSchema,
       eventSignupTop: signupFormSchema.optional(),
       eventSignupBottom: signupFormSchema.optional(),
+      localPartners: localPartnersSchema,
       whatIs: z.object({
         kicker: z.string(),
         title: z.string(),
